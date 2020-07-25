@@ -6,7 +6,7 @@ Basado en https://wiki.mikrotik.com/wiki/Dynamic_DNS_Update_Script_for_dynDNS (m
 
 ![webfig add new script](img/20170408_111433-01.png "webfig add new script")
 
-Ponerle el nombre al script (en el ejemplo **DynDNS**) y verficar que estén seteadas todas las _Policy_s que están marcadas en amarillo.
+Ponerle el nombre al script (en el ejemplo **DynDNS**) y verficar que estén seteadas todas las **Policy** que están marcadas en amarillo.
 
 Copiar el texto (que está [más abajo](#fuente-del-script)) y pegarlo en la ventana **_Source_**.
 
