@@ -1,13 +1,15 @@
-# machetes
-Documentación de cosas que aprendo a hacer y si no las anoto acá, me las olvido
+# Páginas con información del markdown sabor github
 
-Esto nació en wiki.clueless.com.ar y lo perdí al olvidarme que estaba hosteado en un equipo que borré :-(
+* [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
+* [Advanced formatting](https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting)
+  * [Tables](https://docs.github.com/en/github/writing-on-github/organizing-information-with-tables)
+  * [Code](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks)
+  * [Internal (github) autolinks](https://docs.github.com/en/github/writing-on-github/autolinked-references-and-urls)
+* [GitHub Flavored Markdown Spec](https://github.github.com/gfm/)
 
-* Ahora tengo que aprender a usar el [markdown de github](MarkdownDeGithub.md)
-* Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
+# Información general de markdown
 
-
-
+* [Markdown syntax de John Gruber](https://daringfireball.net/projects/markdown/syntax) (el creador del lengaje)
 
 
 ___
