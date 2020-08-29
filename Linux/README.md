@@ -1,6 +1,7 @@
 # Linux
 
 
+* [Configurar una VM Linode recién creada con Ubuntu (al gusto del baby)](ConfigurarLinodeBaby.md)
 
 
 ___
