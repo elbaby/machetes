@@ -1,6 +1,6 @@
 # rclone
 
-[Rclone](https://rclone.org/) es una herramienta de línea de comandos que permite el acceso consistente a [decenas de proveedores de almacenamiento _cloud_](https://rclone.org/#providers) incluyendo [Nextcloud](https://nextcloud.com/), [Google Drive](https://www.google.com/drive/), [Microsoft OneDrive](https://onedrive.live.com/), etc.
+[Rclone](https://rclone.org/) es una herramienta de línea de comandos que permite el acceso consistente a [decenas de proveedores de almacenamiento _cloud_ (**_backends_**)](https://rclone.org/#providers) incluyendo [Nextcloud](https://nextcloud.com/), [Google Drive](https://www.google.com/drive/), [Microsoft OneDrive](https://onedrive.live.com/), etc.
 
 La [documentación](https://rclone.org/docs), es muy completa, aunque requiere de paciencia para seguirla.
 
@@ -34,11 +34,11 @@ Rclone tiene un comando [`selfupdate`](https://rclone.org/commands/rclone_selfup
 
 ## Remotos
 
-En rclone, se llama **remoto** (_**remote**_) a una especificación de acceso a almacenamiento no local (o al menos, no directo).
+En rclone, se llama **remoto** (_**remote**_) a una especificación de acceso a un **_backend_**.
 
 Un remoto tiene un _nombre_ que consiste en letras (mayúsculas y minúsculas), dígitos, guión y _underscore_ (no puede empezar con guión). También acepta espacios en blanco, pero la gente de bien _jamás_ los utiliza en un nombre.
 
-En la línea de comandos y archivos de configuración, a los nombres de los remotos se les agrega un "**:**" al final.
+En la línea de comandos y archivos de configuración, a los nombres de los remotos se les agrega un "**:**" al final (ver la [sintaxis de los _paths_ remotos](https://rclone.org/docs/#syntax-of-remote-paths)).
 
 Los remotos se definen en un archivo de configuración que, por default, está en **`~/.config/rclone/rclone.conf`** (se puede especificar uno distinto en las opciones del comando `rclone`).
 
@@ -47,16 +47,6 @@ La forma más simple de crear y modificar el archivo de configuración es con el
 **ATENCIÓN:** El archivo de configuración contiene información **_muy sensible_** (claves, tokens de acceso, etc.) que están _levemente_ ofuscadas, en el sentido de que no están en _plain text_ pero **no están encriptadas**. Es decir, cualquiera que tenga acceso a ese archivo, tendrá acceso a los almacenamientos remotos definidos allí.
 
 El comando `rclone config` permite encriptar este archivo, _peeeeeeerooooo_ una vez encriptado, será necesario introducir la clave de encripción **_cada vez que se utilice el comando_ `rclone`** (lo cual no es enteramente práctico).
-
-### Configuración de remotos por _provider_
-
-En https://rclone.org/#providers está la lista de proveedores de almacenamiento soportado. Cada uno con un link a su _home page_ y a la página que explica cómo configurarlo (con `rclone config`).
-
-Por ahora voy a ir poniendo algunas notas sobre lo que yo configuré, pero las instrucciones hay que tomarlas de allí.
-
-* **[Google Drive](https://rclone.org/drive/)**: Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id](https://rclone.org/drive/#making-your-own-client-id) porque la API de Google limita la frecuencia de consultas por client-id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone.
-
-* **[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en Google Drive, se recomienda [crear tu propio client_id](https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
 
 ## Uso básico
 
@@ -70,6 +60,17 @@ El comando **`rclone help`** da un listado de todos los subcomandos disponibles
 
 El comando [**`rclone config`**](https://rclone.org/commands/rclone_config) permite crear y modificar un archivo de configuración (por default `~/.config/rclone/rclone.conf`), tanto en forma interactiva como automática (si se le dan suficientes argumentos).
 
+#### Configuración de remotos por _provider_
+
+En https://rclone.org/#providers está la lista de proveedores de almacenamiento soportado. Cada uno con un link a su _home page_ y a la página que explica cómo configurarlo (con `rclone config`).
+
+Por ahora voy a ir poniendo algunas notas sobre lo que yo configuré, pero las instrucciones hay que tomarlas de [allí](https://rclone.org/#providers).
+
+* **[Google Drive](https://rclone.org/drive/)**: Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id](https://rclone.org/drive/#making-your-own-client-id) porque la API de Google limita la frecuencia de consultas por client-id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone.
+
+* **[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en Google Drive, se recomienda [crear tu propio client_id](https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
+
+* **[Crypt](https://rclone.org/crypt/)**: Crypt no es un _backend_ remoto, sino que se usa como una **capa** _encima_ de _otro_ "remoto".
 ___
 <!-- LICENSE -->
 ___
