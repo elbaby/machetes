@@ -42,12 +42,6 @@ En la línea de comandos y archivos de configuración, a los nombres de los remo
 
 Los remotos se definen en un archivo de configuración que, por default, está en **`~/.config/rclone/rclone.conf`** (se puede especificar uno distinto en las opciones del comando `rclone`).
 
-La forma más simple de crear y modificar el archivo de configuración es con el comando **`rclone config`** que se puede ejecutar en forma interactiva.
-
-**ATENCIÓN:** El archivo de configuración contiene información **_muy sensible_** (claves, tokens de acceso, etc.) que están _levemente_ ofuscadas, en el sentido de que no están en _plain text_ pero **no están encriptadas**. Es decir, cualquiera que tenga acceso a ese archivo, tendrá acceso a los almacenamientos remotos definidos allí.
-
-El comando `rclone config` permite encriptar este archivo, _peeeeeeerooooo_ una vez encriptado, será necesario introducir la clave de encripción **_cada vez que se utilice el comando_ `rclone`** (lo cual no es enteramente práctico).
-
 ## Uso básico
 
 La sintáxis del comando `rclone` es:
@@ -58,15 +52,71 @@ El comando **`rclone help`** da un listado de todos los subcomandos disponibles
 
 ### Configuración inicial / creación y modificación del archivo de configuración (`rclone.conf`)
 
-El comando [**`rclone config`**](https://rclone.org/commands/rclone_config) permite crear y modificar un archivo de configuración (por default `~/.config/rclone/rclone.conf`), tanto en forma interactiva como automática (si se le dan suficientes argumentos).
+El comando [**`rclone config`**](https://rclone.org/commands/rclone_config) permite crear y modificar un archivo de configuración (por default `~/.config/rclone/rclone.conf`), tanto en forma interactiva como automática (si se le dan suficientes argumentos). 
+La forma más simple de crear y modificar el archivo de configuración es usar el comando **`rclone config`** en forma interactiva.
 
-#### Configuración de remotos por _provider_
+**ATENCIÓN:** El archivo de configuración contiene información **_muy sensible_** (claves, tokens de acceso, etc.) que están _levemente_ ofuscadas, en el sentido de que no están en _plain text_ pero **no están encriptadas**. Es decir, cualquiera que tenga acceso a ese archivo, tendrá acceso a los almacenamientos remotos definidos allí.
+
+El comando `rclone config` permite encriptar este archivo (ver la opción `Set configuration password`), _peeeeeeerooooo_ una vez encriptado, será necesario introducir la clave de encripción **_cada vez que se utilice el comando_ `rclone`** (lo cual no es enteramente práctico).
+
+```
+$ rclone config
+2021/08/13 16:56:28 NOTICE: Config file "/home/baby/.config/rclone/rclone.conf" not found - using defaults
+No remotes found - make a new one
+n) New remote
+s) Set configuration password
+q) Quit config
+```
+
+### Configuración de remotos por _provider_
 
 En https://rclone.org/#providers está la lista de proveedores de almacenamiento soportado. Cada uno con un link a su _home page_ y a la página que explica cómo configurarlo (con `rclone config`).
 
 Por ahora voy a ir poniendo algunas notas sobre lo que yo configuré, pero las instrucciones hay que tomarlas de [allí](https://rclone.org/#providers).
 
-* **[Google Drive](https://rclone.org/drive/)**: Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id](https://rclone.org/drive/#making-your-own-client-id) porque la API de Google limita la frecuencia de consultas por client-id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone.
+#### [Drive](https://rclone.org/drive/) (Google Drive)
+
+Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id](https://rclone.org/drive/#making-your-own-client-id) porque la API de Google limita la frecuencia de consultas por client-id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone.
+
+1. Entrá en tu [consola de Google API](https://console.developers.google.com/) con tu cuenta de Google (puede ser cualquier cuenta Google, no es necesario que sea la misma que la de Google Drive al que te vas a conectar).
+
+2. Seleccioná un proyecto creá uno nuevo
+
+![seleccionar proyecto](google-client-id-00.png)
+
+3. En "**+ ENABLE APIs AND SERVICES**" 
+
+![habilitar APIs y servicios](google-client-id-01.png)
+
+buscá "**Drive**" y habilitá la "**Google Drive API**"
+
+![habilitar API de Google Drive](google-client-id-02.png)
+
+y volvé al _dashboard_ de la consola de APIs
+
+![volver a dashboard de consola de APIs](google-client-id-03.png)
+
+4. La primera vez tenés que crear la "**OAuth consent screen**". Tenés que seleccionar de tipo "**External**", ponerle un nombre y agregar los "**Test Users**" (que tienen que ser los que se van a conectar al Google Drive usando rclone)
+
+![pantalla de consentimiento OAuth](google-client-id-04.png)
+
+5. Seleccioná "**Credentials**" en el menú de la izquierda y luego apretá "**+ CREATE CREDENTIALS**" y seleccioná "**OAuth client ID**"
+
+![Crear credenciales](google-client-id-05.png)
+
+6. Apretá "**Application type**" y seleccioná "**Desktop app**"
+
+![aplicación de tipo desktop](google-client-id-06.png)
+
+7. Ponele un nombre (o dejá el que viene por _default_) y apretá "**CREATE**"
+
+![crear id de cliente OAuth](google-client-id-07.png)
+
+8. Anotá el "_Client ID_" y el "_Client Secret_" que te muestra en la pantalla siguiente
+
+![crear id de cliente OAuth](google-client-id-08.png)
+
+9. Volvé a la "**OAuth consent screen**" y apretá "**PUBLISH APP**"
 
 * **[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en Google Drive, se recomienda [crear tu propio client_id](https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
 

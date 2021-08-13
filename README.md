@@ -6,6 +6,7 @@ Esto nació en http://wiki.clueless.com.ar y lo perdí al olvidarme que estaba h
 * Ahora tengo que aprender a usar el [markdown de github](MarkdownDeGithub.md) y **_acordarme_** de que para navegar esto localmente tengo que usar 
 **[grip](https://github.com/joeyespo/grip)**
 * Cosas de [Linux](Linux) que olvido con demasiada frecuencia
+* [rclone](rclone)
 * Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
 
 
