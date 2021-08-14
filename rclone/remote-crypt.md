@@ -1,16 +1,6 @@
-# machetes
-Documentación de cosas que aprendo a hacer y si no las anoto acá, me las olvido
+# Crypt ([crypt](https://rclone.org/crypt/)) (pseudo-remoto para encriptar _otros_ remotos)
 
-Esto nació en http://wiki.clueless.com.ar y lo perdí al olvidarme que estaba hosteado en un equipo que borré :-(
-
-* Ahora tengo que aprender a usar el [markdown de github](MarkdownDeGithub.md) y **_acordarme_** de que para navegar esto localmente tengo que usar 
-**[grip](https://github.com/joeyespo/grip)**
-* Cosas de [Linux](Linux) que olvido con demasiada frecuencia
-* Instalación, configuración y uso de [rclone](rclone)
-* Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
-
-
-
+**[Crypt](https://rclone.org/crypt/)**: Crypt no es un _backend_ remoto, sino que se usa como una **capa** _encima_ de _otro_ "remoto".
 
 
 ___
