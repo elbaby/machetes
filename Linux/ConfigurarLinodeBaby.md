@@ -16,7 +16,8 @@ ssh root@${IP_DEL_LINODE}
 # Creo usuario baby (primero que todo, para que quede con UID=1000)
 useradd -c "Mariano Absatz" -s /bin/bash -m baby
 
-# Copio el ~/.ssh de root (que ya me deja entrar) al usuario baby (y cambio el ownership)
+# Copio el ~/.ssh de root (que ya me deja entrar) al usuario baby (y cambio el 
+# ownership)
 cp -rv ~root/.ssh ~baby
 chown -rv baby.baby ~baby/.ssh
 
@@ -48,11 +49,20 @@ sudo apt update && sudo apt dist-upgrade
 
 ```
 
-
 ___
 <!-- LICENSE -->
 ___
-<a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Este documento está licenciado en los términos de una <a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
+<a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+<img alt="Creative Commons License" style="border-width:0" 
+src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
+Este documento está licenciado en los términos de una <a rel="licencia" 
+href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This document is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">
+<img alt="Creative Commons License" style="border-width:0" 
+src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
+This document is licensed under a <a rel="license" 
+href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">
+Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 <!-- END --> 
