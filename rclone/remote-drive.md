@@ -2,6 +2,8 @@
 
 Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id para usar la API de Google Drive](GoogleDriveClientID.md) porque la API de Google limita la frecuencia de consultas por client_id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone (los que _no_ se toman el laburo de crear su client_id).
 
+## Configuración
+
 Vamos a crear un nuevo remoto llamado **GoogleDriveRemote** usando el comando `rclone config` en forma interactiva:
 ```
 $ rclone config
@@ -108,6 +110,9 @@ y/n> y
 2021/08/13 19:43:58 NOTICE: Log in and authorize rclone for access
 2021/08/13 19:43:58 NOTICE: Waiting for code...
 ```
+
+### Autenticación y autorización (en Google)
+
 Acá va a abrirse una ventana en el navegador para autorizar el acceso al google drive. Si no estás logueado en Google, tenés que loguearte con la cuenta de la cual querés usar el Google Drive.
 
 Si usaste un client_id propio, recién creado, lo primero que te aparece es una ventana diciendo que la aplicación **no está verificada**. Esto es porque no hiciste el proceso de verificación de la aplicación (no tiene sentido hacerlo, ni sé cómo se hace). Si dejaste el campo client_id en blanco, esto no te va a aparecer. Apretá "**Continue**" aunque te recomiende hacer lo contrario.
@@ -163,6 +168,8 @@ q) Quit config
 e/n/d/r/c/s/q> q
 ```
 
+### Archivo de configuración
+
 Esto creó (o modificó) el archivo de configuración **`~/.config/rclone/rclone.conf`** y puso los datos para acceder al remoto que mostró al final del proceso allí:
 ```
 [GoogleDriveRemote]
@@ -176,9 +183,11 @@ team_drive =
 
 Es **MUY IMPORTANTE** que **_nadie_** tenga acceso a ese archivo, ya que, en particular, la información que está allí es suficiente para entrar al Google Drive sin que pueda volver a pedir autenticación ni autorización (de hecho, podríamos copiar ese pedazo a otra computadora y utilizar rclone directamente).
 
+## Uso
+
 Ahora puedo usar los subcomandos de `rclone` para acceder al Google Drive usando el nombre del remoto que creé recién (`GoogleDriveRemote`) usando la [sintaxis de los _paths_ remotos](https://rclone.org/docs/#syntax-of-remote-paths).
 
-Para listar las carpetas del primer nivel del drive:
+Para **listar las carpetas** del primer nivel del drive:
 ```
 $ rclone lsd GoogleDriveRemote:
           -1 2020-09-29 08:35:48        -1 Capacitacion
@@ -187,7 +196,7 @@ $ rclone lsd GoogleDriveRemote:
           -1 2019-03-05 09:13:16        -1 Trabajo
 ```
 
-Para listar todos los archivos en todas las carpetas:
+Para **listar todos los archivos** en todas las carpetas:
 ```
 $ rclone ls GoogleDriveRemote:
    323014 Archivo en la raíz del drive.pdf
@@ -199,15 +208,36 @@ $ rclone ls GoogleDriveRemote:
   4613162 Capacitacion/No está ordenado.pdf
 ```
 
-Para copiar un directorio del disco local al Google Drive:
+Para **copiar** un **directorio** del disco local al Google Drive:
 ```
 rclone copy ~/devel/proyecto_interesante GoogleDriveRemote:Trabajo/proyectoX
 ```
 
+Para **montar** el Google Drive como un filesystem en un directorio local (vacío):
+```
+rclone mount GoogleDriveRemote: /mnt/google-drive --vfs-cache-mode full --daemon
+```
+
+Para **desmontar** el filesystem:
+```
+fusermount -u /mnt/google-drive
+```
+
+
 ___
 <!-- LICENSE -->
 ___
-<a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Este documento está licenciado en los términos de una <a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
+<a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+<img alt="Creative Commons License" style="border-width:0" 
+src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
+Este documento está licenciado en los términos de una <a rel="licencia" 
+href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This document is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">
+<img alt="Creative Commons License" style="border-width:0" 
+src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
+This document is licensed under a <a rel="license" 
+href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">
+Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 <!-- END --> 
