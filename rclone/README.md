@@ -78,15 +78,6 @@ Por ahora voy a ir poniendo algunas notas sobre lo que yo configuré, pero las i
 * [Microsoft OneDrive (onedrive)](remote-onedrive.md)
 * [Crypt (crypt)](remote-crypt.md)
 
-#### [onedrive](https://rclone.org/onedrive/) (Microsoft OneDrive)
-
-**[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en Google Drive, se recomienda [crear tu propio client_id](https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
-
-#### [crypt](https://rclone.org/crypt/) (pseudo-remoto para encriptar _otros_ remotos)
-
-**[Crypt](https://rclone.org/crypt/)**: Crypt no es un _backend_ remoto, sino que se usa como una **capa** _encima_ de _otro_ "remoto".
-
-
 ___
 <!-- LICENSE -->
 ___
