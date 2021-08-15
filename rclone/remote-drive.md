@@ -170,7 +170,9 @@ e/n/d/r/c/s/q> q
 
 ### Archivo de configuración
 
-Esto creó (o modificó) el archivo de configuración **`~/.config/rclone/rclone.conf`** y puso los datos para acceder al remoto que mostró al final del proceso allí:
+Esto creó (o modificó) el archivo de configuración 
+**`~/.config/rclone/rclone.conf`** y puso los datos para acceder al remoto que 
+mostró al final del proceso allí:
 ```
 [GoogleDriveRemote]
 type = drive
