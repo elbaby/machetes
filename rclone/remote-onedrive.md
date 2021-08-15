@@ -1,17 +1,7 @@
-# machetes
-Documentación de cosas que aprendo a hacer y si no las anoto acá, me las olvido
-
-Esto nació en http://wiki.clueless.com.ar y lo perdí al olvidarme que estaba 
-hosteado en un equipo que borré :-(
-
-* Ahora tengo que aprender a usar el [markdown de github](MarkdownDeGithub.md) y 
-**_acordarme_** de que para navegar esto localmente tengo que usar 
-**[grip](https://github.com/joeyespo/grip)**
-* Cosas de [Linux](Linux) que olvido con demasiada frecuencia
-* Instalación, configuración y uso de [rclone](rclone)
-* Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
+# Microsoft OneDrive ([onedrive](https://rclone.org/onedrive/))
 
 
+**[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en Google Drive, se recomienda [crear tu propio client_id](https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
 
 
 
