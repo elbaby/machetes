@@ -1,5 +1,15 @@
 # Google Drive ([drive](https://rclone.org/drive/))
 
+<!--ts-->
+   * [Configuración](#configuración)
+      * [Autenticación y autorización (en Google)](#autenticación-y-autorización-en-google)
+      * [Archivo de configuración](#archivo-de-configuración)
+   * [Uso](#uso)
+
+<!-- Added by: baby, at: Sun 15 Aug 19:02:18 -03 2021 -->
+
+<!--te-->
+
 Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id para usar la API de Google Drive](GoogleDriveClientID.md) porque la API de Google limita la frecuencia de consultas por client_id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone (los que _no_ se toman el laburo de crear su client_id).
 
 ## Configuración
