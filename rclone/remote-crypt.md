@@ -1,5 +1,14 @@
 # Crypt ([crypt](https://rclone.org/crypt/)) (pseudo-remoto para encriptar _otros_ remotos)
 
+<!--ts-->
+   * [Configuración](#configuración)
+      * [Archivo de configuración](#archivo-de-configuración)
+   * [Uso](#uso)
+
+<!-- Added by: baby, at: Sun 15 Aug 19:02:37 -03 2021 -->
+
+<!--te-->
+
 **[Crypt](https://rclone.org/crypt/)** no es un _backend_ remoto, sino que se 
 usa como una **capa** _encima_ de _otro_ "remoto".
 

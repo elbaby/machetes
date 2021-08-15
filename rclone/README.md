@@ -1,5 +1,17 @@
 # rclone
 
+<!--ts-->
+   * [Instalación](#instalación)
+      * [Actualización automática](#actualización-automática)
+   * [Remotos](#remotos)
+   * [Uso básico](#uso-básico)
+      * [Configuración inicial / creación y modificación del archivo de configuración (rclone.conf)](#configuración-inicial--creación-y-modificación-del-archivo-de-configuración-rcloneconf)
+      * [Configuración de remotos por <em>provider</em>](#configuración-de-remotos-por-provider)
+
+<!-- Added by: baby, at: Sun 15 Aug 19:00:15 -03 2021 -->
+
+<!--te-->
+
 [Rclone](https://rclone.org/) es una herramienta de línea de comandos que permite el acceso consistente a [decenas de proveedores de almacenamiento _cloud_ (**_backends_**)](https://rclone.org/#providers) incluyendo [Nextcloud](https://nextcloud.com/), [Google Drive](https://www.google.com/drive/), [Microsoft OneDrive](https://onedrive.live.com/), etc.
 
 La [documentación](https://rclone.org/docs), es muy completa, aunque requiere de paciencia para seguirla.
