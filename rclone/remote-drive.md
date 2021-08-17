@@ -5,8 +5,9 @@
       * [Autenticación y autorización (en Google)](#autenticación-y-autorización-en-google)
       * [Archivo de configuración](#archivo-de-configuración)
    * [Uso](#uso)
+   * [Expiración de la autenticación/autorizacion](#expiración-de-la-autenticaciónautorizacion)
 
-<!-- Added by: baby, at: Sun 15 Aug 19:02:18 -03 2021 -->
+<!-- Added by: baby, at: Tue 17 Aug 09:51:37 -03 2021 -->
 
 <!--te-->
 
@@ -234,6 +235,63 @@ Para **desmontar** el filesystem:
 ```
 fusermount -u /mnt/google-drive
 ```
+
+## Expiración de la autenticación/autorizacion
+Del mismo modo que en un navegador, aún cuando se lo designa como "seguro" para
+no tener que autenticarse cada vez, los _tokens_ de autenticación se vencen y
+es necesario volver a solicitar la autorización.
+
+La necesidad de hacer esto lo vemos al ejecutar cualquier subcomando de `rclone`
+contra un remoto y recibir un mensaje similar a este:
+```
+$ rclone copy algo GoogleDriveRemote:algunacarpeta
+2021/08/17 09:21:14 Failed to create file system for "GoogleDriveRemote:/": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token - maybe it has expired? - refresh with "rclone config reconnect GoogleDriveRemote:": oauth2: cannot fetch token: 400 Bad Request
+Response: {
+  "error": "invalid_grant",
+  "error_description": "Bad Request"
+}
+
+```
+
+Para volver a solicitar la autorización debemos usar `rclone config reconnect` 
+con el nombre del remoto:
+```
+$ rclone config reconnect GoogleDriveRemote:
+Already have a token - refresh?
+y) Yes (default)
+n) No
+y/n> y
+Use auto config?
+ * Say Y if not sure
+ * Say N if you are working on a remote or headless machine
+
+y) Yes (default)
+n) No
+y/n> y
+2021/08/17 09:39:34 NOTICE: Make sure your Redirect URL is set to "urn:ietf:wg:oauth:2.0:oob" in your custom config.
+2021/08/17 09:39:34 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=88DMLFT_db9KpEnWTh74fw
+2021/08/17 09:39:34 NOTICE: Log in and authorize rclone for access
+2021/08/17 09:39:34 NOTICE: Waiting for code...
+```
+Aquí se volverá a abrir el navegador y a solicitar el proceso de [autenticación
+y autorización OAuth2 (en Google)](#autenticación-y-autorización-en-google) 
+igual que al conectarse por primera vez al drive.
+
+Completar la autorización igual que [antes](
+#autenticación-y-autorización-en-google) y luego continuar en la terminal:
+```
+2021/08/17 09:39:34 NOTICE: Make sure your Redirect URL is set to "urn:ietf:wg:oauth:2.0:oob" in your custom config.
+2021/08/17 09:39:34 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=88DMLFT_db9KpEnWTh74fw
+2021/08/17 09:39:34 NOTICE: Log in and authorize rclone for access
+2021/08/17 09:39:34 NOTICE: Waiting for code...
+2021/08/17 09:40:27 NOTICE: Got code
+Configure this as a Shared Drive (Team Drive)?
+
+y) Yes
+n) No (default)
+y/n> n
+```
+
 
 
 ___
