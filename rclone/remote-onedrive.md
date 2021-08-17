@@ -1,7 +1,9 @@
 # Microsoft OneDrive ([onedrive](https://rclone.org/onedrive/))
 
 
-**[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en Google Drive, se recomienda [crear tu propio client_id](https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
+**[Microsoft OneDrive](https://rclone.org/onedrive/)**: Del mismo modo que en 
+Google Drive, se recomienda [crear tu propio client_id](
+https://rclone.org/onedrive/#getting-your-own-client-id-and-key).
 
 
 

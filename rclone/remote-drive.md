@@ -11,11 +11,17 @@
 
 <!--te-->
 
-Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id para usar la API de Google Drive](GoogleDriveClientID.md) porque la API de Google limita la frecuencia de consultas por client_id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone (los que _no_ se toman el laburo de crear su client_id).
+Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu 
+propio client_id para usar la API de Google Drive](GoogleDriveClientID.md) 
+porque la API de Google limita la frecuencia de consultas por client_id y, si no 
+creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si 
+bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios 
+de rclone (los que _no_ se toman el laburo de crear su client_id).
 
 ## Configuración
 
-Vamos a crear un nuevo remoto llamado **GoogleDriveRemote** usando el comando `rclone config` en forma interactiva:
+Vamos a crear un nuevo remoto llamado **GoogleDriveRemote** usando el comando 
+`rclone config` en forma interactiva:
 ```
 $ rclone config
 
@@ -27,7 +33,10 @@ n/s/q> n
 name> GoogleDriveRemote
 ```
 
-Ahora nos muestra un listado completo de todos los _backends_ disponibles para elegir (recorto un poco). Tipeo "_drive_" que es el identificador para Google Drive (el número podría cambiar en una versión distinta de rclone, pero el identificador difícilmente cambie).
+Ahora nos muestra un listado completo de todos los _backends_ disponibles para 
+elegir (recorto un poco). Tipeo "_drive_" que es el identificador para Google 
+Drive (el número podría cambiar en una versión distinta de rclone, pero el 
+identificador difícilmente cambie).
 ```
 Type of storage to configure.
 Enter a string value. Press Enter for the default ("").
@@ -63,7 +72,8 @@ Enter a string value. Press Enter for the default ("").
 client_id> 
 
 ```
-Acá es donde tenemos que poner los datos que obtuvimos al [crear nuestro propio client_id](GoogleDriveClientID.md) (si no lo hicimos, dejamos en blanco).
+Acá es donde tenemos que poner los datos que obtuvimos al [crear nuestro propio 
+client_id](GoogleDriveClientID.md) (si no lo hicimos, dejamos en blanco).
 ```
 Enter a string value. Press Enter for the default ("").
 client_id> 123456789012-unasarasaconl3tr4synum3r0s.apps.googleusercontent.com
@@ -124,17 +134,27 @@ y/n> y
 
 ### Autenticación y autorización (en Google)
 
-Acá va a abrirse una ventana en el navegador para autorizar el acceso al google drive. Si no estás logueado en Google, tenés que loguearte con la cuenta de la cual querés usar el Google Drive.
+Acá va a abrirse una ventana en el navegador para autorizar el acceso al google 
+drive. Si no estás logueado en Google, tenés que loguearte con la cuenta de la 
+cual querés usar el Google Drive.
 
-Si usaste un client_id propio, recién creado, lo primero que te aparece es una ventana diciendo que la aplicación **no está verificada**. Esto es porque no hiciste el proceso de verificación de la aplicación (no tiene sentido hacerlo, ni sé cómo se hace). Si dejaste el campo client_id en blanco, esto no te va a aparecer. Apretá "**Continue**" aunque te recomiende hacer lo contrario.
+Si usaste un client_id propio, recién creado, lo primero que te aparece es una 
+ventana diciendo que la aplicación **no está verificada**. Esto es porque no 
+hiciste el proceso de verificación de la aplicación (no tiene sentido hacerlo, 
+ni sé cómo se hace). Si dejaste el campo client_id en blanco, esto no te va a 
+aparecer. Apretá "**Continue**" aunque te recomiende hacer lo contrario.
 
 ![continuar con app no verificada](google-auth-allow-00.png)
 
-A continuación te aparece la ventana pidiendo que selecciones qué cosas puede acceder rclone en tu cuenta, con un único ítem que es acceso a leer, modificar, crear y borrar todos los archivos de tu Google Drive. Tenés que seleccionar el _checkbox_ y apretar "**Continue**"
+A continuación te aparece la ventana pidiendo que selecciones qué cosas puede 
+acceder rclone en tu cuenta, con un único ítem que es acceso a leer, modificar, 
+crear y borrar todos los archivos de tu Google Drive. Tenés que seleccionar el 
+_checkbox_ y apretar "**Continue**"
 
 ![dar acceso a archivos de Google Drive](google-auth-allow-01.png)
 
-Si todo está bien, te aparece una pantalla diciéndote que vuelvas a rclone (ya podés cerrar la ventana del navegador que estuviste usando)
+Si todo está bien, te aparece una pantalla diciéndote que vuelvas a rclone (ya 
+podés cerrar la ventana del navegador que estuviste usando)
 
 ![fin autorización Google Drive](google-auth-allow-02.png)
 
@@ -194,11 +214,16 @@ token = {"access_token":"aca.van_UNmontónDeLetrasYnúm3r0sQueFormanEl_TOKEN-que
 team_drive =
 ```
 
-Es **MUY IMPORTANTE** que **_nadie_** tenga acceso a ese archivo, ya que, en particular, la información que está allí es suficiente para entrar al Google Drive sin que pueda volver a pedir autenticación ni autorización (de hecho, podríamos copiar ese pedazo a otra computadora y utilizar rclone directamente).
+Es **MUY IMPORTANTE** que **_nadie_** tenga acceso a ese archivo, ya que, en 
+particular, la información que está allí es suficiente para entrar al Google 
+Drive sin que pueda volver a pedir autenticación ni autorización (de hecho, 
+podríamos copiar ese pedazo a otra computadora y utilizar rclone directamente).
 
 ## Uso
 
-Ahora puedo usar los subcomandos de `rclone` para acceder al Google Drive usando el nombre del remoto que creé recién (`GoogleDriveRemote`) usando la [sintaxis de los _paths_ remotos](https://rclone.org/docs/#syntax-of-remote-paths).
+Ahora puedo usar los subcomandos de `rclone` para acceder al Google Drive usando 
+el nombre del remoto que creé recién (`GoogleDriveRemote`) usando la [sintaxis 
+de los _paths_ remotos](https://rclone.org/docs/#syntax-of-remote-paths).
 
 Para **listar las carpetas** del primer nivel del drive:
 ```
@@ -226,7 +251,8 @@ Para **copiar** un **directorio** del disco local al Google Drive:
 rclone copy ~/devel/proyecto_interesante GoogleDriveRemote:Trabajo/proyectoX
 ```
 
-Para **montar** el Google Drive como un filesystem en un directorio local (vacío):
+Para **montar** el Google Drive como un filesystem en un directorio local 
+(vacío):
 ```
 rclone mount GoogleDriveRemote: /mnt/google-drive --vfs-cache-mode full --daemon
 ```
