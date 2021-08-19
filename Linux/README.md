@@ -1,7 +1,5 @@
 # Linux
 
-* [Sincronizar carpeta local con carpeta encriptada en google drive usando 
-rclonesync](rclonesyncGDriveCrypt.md)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del baby)](
 ConfigurarLinodeBaby.md)
 
