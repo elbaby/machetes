@@ -1,11 +1,18 @@
 # Creación de client_id para la API de Google Drive
 
 
-Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu propio client_id](https://rclone.org/drive/#making-your-own-client-id) porque la API de Google limita la frecuencia de consultas por client-id y, si no creás y utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien tiene un límite bastante alto, es compartido por la mayoría de los usuarios de rclone.
+Si bien las instrucciones básicas funcionan bien, es recomendable [crear tu 
+propio client_id](https://rclone.org/drive/#making-your-own-client-id) porque la 
+API de Google limita la frecuencia de consultas por client-id y, si no creás y 
+utilizás el tuyo propio, vas a estar usando el propio de rclone que, si bien 
+tiene un límite bastante alto, es compartido por la mayoría de los usuarios de 
+rclone.
 
-1. Entrá en tu [consola de Google API](https://console.developers.google.com/) con tu cuenta de Google (puede ser cualquier cuenta Google, no es necesario que sea la misma que la de Google Drive al que te vas a conectar).
+1. Entrá en tu [consola de Google API](https://console.developers.google.com/) 
+con tu cuenta de Google (puede ser cualquier cuenta Google, no es necesario que 
+sea la misma que la de Google Drive al que te vas a conectar).
 
-2. Seleccioná un proyecto creá uno nuevo
+2. Seleccioná un proyecto o creá uno nuevo
 
 ![seleccionar proyecto](google-client-id-00.png)
 
@@ -21,11 +28,15 @@ y volvé al _dashboard_ de la consola de APIs
 
 ![volver a dashboard de consola de APIs](google-client-id-03.png)
 
-4. La primera vez tenés que crear la "**OAuth consent screen**". Tenés que seleccionar de tipo "**External**", ponerle un nombre y agregar los "**Test Users**" (que tienen que ser los que se van a conectar al Google Drive usando rclone)
+4. La primera vez tenés que crear la "**OAuth consent screen**". Tenés que 
+seleccionar de tipo "**External**", ponerle un nombre y agregar los "**Test 
+Users**" (que tienen que ser los que se van a conectar al Google Drive usando 
+rclone)
 
 ![pantalla de consentimiento OAuth](google-client-id-04.png)
 
-5. Seleccioná "**Credentials**" en el menú de la izquierda y luego apretá "**+ CREATE CREDENTIALS**" y seleccioná "**OAuth client ID**"
+5. Seleccioná "**Credentials**" en el menú de la izquierda y luego apretá "**+ 
+CREATE CREDENTIALS**" y seleccioná "**OAuth client ID**"
 
 ![Crear credenciales](google-client-id-05.png)
 
@@ -37,7 +48,8 @@ y volvé al _dashboard_ de la consola de APIs
 
 ![crear id de cliente OAuth](google-client-id-07.png)
 
-8. Anotá el "_Client ID_" y el "_Client Secret_" que te muestra en la pantalla siguiente
+8. Anotá el "_Client ID_" y el "_Client Secret_" que te muestra en la pantalla 
+siguiente
 
 ![crear id de cliente OAuth](google-client-id-08.png)
 

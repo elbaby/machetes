@@ -1,8 +1,13 @@
 # Sincronizar carpeta local con carpeta encriptada en google drive usando rclonesync
 
-Al 2021-07-23, [rclone](https://rclone.org/) no tiene soporte para sincronización bidireccional (aunque están trabajando en una opción [bisync](https://github.com/rclone/rclone/pull/5164) que hace eso).
+Al 2021-07-23, [rclone](https://rclone.org/) no tiene soporte para 
+sincronización bidireccional (aunque están trabajando en una opción [bisync](
+https://github.com/rclone/rclone/pull/5164) que hace eso).
 
-En la página de [integraciones de terceros](https://github.com/rclone/rclone/wiki/Third-Party-Integrations-with-rclone) hay algunas soluciones. La que me pareció más confiable (y finalmente hice funcionar) es [rclonesync V2](https://github.com/cjnaz/rclonesync-V2)
+En la página de [integraciones de terceros](
+https://github.com/rclone/rclone/wiki/Third-Party-Integrations-with-rclone) hay 
+algunas soluciones. La que me pareció más confiable (y finalmente hice 
+funcionar) es [rclonesync V2](https://github.com/cjnaz/rclonesync-V2)
 
 
 ___
