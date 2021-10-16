@@ -1,4 +1,4 @@
-# (**no usar `postgres`**) PowerDNS
+# PowerDNS
 
 [PowerDNS](https://www.powerdns.com/) es uno de los servidores DNS que andan
 bien y son open source (GPLv2).
