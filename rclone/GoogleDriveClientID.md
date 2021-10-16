@@ -12,7 +12,7 @@ rclone.
 con tu cuenta de Google (puede ser cualquier cuenta Google, no es necesario que 
 sea la misma que la de Google Drive al que te vas a conectar).
 
-2. Seleccioná un proyecto creá uno nuevo
+2. Seleccioná un proyecto o creá uno nuevo
 
 ![seleccionar proyecto](google-client-id-00.png)
 
