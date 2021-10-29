@@ -9,7 +9,7 @@ hosteado en un equipo que borré :-(
 **[grip](https://github.com/joeyespo/grip)**
 * Cosas de [Linux](Linux) que olvido con demasiada frecuencia
 * Instalación, configuración y uso de [rclone](rclone)
-* Instalación y configuración de [PowerDNS](PowerDNS.md)
+* Instalación y configuración de [PowerDNS](PowerDNS)
 * Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
 
 

@@ -1,68 +1,10 @@
-# PowerDNS
+# Instalación
 
-[PowerDNS](https://www.powerdns.com/) es uno de los servidores DNS que andan
-bien y son open source (GPLv2).
+https://doc.powerdns.com/authoritative/installation.html
 
-Es usual la confusión respecto de qué hace (y especialmente cómo se configura)
-un "_servidor DNS_" ya que hay **dos cosas distintas** a las que llamamos
-"_servidor DNS_".
-Esto está acentuado porque algunos productos (notoriamente [ISC BIND](
-https://www.isc.org/bind/) y [Microsoft DNS](
-https://docs.microsoft.com/en-us/windows-server/networking/dns/dns-top)) son
-servidores monolíticos que brindan ambos servicios.
+https://doc.powerdns.com/authoritative/guides/basic-database.html
 
-Los dos servicios son:
-
-* **Servidor de nombres autoritativo de zona** que se utiliza para publicar
-información acerca de zonas por parte del titular de dichas zonas. Esta
-publicación es, en principio, para que la consuma toda la internet.
-
-* **Servidor iterativo** (mal llamado **_recursivo_**) **de resolución de
-nombres** (o simplemente **_resolver_**) que se utiliza para obtener la
-información de _cualquier_ zona en internet. Esta publicación es, en principio,
-para que la consuman los clientes de ese servidor (normalmente, dentro de la
-misma organización o de clientes de un proveedor). Existen también _resolvers_
-públicos (como el
-[8.8.8.8 de Google](https://developers.google.com/speed/public-dns), el
-[9.9.9.9 de Quad9](https://www.quad9.net/) o el
-[1.1.1.1 de Cloudflare](https://www.quad9.net/)) que dan servicio de resolución
-para cualquiera que lo desee utilizar.
-
-En [NIC Argentina](https://nic.ar) hay una [explicación de cómo funcionan estos
-servicios](https://nic.ar/es/novedades/noticias/como-funciona-el-dns).
-
-La mayoría de los servidores modernos (al menos los open source que conozco),
-brindan ambos servicios por separado (a través de distintos servidores).
-
-En el caso de [PowerDNS](https://www.powerdns.com/software.html), el [PowerDNS
-Authoritative Server](https://www.powerdns.com/auth.html) es un **servidor de
-nombres autoritativo** y el
-[PowerDNS Recursor](https://www.powerdns.com/recursor.html) es un **servidor
-iterativo de resolución** (**_resolver_**). PowerDNS tiene otro producto llamado
-[PowerDNS dnsdist](https://www.powerdns.com/dnsdist.html) que es un _load
-balancer_ para DNS.
-
-## Servidores autoritativos con _PowerDNS Authoritative Server_ (pdns)
-
-**[pdns](https://doc.powerdns.com/authoritative/)** soporta múltiples back-ends.
-Es decir, la información de las zonas que publica puede estar en bases de datos
-relacionales, en archivos de zona tipo BIND o inclusive ser accedidos a traves
-de un _pipe_ desde otro proceso o inclusive a través de una API desde otro tipo
-de servidor.
-
-Nosotros vamos a instalarlo con el backend en un servidor
-[PostgreSQL](https://www.postgresql.org/).
-
-Si bien pdns puede actuar como un servidor primario o secundario y transferir
-zonas a través del mismo protocolo DNS usando NOTIFY, AXFR e IXFR, se recomienda
-realizar la sincronización entre servidores autoritativos _fuera de banda_. Esto
-es usualmente simple utilizando los mecanismos de replicación de las bases de
-datos (especialmente si todos los servidores son administrados por la misma
-organización). Esto es lo que la documentación de PowerDNS llama [replicación
-nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-replication).
-
-
-### Instalación
+https://doc.powerdns.com/authoritative/backends/generic-postgresql.html
 
 La versión de PowerDNS Authoritative Server en los repos de Debian es medio
 vieja (en 2021-08, con la versión 4.5.0 en la calle, los repos de Buster van por
@@ -96,7 +38,7 @@ sudo apt update
 sudo apt install pdns-server pdns-backend-pgsql postgresql dnsutils
 ```
 
-#### Esquema postgres
+## Esquema postgres
 Ahora necesitamos el
 [esquema](https://doc.powerdns.com/authoritative/backends/generic-postgresql.html#default-schema)
 para el postgres. El paquete para Debian deja este esquema en
@@ -118,7 +60,7 @@ export PGPASSWORD=$DB_USU_CLAVE
 psql --host="localhost" --username="$DB_USUARIO" $DB_NOMBRE < /usr/share/pdns-backend-pgsql/schema/schema.pgsql.sql
 ```
 
-#### Configuración básica del backend
+## Configuración básica del backend
 Al instalar `pdns-server` se instaló también el backend que utiliza
 configuración al estilo BIND (`pdns-backend-bind`). Para desactivar la
 configuración por defecto (pero guardarla por si acaso) hacemos lo siguiente:
@@ -167,6 +109,8 @@ Una vez configurados estos datos, reiniciar el servicio:
 sudo systemctl restart pdns.service
 ```
 
+## Pruebas básicas
+
 Para probar que el servicio está levantado le hacemos una consulta cualquiera:
 ```
 dig www.example.com a @127.0.0.1
@@ -196,19 +140,68 @@ Razonablemente, el estado es **`REFUSED`** ya que el servidor no tiene
 configurado el dominio example.com (ni ningún otro), pero sí respondió 
 (demostrando que está levantado).
 
-**Nota**: Para hacer pruebas de DNS siempre es recomendable usar **`dig`** (o
-`drill`). Nunca conviene usar `host` o `nslookup`.
+**Nota**: Para hacer pruebas de DNS siempre es recomendable usar 
+**[dig](https://manpages.debian.org/bullseye/bind9-dnsutils/dig.1.en.html)** 
+(o [drill](https://manpages.debian.org/bullseye/ldnsutils/drill.1.en.html)). 
+Nunca conviene usar 
+[host](https://manpages.debian.org/bullseye/bind9-host/host.1.en.html) o 
+[nslookup](https://manpages.debian.org/bullseye/bind9-dnsutils/nslookup.1.en.html).
 
+Para hacer un par de pruebas usamos el comando 
+`[pdnsutil](https://doc.powerdns.com/authoritative/manpages/pdnsutil.1.html#zone-manipulation-commands)`
+que nos permite manipular zonas, registros y claves (entre otras cosas).
 
-<!--
-### Modo de operación
-PowerDNS Authoritative tiene varios
-[modos de operación](https://doc.powerdns.com/authoritative/modes-of-operation.html).
-Nosotros vamos a utilizar
-[replicación nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-replication)
-con lo que tendremos que ocuparnos de replicar la base de datos postgres entre
-el primario y todos los secundarios.
--->
+Creamos una zona example.com con un registro NS:
+```
+$ sudo -u pdns pdnsutil create-zone example.com a.example.com
+Creating empty zone 'example.com'
+Also adding one NS record
+```
+Agrego un registro MX:
+```
+$ sudo -u pdns pdnsutil add-record example.com '' MX '10 correo.example.com'
+New rrset:
+example.com. 3600 IN MX 10 correo.example.com
+```
+Y un registro A:
+```
+$ sudo -u pdns pdnsutil add-record example.com. www A 11.22.33.44
+New rrset:
+www.example.com. 3600 IN A 11.22.33.44
+```
+
+Ahora podemos hacer la consulta (_query_) por el registro A www.example.com
+```
+dig www.example.com a @127.0.0.1
+```
+y nos debería contestar con los datos:
+```
+; <<>> DiG 9.11.5-P4-5.1+deb10u5-Debian <<>> www.example.com a @127.0.0.1
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 14205
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;www.example.com.		IN	A
+
+;; ANSWER SECTION:
+www.example.com.	3600	IN	A	11.22.33.44
+
+;; Query time: 13 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Fri Oct 29 12:01:19 -03 2021
+;; MSG SIZE  rcvd: 60
+```
+
+Finalmente, borramos la zona que creamos para probar:
+```
+$ sudo -u pdns pdnsutil delete-zone example.com
+```
+
 
 ___
 <!-- LICENSE -->
