@@ -1,4 +1,4 @@
-# Instalación
+# Instalación de PowerDNS Authoritative Server
 
 https://doc.powerdns.com/authoritative/installation.html
 

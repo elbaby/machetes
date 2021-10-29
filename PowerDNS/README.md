@@ -62,7 +62,8 @@ organización). Esto es lo que la documentación de PowerDNS llama [replicación
 nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-replication).
 
 
-**[Instalación de servidor PowerDSN autoritativo](pdns-instalacion.md)**
+* **[Instalación de servidor PowerDNS autoritativo](pdns-instalacion.md)**
+* **[Instalación de gui web PowerDNS WebUI](pdns-webui-instalacion.md)**
 
 <!--
 ### Modo de operación
