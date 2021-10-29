@@ -1,5 +1,11 @@
 # Instalación
 
+https://doc.powerdns.com/authoritative/installation.html
+
+https://doc.powerdns.com/authoritative/guides/basic-database.html
+
+https://doc.powerdns.com/authoritative/backends/generic-postgresql.html
+
 La versión de PowerDNS Authoritative Server en los repos de Debian es medio
 vieja (en 2021-08, con la versión 4.5.0 en la calle, los repos de Buster van por
 la 4.1.6), con lo cual vamos a instalarla desde los
@@ -103,6 +109,8 @@ Una vez configurados estos datos, reiniciar el servicio:
 sudo systemctl restart pdns.service
 ```
 
+## Pruebas básicas
+
 Para probar que el servicio está levantado le hacemos una consulta cualquiera:
 ```
 dig www.example.com a @127.0.0.1
@@ -138,6 +146,61 @@ configurado el dominio example.com (ni ningún otro), pero sí respondió
 Nunca conviene usar 
 [host](https://manpages.debian.org/bullseye/bind9-host/host.1.en.html) o 
 [nslookup](https://manpages.debian.org/bullseye/bind9-dnsutils/nslookup.1.en.html).
+
+Para hacer un par de pruebas usamos el comando 
+`[pdnsutil](https://doc.powerdns.com/authoritative/manpages/pdnsutil.1.html#zone-manipulation-commands)`
+que nos permite manipular zonas, registros y claves (entre otras cosas).
+
+Creamos una zona example.com con un registro NS:
+```
+$ sudo -u pdns pdnsutil create-zone example.com a.example.com
+Creating empty zone 'example.com'
+Also adding one NS record
+```
+Agrego un registro MX:
+```
+$ sudo -u pdns pdnsutil add-record example.com '' MX '10 correo.example.com'
+New rrset:
+example.com. 3600 IN MX 10 correo.example.com
+```
+Y un registro A:
+```
+$ sudo -u pdns pdnsutil add-record example.com. www A 11.22.33.44
+New rrset:
+www.example.com. 3600 IN A 11.22.33.44
+```
+
+Ahora podemos hacer la consulta (_query_) por el registro A www.example.com
+```
+dig www.example.com a @127.0.0.1
+```
+y nos debería contestar con los datos:
+```
+; <<>> DiG 9.11.5-P4-5.1+deb10u5-Debian <<>> www.example.com a @127.0.0.1
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 14205
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;www.example.com.		IN	A
+
+;; ANSWER SECTION:
+www.example.com.	3600	IN	A	11.22.33.44
+
+;; Query time: 13 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Fri Oct 29 12:01:19 -03 2021
+;; MSG SIZE  rcvd: 60
+```
+
+Finalmente, borramos la zona que creamos para probar:
+```
+$ sudo -u pdns pdnsutil delete-zone example.com
+```
 
 
 ___
