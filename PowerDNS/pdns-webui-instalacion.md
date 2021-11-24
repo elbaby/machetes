@@ -95,14 +95,78 @@ sudo systemctl restart pdns.service
 ## Instalación de pdns-webui
 
 La webui consiste en realidad en un solo archivo html. De todos modos, clonamos 
-el repositorio y lo copiamos desde allí a /opt/powerdns-webui/htdocs
+el repositorio y lo copiamos desde allí a `/opt/powerdns-webui/htdocs`
 
 ```
 git clone https://github.com/james-stevens/powerdns-webui.git ${HOME}/powerdns-webui
 sudo mkdir -pv /opt/powerdns-webui/htdocs
 sudo cp ${HOME}/powerdns-webui/htdocs/index.html /opt/powerdns-webui/htdocs
+```
+
+## Configuración de caddy
+
+Configuramos el caddy para que sirva archivos estáticos desde el directorio
+`/opt/powerdns-webui/htdocs` donde pusimos el pdns-webui.
+
+Para eso editamos el archivo `/etc/caddy/Caddyfile` para que el contenido quede
+como el siguiente (adaptando lo que sea necesario):
 
 ```
+############################################
+# el PowerDNS WebUI es un archivo estático #
+############################################
+# Acá abajo debe ir el nombre del server donde está instalado todo:
+pdns-webui.example.com
+{
+	# Si el nombre de dominio de arriba NO ES público (es decir, si no está
+	# en el DNS global y resuelve a la IP del servidor en el que estamos
+	# instalando todo), hay que DESCOMENTAR la línea siguiente para que
+	# use una CA interna para firmar los certificados.
+	# Obviamente, a menos que se agregue el certificado de esa CA en los
+	# navegadores donde se usará, recibirá un aviso de página insegura.
+	#tls internal
+
+	# Enviar requests para /api/* al servidor web de API de pdns
+	reverse_proxy /api/* 127.0.53.80:5380
+
+	# Habilitar el servidor web de archivos estáticos
+	file_server
+
+	# Directorio raíz del servidor estático
+	root * /opt/powerdns-webui/htdocs
+}
+```
+Activar la nueva configuración del caddy:
+```
+sudo systemctl reload caddy.service
+```
+
+Si el nombre DNS del servidor es público, la primera vez que alguien se conecte
+a él, el caddy solicitará certificados en letsencrypt.org y los instalará. Y
+las conexiones http (sin encriptar) al puerto 80, serán redirigidas 
+automáticamente a https en el puerto 443 utilizando estos certificados.
+
+Si se utiliza `tls_internal` (porque el nombre no está en el DNS público), luego
+de la primera vez que uno se conecte al servidor, se generará automáticamente
+una autoridad de certificación (CA) raíz y una intermedia locales.
+
+El certificado de la CA raíz queda en 
+`/var/lib/caddy/.local/share/caddy/pki/authorities/local/root.crt` y se puede
+usar para instalar en los navegadores para que no dé avisos de error de 
+certificados.
+
+Es **muy** importante que el resto de los archivos bajo 
+`/var/lib/caddy/.local/share/caddy/pki/` no puedan ser vistos por nadie más
+(en particular, los que terminan en `.key`).
+
+Ahora al entrar en un navegador a https://pdns-webui.example.com (o como se
+llame el servidor) aparecerá la pantalla de login.
+
+Para ingresar es necesario poner el nombre del servidor y la **`api-key`** que
+se puso en la configuración de webserver de pdns.
+
+![PowerDNS WebUI login screen](img/20211124-195253-01.png "PowerDNS WebUI login 
+screen")
 
 ___
 <!-- LICENSE -->
