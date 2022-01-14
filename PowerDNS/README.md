@@ -64,6 +64,8 @@ nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-re
 
 * **[Instalación de servidor PowerDNS autoritativo](pdns-instalacion.md)**
 * **[Instalación de gui web PowerDNS WebUI](pdns-webui-instalacion.md)**
+* **[Configuración de múltiples instancias de PowerDNS 
+autoritativo](pdns-multiples-instancias.md)**
 
 <!--
 ### Modo de operación

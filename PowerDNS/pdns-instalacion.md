@@ -52,6 +52,7 @@ Creamos una base de datos, un usuario con clave y cargamos el esquema:
 # $DB_USUARIO (nombre de usuario para esa base de datos) ¡NO USAR "postgres"!
 # $DB_USU_CLAVE (clave para ese usuario)
 
+sudo --user=postgres psql -c "CREATE DATABASE '$DB_NOMBRE'"
 sudo --user=postgres psql -c "CREATE USER $DB_USUARIO WITH PASSWORD '$DB_USU_CLAVE'"
 sudo --user=postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NOMBRE TO $DB_USUARIO"
 
@@ -195,6 +196,11 @@ www.example.com.	3600	IN	A	11.22.33.44
 ;; SERVER: 127.0.0.1#53(127.0.0.1)
 ;; WHEN: Fri Oct 29 12:01:19 -03 2021
 ;; MSG SIZE  rcvd: 60
+```
+
+Listamos todas las zonas configuradas:
+```
+$ sudo -u pdns pdnsutil list-all-zones
 ```
 
 Finalmente, borramos la zona que creamos para probar:
