@@ -57,8 +57,8 @@ sudo chgrp pdns /etc/powerdns/pdns.d/gpgsql.conf
 ```
 
 Ahora hay que editar el archivo de configuración del backend de postgres 
-(`/etc/powerdns/pdns.d/gpgsql.conf`) con los [parametros 
-deseados](https://doc.powerdns.com/authoritative/backends/generic-postgresql.html).
+(`/etc/powerdns/pdns.d/gpgsql.conf`) con los [parámetros 
+deseados](https://doc.powerdns.com/authoritative/backends/generic-postgresql.html#settings).
 
 Los parámetros imprescindibles son:
 

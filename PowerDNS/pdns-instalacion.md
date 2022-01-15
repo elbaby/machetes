@@ -10,10 +10,16 @@ vieja (en 2021-08, con la versión 4.5.0 en la calle, los repos de Buster iban
 por la 4.1.6), con lo cual vamos a instalarla desde los
 [repositorios de PowerDNS](https://repo.powerdns.com/).
 
+Obtener la clave pública con la que están firmados los paquetes y repositorios
+y ponerla en **`/usr/share/keyrings/powerdns-archive-keyring.gpg`**:
+```
+curl https://repo.powerdns.com/FD380FBB-pub.asc | gpg --dearmor | sudo tee /usr/share/keyrings/powerdns-archive-keyring.gpg >/dev/null
+```
+
 Agregar el repositorio en un archivo **`/etc/apt/sources.list.d/pdns.list`** con
 el siguiente contenido (para la versión 4.5.x del servidor autoritativo):
 ```
-deb [arch=amd64] http://repo.powerdns.com/debian buster-auth-45 main
+deb [arch=amd64 signed-by=/usr/share/keyrings/powerdns-archive-keyring.gpg] http://repo.powerdns.com/debian buster-auth-45 main
 ```
 
 _Pinear_ el repositorio agregando un archivo **`/etc/apt/preferences.d/pdns`**
@@ -27,9 +33,6 @@ Pin-Priority: 600
 Ejecutar los siguientes comandos:
 
 ```
-# Obtengo la clave pública con la que están firmados los paquetes y el repositorio
-curl https://repo.powerdns.com/FD380FBB-pub.asc | sudo apt-key add -
-
 # Actualizo base de datos de paquetes
 sudo apt update
 
@@ -51,7 +54,11 @@ SQL](https://doc.powerdns.com/authoritative/backends/generic-sql.html)
 describe la funcionalidad común a todos ellos.
 
 * [Instrucciones para instalar y configurar](pdns-be-postgresql.md) el 
-[backend genérico PostgreSQL](https://doc.powerdns.com/authoritative/backends/generic-postgresql.html)
+[backend genérico 
+PostgreSQL](https://doc.powerdns.com/authoritative/backends/generic-postgresql.html)
+* [Instrucciones para instalar y configurar](pdns-be-sqlite3.md) el 
+[backend genérico SQLite 
+3](https://doc.powerdns.com/authoritative/backends/generic-sqlite3.html)
 
 # Pruebas básicas
 
