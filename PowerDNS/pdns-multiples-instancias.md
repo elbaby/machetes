@@ -30,7 +30,7 @@ Supongamos que a la configuración actual (única) la queremos llamar
 sudo mv /etc/powerdns/pdns.conf /etc/powerdns/pdns-PRINCIPAL.conf
 
 # renombrar el directorio de configuraciones modulares
-sudo mv /etc/powerdns/pdns.d /etc/powerdns-PRINCIPAL.d
+sudo mv /etc/powerdns/pdns.d /etc/powerdns/pdns-PRINCIPAL.d
 
 # cambiar el nombre del directorio de configuraciones modulares en el
 # archivo de configuración
