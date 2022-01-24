@@ -73,12 +73,13 @@ archivo `/etc/powerdns/pdns.conf`):
 ```
 sudo rm -fv /etc/systemd/system/multi-user.target.wants/pdns.service
 ```
-## Línea de comandos de `pdnsutil`
+## Línea de comandos de `pdnsutil` y `pdns_control`
 
-En el comando `pdnsutil` hay que agregar la opción `--config-name` para
-explicitar cuál es la instancia que se debe utilizar:
+En los comandos `pdnsutil` `pdns_control` hay que agregar la opción 
+`--config-name` para explicitar cuál es la instancia que se debe utilizar:
 ```
-$ sudo -u pdns pdnsutil --config-name PRINCIPAL list-all-zones
+$ sudo --user=pdns pdnsutil --config-name PRINCIPAL list-all-zones
+$ sudo --user=pdns pdns_control --config-name PRINCIPAL uptime
 ```
 
 # Configurar una segunda instancia

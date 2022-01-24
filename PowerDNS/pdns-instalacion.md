@@ -62,7 +62,8 @@ PostgreSQL](https://doc.powerdns.com/authoritative/backends/generic-postgresql.h
 
 # Pruebas básicas
 
-Para probar que el servicio está levantado le hacemos una consulta cualquiera:
+Para probar que el servicio está levantado y funcionando hacemos una consulta 
+cualquiera:
 ```
 dig www.example.com a @127.0.0.1
 ```
@@ -104,19 +105,19 @@ que nos permite manipular zonas, registros y claves (entre otras cosas).
 
 Creamos una zona example.com con un registro NS:
 ```
-$ sudo -u pdns pdnsutil create-zone example.com a.example.com
+$ sudo --user=pdns pdnsutil create-zone example.com a.example.com
 Creating empty zone 'example.com'
 Also adding one NS record
 ```
 Agrego un registro MX:
 ```
-$ sudo -u pdns pdnsutil add-record example.com '' MX '10 correo.example.com'
+$ sudo --user=pdns pdnsutil add-record example.com '' MX '10 correo.example.com'
 New rrset:
 example.com. 3600 IN MX 10 correo.example.com
 ```
 Y un registro A:
 ```
-$ sudo -u pdns pdnsutil add-record example.com. www A 11.22.33.44
+$ sudo --user=pdns pdnsutil add-record example.com. www A 11.22.33.44
 New rrset:
 www.example.com. 3600 IN A 11.22.33.44
 ```
@@ -150,14 +151,20 @@ www.example.com.	3600	IN	A	11.22.33.44
 
 Listamos todas las zonas configuradas:
 ```
-$ sudo -u pdns pdnsutil list-all-zones
+$ sudo --user=pdns pdnsutil list-all-zones
 ```
 
 Finalmente, borramos la zona que creamos para probar:
 ```
-$ sudo -u pdns pdnsutil delete-zone example.com
+$ sudo --user=pdns pdnsutil delete-zone example.com
 ```
 
+El otro comando que se utiliza para controlar y consultar el servidor es
+`pdns_control`. Por ejemplo, para ver el tiempo que hace que el servidor está
+levantado:
+```
+$ sudo --user=pdns pdns_control uptime
+```
 
 ___
 <!-- LICENSE -->
