@@ -40,6 +40,32 @@ sudo apt update
 sudo apt install pdns-server dnsutils
 ```
 
+# Configuraciones generales
+
+https://doc.powerdns.com/authoritative/settings.html
+
+En `/etc/powerdns/pdns.conf` está el archivo de configuración general (en
+`/etc/powerdns/pdns.d/` se pueden agregar configuraciones puntuales en forma
+modular).
+
+Algunos _defaults_ que puede ser interesante cambiar:
+
+* [**`default-soa-content`**](https://doc.powerdns.com/authoritative/settings.html#default-soa-content)
+es el valor que tendrá el registro SOA cuando se crea una zona. 
+Conviene configurar aquí el nombre del servidor primario público que usarán las
+nuevas zonas y la dirección de correo de contacto. Por ejemplo:
+```
+default-soa-content=ns1.example.com hostmaster.example.com 0 10800 3600 604800 3600
+```
+* [**`default-soa-edit`**](https://doc.powerdns.com/authoritative/settings.html#default-soa-edit)
+es el valor que se configurará en el valor de 
+[`SOA-EDIT`](https://doc.powerdns.com/authoritative/dnssec/operational.html#possible-soa-edit-values)
+de las zonas que se creen. Por ejemplo:
+```
+default-soa-edit=INCEPTION-INCREMENT
+```
+
+
 # Instalación y configuración de backends
 
 PowerDNS tiene varios [backends
