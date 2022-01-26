@@ -126,6 +126,37 @@ o bien estén en direcciones IP diferentes o que utilicen ports diferentes.
 También hay que configurar para que _cada_ instancia arranque automáticamente
 en `systemd`.
 
+# Ver los logs de las instancias con `journalctl`
+Las opciones de [_logging_](pdns-instalacion.md#logging) ahora hay que
+ajustarlas a las instancias. El nombre de la `unit` ahora es 
+`pdns@INSTANCIA.service` (o simplemente `pdns@INSTANCIA`).
+El identificador es `pdns_server-INSTANCIA`, con lo cual, para ver sólo los
+mensajes de una instancia de pdns se puede usar:
+```
+sudo journalctl --unit pdns@PRINCIPAL.service
+sudo journalctl -u pdns@PRINCIPAL.service
+```
+o filtrar por el identificador de syslog:
+```
+sudo journalctl --identifier pdns_server-PRINCIPAL
+sudo journalctl -t pdns_server-PRINCIPAL
+```
+Una ventaja adicional que tiene la opción `--unit` por sobre `--identifier` es
+que la primera soporta un _pattern_  además de un string fijo, con lo cual
+podemos ver **todas** las instancias de pdns:
+```
+sudo journalctl --unit 'pdns@*.service'
+sudo journalctl -u 'pdns@*.service'
+```
+o más simplemente:
+```
+sudo journalctl --unit 'pdns*'
+sudo journalctl -u 'pdns*'
+```
+Es **_importante_** utilizar comillas simples (**`'`**) al escribir el 
+_pattern_ para evitar que el shell lo interprete (si, por ejemplo, hay un 
+arhivo cuyo nombre comience con '`pdns`' en el directorio actual).
+
 ___
 <!-- LICENSE -->
 ___

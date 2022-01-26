@@ -57,6 +57,10 @@ nuevas zonas y la dirección de correo de contacto. Por ejemplo:
 ```
 default-soa-content=ns1.example.com hostmaster.example.com 0 10800 3600 604800 3600
 ```
+
+<!-- Esto al final no es conveniente (deja serials distintos en el primario -->
+<!-- y en el secundario) -->
+<!--
 * [**`default-soa-edit`**](https://doc.powerdns.com/authoritative/settings.html#default-soa-edit)
 es el valor que se configurará en el valor de 
 [`SOA-EDIT`](https://doc.powerdns.com/authoritative/dnssec/operational.html#possible-soa-edit-values)
@@ -64,7 +68,17 @@ de las zonas que se creen. Por ejemplo:
 ```
 default-soa-edit=INCEPTION-INCREMENT
 ```
+-->
 
+* [**`xfr-cycle-interval`**](https://doc.powerdns.com/authoritative/settings.html#xfr-cycle-interval)
+en el primario, es el intervalo (en segundos) que se deja pasar para verificar
+si el serial del SOA se incrementó y hay que enviar `NOTIFY`s a los secundarios.
+En los secundarios es el tiempo en segundos para chequear actualizaciones a las
+zonas. 
+El _default_ es 60 (1 minuto). En servidores con mucha carga y/o muchas zonas, 
+puede ser eficiente alargar este período. En servidores tranquilos, si se 
+quiere que los secundarios actualicen más rápido, se puede acortar a 10
+segundos, por ejemplo.
 
 # Instalación y configuración de backends
 
@@ -191,6 +205,59 @@ levantado:
 ```
 $ sudo --user=pdns pdns_control uptime
 ```
+
+# _Logging_
+
+En los Debian nuevos, pdns utiliza las facilidades de _logging_ de `systemd`,
+llamada 
+[`journald`](https://www.server-world.info/en/note?os=Debian_11&p=journald).
+
+Los logs se manejan en un formato binario y se consultan con la herramienta
+[**`journalctl`**](https://manpages.debian.org/systemd/journalctl.1.en.html).
+
+Sin ningún parámetro, `journalctl` muestra todo el log del sistema dentro de
+un _pager_.
+
+En general conviene filtrar para ver los mensajes que uno quiere.
+
+Para ver los mensajes de `pdns` se puede filtrar por el nombre de la `unit`:
+```
+sudo journalctl --unit pdns.service
+sudo journalctl -u pdns.service
+```
+o filtrar por el identificador de syslog:
+```
+sudo journalctl --identifier pdns_server
+sudo journalctl -t pdns_server
+```
+La ventaja de filtrar por `unit` es que se muestran también mensajes producidos
+por `systemd` respecto de esa `unit` (además de los que produce la `unit` en 
+sí).
+
+También podemos buscar un _pattern_ en particular con la opción `--grep`. Si
+el _pattern_ es todo en minúsculas, la búsqueda es _case insensitive_. Si se
+quiere hacer una búsqueda _case sensitive_ con un _pattern_ que sólo tiene
+minúsculas hay que agregar la opción `--case-sensitive=y`.
+```
+sudo journalctl --unit pdns.service --grep fail
+sudo journalctl --unit pdns.service -g fail
+```
+
+Se puede acotar el rango de tiempo de la búsqueda usando las opciones `--since`
+y `--until`:
+```
+sudo journalctl --unit pdns.service --since "2022-01-11 00:00:00" --until "2022-01-13 23:59:59"
+sudo journalctl --unit pdns.service -S "2022-01-11 00:00:00" -U "2022-01-13 23:59:59"
+```
+
+Para "seguir" un log a medida que avanza (como si se siguiera un log de texto
+utilizando el comando `tail -f`) se puede utilizar la opción `--follow`:
+```
+sudo journalctl --unit pdns.service --follow
+sudo journalctl --unit pdns.service -f
+```
+alternativamente, estando dentro del _pager_, apretar la tecla `F` mayúscula y
+el _pager_ irá hasta el final del log y comenzará a "seguirlo".
 
 ___
 <!-- LICENSE -->
