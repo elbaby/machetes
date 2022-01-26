@@ -76,10 +76,12 @@ sudo rm -fv /etc/systemd/system/multi-user.target.wants/pdns.service
 ## Línea de comandos de `pdnsutil` y `pdns_control`
 
 En los comandos `pdnsutil` `pdns_control` hay que agregar la opción 
-`--config-name` para explicitar cuál es la instancia que se debe utilizar:
+`--config-name` para explicitar cuál es la instancia que se debe utilizar y la
+opción `--socket-dir` para indicarle el directorio donde está el _socket_ de
+control:
 ```
 $ sudo --user=pdns pdnsutil --config-name PRINCIPAL list-all-zones
-$ sudo --user=pdns pdns_control --config-name PRINCIPAL uptime
+$ sudo --user=pdns pdns_control --config-name PRINCIPAL --socket-dir=/var/run/pdns-PRINCIPAL uptime
 ```
 
 # Configurar una segunda instancia
