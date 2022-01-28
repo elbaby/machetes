@@ -80,8 +80,8 @@ En los comandos `pdnsutil` `pdns_control` hay que agregar la opción
 opción `--socket-dir` para indicarle el directorio donde está el _socket_ de
 control:
 ```
-$ sudo --user=pdns pdnsutil --config-name PRINCIPAL list-all-zones
-$ sudo --user=pdns pdns_control --config-name PRINCIPAL --socket-dir=/var/run/pdns-PRINCIPAL uptime
+$ sudo --user=pdns pdnsutil --config-name=PRINCIPAL list-all-zones
+$ sudo --user=pdns pdns_control --config-name=PRINCIPAL --socket-dir=/var/run/pdns-PRINCIPAL uptime
 ```
 
 # Configurar una segunda instancia
