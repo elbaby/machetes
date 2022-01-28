@@ -168,6 +168,7 @@ sudo systemctl restart pdns.service
 Para crear una zona vacía y configurarle los _name servers_ usamos:
 ```
 sudo --user=pdns pdnsutil create-zone example.com
+sudo --user=pdns pdnsutil set-kind example.com primary
 sudo --user=pdns pdnsutil add-record example.com '' ns ns1.example.net
 sudo --user=pdns pdnsutil add-record example.com '' ns ns2.example.net
 ```
