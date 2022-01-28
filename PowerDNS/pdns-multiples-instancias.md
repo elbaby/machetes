@@ -95,6 +95,7 @@ local-address=0.0.0.0, ::
 local-port=53
 ```
 
+## Usar diferentes direcciones IP
 En un equipo con múltiples direcciones IP, se puede configurar que cada
 instancia utilice una dirección IP distinta:
 ```
@@ -107,6 +108,11 @@ local-port=53
 local-address=10.10.50.50 f2da:de4e:e5e:5050::
 local-port=53
 ```
+
+Si se configura el servidor web o la API REST también hay que asegurarse de que
+también atiendan en direcciones IP diferentes.
+
+## Usar diferentes ports
 
 La otra variante es que las instancias utilicen ports diferentes (para que
 funcione esto, hay que configurar luego un resolver que consulte en el port
@@ -123,7 +129,67 @@ local-port=5300
 ```
 
 Si se configura el servidor web o la API REST también hay que asegurarse de que
-o bien estén en direcciones IP diferentes o que utilicen ports diferentes.
+utilicen ports diferentes.
+
+### Notificaciones y transferencias en puertos no estándar
+
+Si se configuran primarios y secundarios atendiendo en puertos distintos del 53
+hay que asegurarse de enviar las notificaciones a estos puertos y NO al puerto
+53 y que las transferencias se soliciten a estos puertos.
+
+Suponiendo que el primario utiliza el port 5300 y el secundario el 5353, 
+entonces el primario debe enviar las notificaciones al puerto 5353 del 
+secundario y este debe solicitar las transferencias al puerto 5300 del primario.
+
+#### Configuraciones en el servidor primario
+
+Suponiendo que la instancia que utiliza puertos no estándar se llama PRIVADO,
+el primario utiliza el port 5300 y el secundario el 5353, en el archivo de
+configuración `/etc/powerdns/pdns-PRIVADO.conf` se puede poner:
+```
+also-notify=10.20.30.40:5353 10.10.90.90:5353
+```
+de este modo, siempre notificará a los secundarios en esas direcciones IP y
+esos puertos.
+
+Si se quieren configurar direcciones IP y/o puertos diferentes según cada
+dominio en particular, entonces se puede dejar la configuración `also-notify`
+en blanco y configurar los metadatos de cada dominio, por ejemplo:
+```
+sudo -u pdns pdnsutil --config-name PRIVADO set-meta example.com ALSO-NOTIFY 10.20.30.40:5353
+sudo -u pdns pdnsutil --config-name PRIVADO set-meta example.org ALSO-NOTIFY 10.10.90.90:5353
+```
+
+El problema adicional es que las zonas normalmente tienen registros de tipo
+**`NS`** y estos registros sólo llevan nombres de dominio y nunca un puerto.
+
+Normalmente, pdns **notificará** a las direcciones IP que pueda resolver de
+los nombres que encuentre en los registros de tipo `NS`. 
+
+Si se quiere evitar esto, en el archivo de configuración
+`/etc/powerdns/pdns-PRIVADO.conf` hay que poner:
+```
+only-notify=
+```
+Si la configuración `only-notify` contiene una lista vacía, no notificará a
+ningún servidor **_excepto_** los que estén en la configuración `also-notify`
+o en el metadato `ALSO-NOTIFY` del dominio (pdns _siempre_ notifica a los
+servidores en `also-notify` y `ALSO-NOTIFY`).
+
+#### Configuraciones en el servidor secundario
+
+En el secundario, cuando se crea la zona, hay que indicarle el primario
+indicando la dirección **y** el número de puerto:
+```
+sudo -u pdns pdnsutil --config-name PRIVADO create-secondary-zone example.com 10.10.10.50:5300
+```
+Si la zona ya está creada y no se indicó el número de puerto al hacerlo (o si 
+se quiere configurar un primario distinto):
+```
+sudo -u pdns pdnsutil --config-name PRIVADO change-secondary-zone-primary example.com 10.10.10.50:5300
+```
+
+## Arranque de las instancias en `systemd`
 
 También hay que configurar para que _cada_ instancia arranque automáticamente
 en `systemd`.
