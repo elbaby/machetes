@@ -93,10 +93,10 @@ Hay distintos backends que utilizan bases de datos SQL. El [backend genérico
 SQL](https://doc.powerdns.com/authoritative/backends/generic-sql.html)
 describe la funcionalidad común a todos ellos.
 
-* [Instrucciones para instalar y configurar](pdns-be-postgresql.md) el 
+* [Instrucciones para instalar y configurar](pdns_server-be-postgresql.md) el 
 [backend genérico 
 PostgreSQL](https://doc.powerdns.com/authoritative/backends/generic-postgresql.html)
-* [Instrucciones para instalar y configurar](pdns-be-sqlite3.md) el 
+* [Instrucciones para instalar y configurar](pdns_server-be-sqlite3.md) el 
 [backend genérico SQLite 
 3](https://doc.powerdns.com/authoritative/backends/generic-sqlite3.html)
 

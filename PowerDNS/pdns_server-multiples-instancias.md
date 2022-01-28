@@ -7,8 +7,8 @@ Las instancias conviene nombrarlas con un string que no contenga guíones.
 Por ejemplo: PRINCIPAL, PRIVADO, EXTERNO, INTERNO, CLIENTES, etc.
 
 # Convertir la instalación _default_ en una instancia.
-Una vez [instalado y configurado](pdns-instalacion.md) el servidor, convertimos
-la configuración única en una instancia.
+Una vez [instalado y configurado](pdns_server-instalacion.md) el servidor, 
+convertimos la configuración que ya existe en una (por ahora única) instancia.
 
 Primero detenemos el servicio actual:
 ```
@@ -195,7 +195,7 @@ También hay que configurar para que _cada_ instancia arranque automáticamente
 en `systemd`.
 
 # Ver los logs de las instancias con `journalctl`
-Las opciones de [_logging_](pdns-instalacion.md#logging) ahora hay que
+Las opciones de [_logging_](pdns_server-instalacion.md#logging) ahora hay que
 ajustarlas a las instancias. El nombre de la `unit` ahora es 
 `pdns@INSTANCIA.service` (o simplemente `pdns@INSTANCIA`).
 El identificador es `pdns_server-INSTANCIA`, con lo cual, para ver sólo los

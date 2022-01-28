@@ -9,7 +9,7 @@ se comunica con el server a través de la API de pdns (no escribe directamente e
 la base de datos), pero, a mediados de 2021, el creador ha dejado de 
 mantenerlo activamente y está buscando quién lo mantenga.
 Eso, sumado a que no hay instrucciones claras para instalarlo con PostgreSQL
-hace que por ahora dejemos las [instrucciones](pdns-admin-instalacion.md) a
+hace que por ahora dejemos las [instrucciones](pdns_admin-instalacion.md) a
 medio camino.
 
 
