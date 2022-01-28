@@ -17,9 +17,9 @@ curl https://repo.powerdns.com/FD380FBB-pub.asc | gpg --dearmor | sudo tee /usr/
 ```
 
 Agregar el repositorio en un archivo **`/etc/apt/sources.list.d/pdns.list`** con
-el siguiente contenido (para la versión 4.5.x del servidor autoritativo):
+el siguiente contenido (para la versión 4.6.x del servidor autoritativo):
 ```
-deb [arch=amd64 signed-by=/usr/share/keyrings/powerdns-archive-keyring.gpg] http://repo.powerdns.com/debian buster-auth-45 main
+deb [arch=amd64 signed-by=/usr/share/keyrings/powerdns-archive-keyring.gpg] http://repo.powerdns.com/debian buster-auth-46 main
 ```
 
 _Pinear_ el repositorio agregando un archivo **`/etc/apt/preferences.d/pdns`**
