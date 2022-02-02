@@ -1,6 +1,7 @@
 # Instalación de Caddy server
 
 https://caddyserver.com/
+
 https://caddyserver.com/docs/install#debian-ubuntu-raspbian
 
 Vamos a instalar desde los [repositorios de Caddy](https://caddyserver.com/).
@@ -15,7 +16,8 @@ Agregar el repositorio para la versión `stable` en un archivo
 **`/etc/apt/sources.list.d/caddy-stable.list`** (hay que agregarle la
 información de dónde está la clave con la que se firma el repositorio, ya que
 no quedó en `/etc/apt/strusted.gpg.d` para evitar que esa clave se pueda usar
-para firmar _otros_ repositorios):
+para firmar _otros_ repositorios). La versión para `debian` sirve tanto para
+Debian como para Ubuntu y Raspbian:
 
 ```
 export NOMBRESO=debian
