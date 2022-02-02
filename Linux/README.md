@@ -2,6 +2,7 @@
 
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del baby)](
 ConfigurarLinodeBaby.md)
+* [Instalar Nextcloud usando snap](InstalarNextcloudSnap.md)
 
 
 ___
