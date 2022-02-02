@@ -36,14 +36,75 @@ sudo apt update
 
 # Instalo Caddy
 sudo apt install caddy
+
+# Copiar el sitio estático que sirve por default en /var/www/caddy
+sudo mkdir -pv /var/www
+sudo cp -rpv /usr/share/caddy /var/www
 ```
 
 # Configuraciones generales
 
-**[TBD]**
-https://caddyserver.com/docs/getting-started
+* https://caddyserver.com/docs/getting-started
+* https://caddyserver.com/docs/caddyfile
+* https://caddyserver.com/docs/quick-starts/caddyfile
+* https://caddyserver.com/docs/caddyfile/concepts
 
 
+La configuración más simple se hace usando el archivo 
+[**`/etc/caddy/Caddyfile`**](https://caddyserver.com/docs/caddyfile).
+
+La instalación por defecto viene con un ejemplo que contesta las conexiones al 
+port 80 usando la dirección IP o un nombre que no esté configurada en Caddy con
+un servidor de archivos estático en `/usr/share/caddy`.
+
+Un default más razonable para poner en un servidor que se llame 
+caddy.example.net podría ser así:
+
+```
+# Global Options
+{
+	# El mail que mandamos al server ACME para registrar
+	# los certificados 
+	email   tls-ssl-master@example.net
+
+	# El "hostname" que tomaremos por default si el cliente
+	# no manda un SNI
+	default_sni     caddy.example.net
+	# Descomentar la línea de abajo para loguear
+	#debug
+}
+
+# Usar para las conexiones por IP o con nombre desconocido
+caddy.example.net,
+:80 
+{
+	root * /var/www/caddy
+	# Enable the static file server.
+	file_server * {
+		index	index.html
+	}
+
+}
+
+# Si tenemos un servicio web que funciona en el mismo equipo
+# en el port 12345 podemos hacer un proxy reverso hacia el mismo
+# con un nombre público (que debe estar registrado en el DNS público
+# para que Caddy gestione un certificado TLS gratuito en letsencrypt.org
+# usando el protocolo ACME). 
+# Caddy también arma una redirección automática http -> https
+servicio.example.net,
+www.servicio.example.net
+{
+	reverse_proxy localhost:12345
+}
+```
+
+Para activar cambios en la configuración usar:
+```
+sudo systemctl reload caddy.service
+```
+
+**[TBC]**
 
 # _Logging_
 
