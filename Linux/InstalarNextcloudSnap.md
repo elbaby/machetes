@@ -61,6 +61,8 @@ configuración `/etc/caddy/Caddyfile`:
 nextcloud.example.net,
 nc.example.net
 {
+	rewrite	/.well-known/cardav /remote.php/dav
+	rewrite	/.well-known/caldav /remote.php/dav
 	reverse_proxy localhost:4001
 }
 ```
@@ -68,6 +70,16 @@ nc.example.net
 Y cargamos la nueva configuración del caddy:
 ```
 sudo systemctl reload caddy.service
+```
+
+Y ahora [configuramos el proxy en 
+nextcloud](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/reverse_proxy_configuration.html) 
+para que maneje los encabezados recibidos del cliente y escriba los URL 
+correctamente para que se vean desde "afuera" del proxy:
+```
+sudo nextcloud.occ config:system:set trusted_proxies 0 --value='localhost'
+sudo nextcloud.occ config:system:set overwritehost --value='nc.example.net'
+sudo nextcloud.occ config:system:set overwriteprotocol --value='https'
 ```
 
 A partir de ahora, se puede ingresar en un navegador usando el URL 
