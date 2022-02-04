@@ -16,27 +16,36 @@ y ponerla en **`/usr/share/keyrings/powerdns-archive-keyring.gpg`**:
 curl https://repo.powerdns.com/FD380FBB-pub.asc | gpg --dearmor | sudo tee /usr/share/keyrings/powerdns-archive-keyring.gpg >/dev/null
 ```
 
-Agregar el repositorio en un archivo **`/etc/apt/sources.list.d/pdns.list`** con
-el siguiente contenido (para la versión 4.6.x del servidor autoritativo):
+Agregar el repositorio (para la versión 4.6.X del server en Debian version 11
+bullsey) en un archivo **`/etc/apt/sources.list.d/pdns.list`**:
 ```
-deb [arch=amd64 signed-by=/usr/share/keyrings/powerdns-archive-keyring.gpg] http://repo.powerdns.com/debian buster-auth-46 main
+export NOMBRESO=debian
+export VERSIONSO=bullseye
+export VERSIONSERVER=46
+sudo tee --append /etc/apt/sources.list.d/pdns.list <<EOF
+deb [arch=amd64 signed-by=/usr/share/keyrings/powerdns-archive-keyring.gpg] http://repo.powerdns.com/${NOMBRESO} ${VERSIONSO}-auth-${VERSIONSERVER} main
+EOF
+
 ```
 
-_Pinear_ el repositorio agregando un archivo **`/etc/apt/preferences.d/pdns`**
-con el siguiente contenido:
+_Pinear_ el repositorio agregando un archivo **`/etc/apt/preferences.d/pdns`**:
 ```
+sudo tee /etc/apt/preferences.d/pdns <<EOF
 Package: pdns-*
 Pin: origin repo.powerdns.com
 Pin-Priority: 600
+EOF
+
 ```
 
-Ejecutar los siguientes comandos:
+Ejecutar los siguientes comandos para actualizar los datos de los repositorios
+e instalar el servidor y utilitarios básicos de DNS:
 
 ```
 # Actualizo base de datos de paquetes
 sudo apt update
 
-# Instalo pdns y utilitarios basicos para el DNS
+# Instalo pdns-server y utilitarios basicos para el DNS
 sudo apt install pdns-server dnsutils
 ```
 
