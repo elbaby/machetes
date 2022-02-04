@@ -21,12 +21,9 @@ publicación es, en principio, para que la consuma toda la internet.
 nombres** (o simplemente **_resolver_**) que se utiliza para obtener la
 información de _cualquier_ zona en internet. Esta publicación es, en principio,
 para que la consuman los clientes de ese servidor (normalmente, dentro de la
-misma organización o de clientes de un proveedor). Existen también _resolvers_
-públicos (como el
-[8.8.8.8 de Google](https://developers.google.com/speed/public-dns), el
-[9.9.9.9 de Quad9](https://www.quad9.net/) o el
-[1.1.1.1 de Cloudflare](https://www.quad9.net/)) que dan servicio de resolución
-para cualquiera que lo desee utilizar.
+misma organización o de clientes de un proveedor) aunque existen también 
+_resolvers_ públicos que dan servicio de resolución para cualquiera que lo 
+desee utilizar.
 
 En [NIC Argentina](https://nic.ar) hay una [explicación de cómo funcionan estos
 servicios](https://nic.ar/es/novedades/noticias/como-funciona-el-dns).
@@ -81,7 +78,7 @@ En general **_no_** es un servicio que se brinde públicamente ya que hacerlo
 implica un potencial consumo de recursos altísimo (ejemplos de servidores 
 iterativos públicos son el [**1.1.1.1** de Cloudflare](https://1.1.1.1/dns/),
 el [**8.8.8.8** de Google](https://developers.google.com/speed/public-dns/) o
-el [**9.9.9.9** de Quad9](https://www.quad9.net/).
+el [**9.9.9.9** de Quad9](https://www.quad9.net/)).
 
 Si bien probablemente pdns_recursor se pueda utilizar (probablemente en
 combinación con [dnsdist](https://dnsdist.org/)) para brindar un servicio 
