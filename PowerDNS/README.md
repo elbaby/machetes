@@ -21,12 +21,9 @@ publicación es, en principio, para que la consuma toda la internet.
 nombres** (o simplemente **_resolver_**) que se utiliza para obtener la
 información de _cualquier_ zona en internet. Esta publicación es, en principio,
 para que la consuman los clientes de ese servidor (normalmente, dentro de la
-misma organización o de clientes de un proveedor). Existen también _resolvers_
-públicos (como el
-[8.8.8.8 de Google](https://developers.google.com/speed/public-dns), el
-[9.9.9.9 de Quad9](https://www.quad9.net/) o el
-[1.1.1.1 de Cloudflare](https://www.quad9.net/)) que dan servicio de resolución
-para cualquiera que lo desee utilizar.
+misma organización o de clientes de un proveedor) aunque existen también 
+_resolvers_ públicos que dan servicio de resolución para cualquiera que lo 
+desee utilizar.
 
 En [NIC Argentina](https://nic.ar) hay una [explicación de cómo funcionan estos
 servicios](https://nic.ar/es/novedades/noticias/como-funciona-el-dns).
@@ -42,9 +39,10 @@ iterativo de resolución** (**_resolver_**). PowerDNS tiene otro producto llamad
 [PowerDNS dnsdist](https://www.powerdns.com/dnsdist.html) que es un _load
 balancer_ para DNS.
 
-## Servidores autoritativos con _PowerDNS Authoritative Server_ (pdns)
+## Servidores autoritativos con _PowerDNS Authoritative Server_ (pdns_server)
 
-**[pdns](https://doc.powerdns.com/authoritative/)** soporta múltiples back-ends.
+**[pdns_server](https://doc.powerdns.com/authoritative/)** soporta múltiples 
+back-ends.
 Es decir, la información de las zonas que publica puede estar en bases de datos
 relacionales, en archivos de zona tipo BIND o inclusive ser accedidos a traves
 de un _pipe_ desde otro proceso o inclusive a través de una API desde otro tipo
@@ -53,6 +51,7 @@ de servidor.
 Nosotros vamos a instalarlo con el backend en un servidor
 [PostgreSQL](https://www.postgresql.org/).
 
+<!-- Esto por ahora no lo estamos explicando 
 Si bien pdns puede actuar como un servidor primario o secundario y transferir
 zonas a través del mismo protocolo DNS usando NOTIFY, AXFR e IXFR, se recomienda
 realizar la sincronización entre servidores autoritativos _fuera de banda_. Esto
@@ -60,19 +59,34 @@ es usualmente simple utilizando los mecanismos de replicación de las bases de
 datos (especialmente si todos los servidores son administrados por la misma
 organización). Esto es lo que la documentación de PowerDNS llama [replicación
 nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-replication).
+--> 
 
 
-**[Instalación de servidor PowerDSN autoritativo](pdns-instalacion.md)**
+* **[Instalación de servidor PowerDNS 
+autoritativo](pdns_server-instalacion.md)**
+* **[Configuracion de primario y 
+secundario](pdns_server-primario-secundario.md)**
+* **[Configuración de múltiples instancias de PowerDNS 
+autoritativo](pdns_server-multiples-instancias.md)**
+* **[Instalación de gui web PowerDNS WebUI](pdns_webui-instalacion.md)**
 
-<!--
-### Modo de operación
-PowerDNS Authoritative tiene varios
-[modos de operación](https://doc.powerdns.com/authoritative/modes-of-operation.html).
-Nosotros vamos a utilizar
-[replicación nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-replication)
-con lo que tendremos que ocuparnos de replicar la base de datos postgres entre
-el primario y todos los secundarios.
--->
+## Servidores iterativos (resolvers) con _PowerDNS Recursor_ (pdns_recursor)
+
+**[pdns_recursor](https://doc.powerdns.com/recursor/)** se utiliza normalmente
+para brindar servicio a una organización o a clientes de una organización.
+En general **_no_** es un servicio que se brinde públicamente ya que hacerlo
+implica un potencial consumo de recursos altísimo (ejemplos de servidores 
+iterativos públicos son el [**1.1.1.1** de Cloudflare](https://1.1.1.1/dns/),
+el [**8.8.8.8** de Google](https://developers.google.com/speed/public-dns/) o
+el [**9.9.9.9** de Quad9](https://www.quad9.net/)).
+
+Si bien probablemente pdns_recursor se pueda utilizar (probablemente en
+combinación con [dnsdist](https://dnsdist.org/)) para brindar un servicio 
+público, acá se explicará cómo configurar un servidor para una red de una 
+organización pequeña o mediana.
+
+* **[Instalación de servidor iterativo PowerDNS 
+Recursor](pdns_recursor-instalacion.md)**
 
 ___
 <!-- LICENSE -->
