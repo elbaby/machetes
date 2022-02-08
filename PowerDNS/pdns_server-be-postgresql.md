@@ -24,7 +24,7 @@ Creamos una base de datos, un usuario con clave y cargamos el esquema:
 # $DB_USUARIO (nombre de usuario para esa base de datos) ¡NO USAR "postgres"!
 # $DB_USU_CLAVE (clave para ese usuario)
 
-sudo --user=postgres psql -c "CREATE DATABASE '$DB_NOMBRE'"
+sudo --user=postgres psql -c "CREATE DATABASE $DB_NOMBRE"
 sudo --user=postgres psql -c "CREATE USER $DB_USUARIO WITH PASSWORD '$DB_USU_CLAVE'"
 sudo --user=postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NOMBRE TO $DB_USUARIO"
 
