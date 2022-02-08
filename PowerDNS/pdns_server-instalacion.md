@@ -67,17 +67,28 @@ nuevas zonas y la dirección de correo de contacto. Por ejemplo:
 default-soa-content=ns1.example.com hostmaster.example.com 0 10800 3600 604800 3600
 ```
 
-<!-- Esto al final no es conveniente (deja serials distintos en el primario -->
-<!-- y en el secundario) -->
-<!--
-* [**`default-soa-edit`**](https://doc.powerdns.com/authoritative/settings.html#default-soa-edit)
-es el valor que se configurará en el valor de 
-[`SOA-EDIT`](https://doc.powerdns.com/authoritative/dnssec/operational.html#possible-soa-edit-values)
-de las zonas que se creen. Por ejemplo:
-```
-default-soa-edit=INCEPTION-INCREMENT
-```
--->
+* [**`edns-cookie-secret`**](https://doc.powerdns.com/authoritative/settings.html#edns-cookie-secret)
+**debe** ser una cadena de _exactamente_ 32 caracteres hexadecimales. Cuando
+está configurada, se utiliza para responder con [_Cookies_ 
+EDNS](https://www.rfc-editor.org/rfc/rfc9018.html) a consultas que tiene la
+opción Cookie EDNS0.
+
+* [**`server-id`**](https://doc.powerdns.com/authoritative/settings.html#server-id)
+es el string que devolverá si se consulta por la opción [NSID (_Name Server 
+Identifier_)](https://www.rfc-editor.org/rfc/rfc5001.html) de EDNS (por ejemplo, 
+con la opción `+nsid` de `dig`. Por default, el servidor contesta el `hostname`, 
+lo que podría exponer nombres privados. Opcionalmente, se puede configurar como
+`disabled` y el servidor no contestará por la opción NSID.
+
+* [**`version-string`**](https://doc.powerdns.com/authoritative/settings.html#version-string)
+es el string que contesta cuando se consulta la versión del servidor a través de
+DNS (`dig chaos txt version.bind @server`). Las opciones son:
+  * `full` (_default_) muestra el nombre y la versión de PowerDNS
+  * `powerdns` sólo muestra el nombre (Served by PowerDNS - 
+https://www.powerdns.com)
+  * `anonymous` devuelve un error `ServFail` sin ninguna información
+  * alternativamente, se puede poner un string cualquiera que será devuelto
+ante la consulta
 
 * [**`xfr-cycle-interval`**](https://doc.powerdns.com/authoritative/settings.html#xfr-cycle-interval)
 en el primario, es el intervalo (en segundos) que se deja pasar para verificar
