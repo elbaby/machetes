@@ -76,7 +76,7 @@ opción Cookie EDNS0.
 * [**`server-id`**](https://doc.powerdns.com/authoritative/settings.html#server-id)
 es el string que devolverá si se consulta por la opción [NSID (_Name Server 
 Identifier_)](https://www.rfc-editor.org/rfc/rfc5001.html) de EDNS (por ejemplo, 
-con la opción `+nsid` de `dig`. Por default, el servidor contesta el `hostname`, 
+con la opción `+nsid` de `dig`). Por default, el servidor contesta el `hostname`, 
 lo que podría exponer nombres privados. Opcionalmente, se puede configurar como
 `disabled` y el servidor no contestará por la opción NSID.
 

@@ -48,9 +48,6 @@ relacionales, en archivos de zona tipo BIND o inclusive ser accedidos a traves
 de un _pipe_ desde otro proceso o inclusive a través de una API desde otro tipo
 de servidor.
 
-Nosotros vamos a instalarlo con el backend en un servidor
-[PostgreSQL](https://www.postgresql.org/).
-
 <!-- Esto por ahora no lo estamos explicando 
 Si bien pdns puede actuar como un servidor primario o secundario y transferir
 zonas a través del mismo protocolo DNS usando NOTIFY, AXFR e IXFR, se recomienda
@@ -66,6 +63,8 @@ nativa](https://doc.powerdns.com/authoritative/modes-of-operation.html#native-re
 autoritativo](pdns_server-instalacion.md)**
 * **[Configuracion de primario y 
 secundario](pdns_server-primario-secundario.md)**
+* **[Habilitación de servidor HTTP para monitoreo y 
+API](pdns_server-http-server-api.md)**
 * **[Configuración de múltiples instancias de PowerDNS 
 autoritativo](pdns_server-multiples-instancias.md)**
 * **[Instalación de gui web PowerDNS WebUI](pdns_webui-instalacion.md)**

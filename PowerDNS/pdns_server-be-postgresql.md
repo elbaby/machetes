@@ -4,8 +4,14 @@ https://doc.powerdns.com/authoritative/guides/basic-database.html
 
 https://doc.powerdns.com/authoritative/backends/generic-postgresql.html
 
-Ejecutar el siguiente comando para instalar el PostgreSQL y el backend
+Ejecutar el siguiente comando para instalar el cliente PostgreSQL y el backend
 correspondiente para pdns:
+```
+sudo apt install postgresql-client pdns-backend-pgsql
+```
+
+Si se quiere usar un servidor PostgreSQL local, hay que instalar también dicho
+servidor:
 ```
 sudo apt install postgresql pdns-backend-pgsql
 ```
