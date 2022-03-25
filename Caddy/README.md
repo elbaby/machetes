@@ -85,13 +85,22 @@ caddy.example.net,
 	}
 
 }
+```
 
-# Si tenemos un servicio web que funciona en el mismo equipo
-# en el port 12345 podemos hacer un proxy reverso hacia el mismo
-# con un nombre público (que debe estar registrado en el DNS público
-# para que Caddy gestione un certificado TLS gratuito en letsencrypt.org
-# usando el protocolo ACME). 
-# Caddy también arma una redirección automática http -> https
+## Proxy a un port local
+
+* https://caddyserver.com/docs/quick-starts/reverse-proxy
+* https://caddyserver.com/docs/quick-starts/https
+* https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
+
+Si tenemos un servicio web que funciona en el mismo equipo en el port 12345 
+podemos hacer un proxy reverso hacia el mismo con un nombre público (que debe 
+estar registrado en el DNS público para que Caddy gestione un certificado TLS 
+gratuito en letsencrypt.org usando el protocolo ACME).
+
+Caddy también arma una redirección automática http -> https
+
+```
 servicio.example.net,
 www.servicio.example.net
 {
@@ -99,12 +108,141 @@ www.servicio.example.net
 }
 ```
 
+## Proxy a otro equipo
+
+Del mismo modo, se puede realizar un proxy reverso hacia otro equipo (por
+ejemplo un equipo en la red interna que no tiene una dirección IP pública).
+Se puede utilizar tanto un la dirección IP del equipo como un nombre que
+el equipo donde está el caddy reconozca (ya sea por un DNS interno o en el
+`/etc/hosts`).
+
+Si no se especifica el port, se utiliza el port 80 (http).
+
+```
+servicio.example.net,
+www.servicio.example.net
+{
+	reverse_proxy 10.20.30.40:8000
+}
+
+otroservicio.example.net,
+www.otroservicio.example.net
+{
+	reverse_proxy server-interno.local
+}
+```
+
+## Redirección
+
+* https://caddyserver.com/docs/caddyfile/directives/redir
+
+Alternativamente, se puede hacer que caddy realice una redirección en http (es
+decir, informarle al cliente que debe cargar otro URL.
+
+El URL _debe_ ser público, ya que lo tiene que resolver el cliente (por otra
+parte, no tiene por qué ser en un servidor propio):
+
+```
+nuestro-guguel.example.net
+{
+	redir https://www.google.com/
+}
+```
+
+## Matcheo de requests
+
+* https://caddyserver.com/docs/caddyfile/matchers
+
+Por default, se matchean todos los requests (`*`), pero se pueden especificar
+distintos _matchers_.
+
+### Matcheo _wildcard_ (`*`)
+
+Matchea _todos_ los requests:
+```
+servicio.example.net
+{
+	reverse_proxy * localhost:8000
+}
+```
+En general es optativo. Lo siguiente es equivalente:
+```
+servicio.example.net
+{
+	reverse_proxy localhost:8000
+}
+```
+
+### Matcheo de ruta (path) (`/path`)
+
+Los matcheos de path _deben_ comenzar con una barra (`/`).  Por ejemplo, esto va 
+a hacer un proxy reverso de https://servicio.example.net/sitionuevo a 
+localhost:8000/index.php
+```
+servicio.example.net
+{
+	reverse_proxy /sitionuevo localhost:8000/index.php
+}
+```
+
+Los matcheos de path son exactos. Normalmente, lo que uno quiere hacer es un
+matcheo por prefijo, para eso hay que agregar un (`*`):
+```
+servicio.example.net
+{
+	reverse_proxy /sitionuevo/* localhost:8000
+}
+```
+
+### Matcheo con nombre (`@nombre`)
+
+* https://caddyserver.com/docs/caddyfile/matchers#standard-matchers
+
+Para hacer otros matcheos, o  más complejos, con múltiples condiciones, se 
+utilizan matcheos con nombre (_named matchers_).
+
+El nombre hay que definirlo en el mismo bloque que se utilizará:
+```
+servicio.example.net
+{
+	@post {
+		method POST
+	}
+	reverse_proxy @post localhost:8000
+}
+```
+
+Por ejemplo, se pueden hacer diferentes acciones según el origen de las
+conexiones:
+```
+servicio.example.net
+{
+	@redes_internas {
+		remote_ip 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8
+	}
+	@redes_externas {
+		not remote_ip 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8
+	}
+
+	reverse_proxy @redes_internas localhost:8000
+	redir @redes_externas https://www.google.com
+}
+```
+
+
+# Aplicar cambios
+
 Para activar cambios en la configuración usar:
 ```
 sudo systemctl reload caddy.service
 ```
 
-**[TBC]**
+Se recomienda _fuertemente_ no usar `restart` ya que desde que se apaga hasta
+que se reenciende no funciona nada.
+
+En cambio, utilizando `reload` se inicia un servidor nuevo, se mantienen dos
+procesos en paralelo hasta que termina de configurarse el nuevo y recién cuando
+está todo listo se mata el servidor viejo y el nuevo toma los ports.
 
 # _Logging_
 
