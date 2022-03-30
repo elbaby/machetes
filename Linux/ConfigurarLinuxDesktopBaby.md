@@ -54,6 +54,20 @@ Abrir **Gnome Tweaks** y hacer algunos ajustes:
 ![Window Titlebars](img/tweaks-window_titlebars.png)
 ![Workspaces](img/tweaks-workspaces.png)
 
+## _Bookmarks_ para gnome shell
+Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
+que sea, pero es más simple clavarlo directamente en el archivo de configuración
+correspondiente:
+```
+mkdir -pv ~/Documents/ZZ-temp
+cat >> ~/.config/gtk-3.0/bookmarks <<EOF
+file:///home/baby/Documents/Cuentas Cuentas
+file:///home/baby/Pictures/Screenshots Screenshots
+file:///tmp /tmp
+file:///home/baby/Documents/ZZ-temp ZZ-temp
+EOF
+```
+
 ## `ksnip` para capturar pantallas (screenshots) 
 La página oficial es la de [github](https://github.com/ksnip/ksnip).
 En Pop OS la forma "oficial" de instalarlo es vía `flatpak`.
@@ -65,13 +79,15 @@ mkdir -pv ~/Pictures/Screenshots
 ```
 Abrir la interfaz y cambiar algunas configuraciones (tocando `Alt+F7` o a través
 del menú _Options_ &rarr; _Settings_):
-
 ![Application Settings](img/ksnip-settings-application.png)
 ![Saver Settings](img/ksnip-settings-application-saver.png)
 ![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
 
 En particular, **Capture save location and filename:**
 `/home/baby/Pictures/Screenshots/$Y$M$D-$T.png`
+
+En la ventana principal también conviene agregar un _delay_ para la captura:
+![Screenshot Capture Delay](img/ksnip-editor-capture_delay.png)
 
 ## Foxit PDF Reader
 Es un reader PDF propietario, pero que permite hacer algunas cosas y ver algunos
