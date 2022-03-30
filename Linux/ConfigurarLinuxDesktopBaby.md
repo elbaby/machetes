@@ -3,9 +3,14 @@
 * Bajamos e instalamos con las [instrucciones oficiales](
 https://support.system76.com/articles/install-pop/)
   * Usamos "_Full Disk Encryption_" con una clave distinta a la de login
-* Entramos (en la UI gráfica) en **Settings** -> **About** y configuramos el
+* Entramos (en la UI gráfica) en **Settings** &rarr; **About** y configuramos el
 **Device Name** con el nombre que le queremos poner al equipo (hostname)
-* Instalamos algunos paquetes más
+* En **Settings** &rarr; **Region and Language** terminamos de instalar el
+_Language Support_:
+![Language Support](img/pop-settings-language_support.png)
+
+
+## Instalación paquetes básicos
 ```
 # repositorio de drivers de System76
 sudo apt-add-repository ppa:system76-dev/stable
@@ -16,7 +21,7 @@ sudo apt install build-essential subversion git vim openssh-server openssh-clien
 # paquetes UI grafica
 sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3
 ```
-* Bajamos el entorno `/home/baby` y lo configuramos:
+## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
 mkdir .00-ENV-BACKUP
@@ -34,6 +39,32 @@ cp ~/MOVEME_2_.gnupg/* ~/.gnupg
 # Copiamos archivos del cliente subversion 
 cp ~/MOVEME_2_.subversion/* ~/.subversion
 ```
+## _Tweaks_ de gnome shell
+Abrir **Gnome Tweaks** y hacer algunos ajustes:
+
+![Top Bar](img/tweaks-top_bar.png)
+![Top Bar](img/tweaks-window_titlebars.png)
+![Top Bar](img/tweaks-workspaces.png)
+
+## `ksnip` para capturar pantallas (screenshots) 
+La página oficial es la de [github](https://github.com/ksnip/ksnip).
+En Pop OS la forma "oficial" de instalarlo es vía `flatpak`.
+```
+# instalar paquete flatpak
+flatpak install flathub org.ksnip.ksnip
+# crear una carpeta (dentro de ~/Pictures) para guardar las capturas
+mkdir -pv ~/Pictures/Screenshots
+```
+Abrir la interfaz y cambiar algunas configuraciones (tocando `Alt+F7` o a través
+del menú _Options_ &rarr; _Settings_):
+
+![Application Settings](img/ksnip-settings-application.png)
+![Saver Settings](img/ksnip-settings-application-saver.png)
+![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
+
+En particular, **Capture save location and filename:**
+`/home/baby/Pictures/Screenshots/$Y$M$D-$T.png`
+
 ___
 <!-- LICENSE -->
 ___
