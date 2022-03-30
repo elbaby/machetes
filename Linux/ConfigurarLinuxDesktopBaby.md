@@ -43,8 +43,8 @@ cp ~/MOVEME_2_.subversion/* ~/.subversion
 Abrir **Gnome Tweaks** y hacer algunos ajustes:
 
 ![Top Bar](img/tweaks-top_bar.png)
-![Top Bar](img/tweaks-window_titlebars.png)
-![Top Bar](img/tweaks-workspaces.png)
+![Window Titlebars](img/tweaks-window_titlebars.png)
+![Workspaces](img/tweaks-workspaces.png)
 
 ## `ksnip` para capturar pantallas (screenshots) 
 La página oficial es la de [github](https://github.com/ksnip/ksnip).
@@ -64,6 +64,30 @@ del menú _Options_ &rarr; _Settings_):
 
 En particular, **Capture save location and filename:**
 `/home/baby/Pictures/Screenshots/$Y$M$D-$T.png`
+
+## Foxit PDF Reader
+Es un reader PDF propietario, pero que permite hacer algunas cosas y ver algunos
+archivos que los _open source_ no pueden.
+
+Se baja desde [la página oficial de Foxit](https://www.foxit.com/pdf-reader/).
+```
+wget --directory-prefix=${HOME}/Downloads --content-disposition \
+'https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Linux-64-bit&version=&package_type=&language=English'
+```
+Para instalarlo hay que desempaquetarlo y ejecutar el instalador:
+```
+tar xvfz FoxitReader.*.tar.gz
+sudo ~/Downloads/FoxitReader.*setup*.run
+```
+![Installation Folder](img/foxit-setup-1-folder.png)
+![License Agreement](img/foxit-setup-2-license.png)
+![Installing Foxit Reader](img/foxit-setup-3-installing.png)
+![Completing the Foxit Reader Wizard](img/foxit-setup-4-installed.png)
+
+Al arrancarlo por primera vez, desactivar el chequeo para ver si es la
+aplicación default para archivos de tipo PDF:
+![DON'T set up as default](img/foxit-setup-5-no_deafult.png)
+
 
 ___
 <!-- LICENSE -->
