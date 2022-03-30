@@ -24,20 +24,28 @@ sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3
 ## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
-mkdir .00-ENV-BACKUP
-mv .bash* .profile .00-ENV-BACKUP
+mkdir -pv ~/.00-ENV-BACKUP
+mv -v ~/.bash* ~/.profile ~/.00-ENV-BACKUP
 
 # hacemos checkout del entorno
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
 
 # Copiamos archivos del cliente ssh 
-cp ~/MOVEME_2_.ssh/* ~/.ssh
+cp -v ~/MOVEME_2_.ssh/* ~/.ssh
+# Esto ya debería estar así, pero por si acaso:
+chmod -v 700 ~/.ssh
+
+# Autorizamos la conexión vía ssh con mi clave pública primaria
+cp -v ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+chmod -v 644 ~/.ssh/authorized_keys
+
+# Si el equipo es seguro, hay que agregarle el ~/.ssh/id_rsa desde otro equipo
 
 # Copiamos archivos del cliente gpg 
-cp ~/MOVEME_2_.gnupg/* ~/.gnupg
+cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 
 # Copiamos archivos del cliente subversion 
-cp ~/MOVEME_2_.subversion/* ~/.subversion
+cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
 ## _Tweaks_ de gnome shell
 Abrir **Gnome Tweaks** y hacer algunos ajustes:
