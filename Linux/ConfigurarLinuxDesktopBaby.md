@@ -89,6 +89,61 @@ En particular, **Capture save location and filename:**
 En la ventana principal también conviene agregar un _delay_ para la captura:
 ![Screenshot Capture Delay](img/ksnip-editor-capture_delay.png)
 
+## Cliente de mail Mozilla Thunderbird
+
+El cliente lo instalamos al principio, desde los repositorios oficiales. Ahora
+vamos a hacer una configuración personalizada.
+
+Para eso, lanzamos el _Profile Manager_ **antes** de arrancarlo por primera vez.
+Desde una terminal (dentro del entorno gráfico), tipear:
+```
+thunderbird -ProfileManager
+```
+Esto va a lanzar el _Profile Manager_. Seguir los pasos de las siguientes
+pantallas:
+
+![Create Profile](img/thunderbird-01-create_profile.png)
+![Create Profile Wizard](img/thunderbird-02-create_profile.png)
+![Choose Folder](img/thunderbird-03-profile_choose_folder.png)
+![Create Folder](img/thunderbird-04-profile_create_folder.png)
+![Create Folder](img/thunderbird-05-profile_create_folder.png)
+![Create Folder](img/thunderbird-06-profile_create_folder.png)
+![Create Folder](img/thunderbird-07-profile_create_folder.png)
+![Account Setup Cancel](img/thunderbird-08-account_setup_cancel.png)
+![Preferences](img/thunderbird-09-preferences.png)
+![Preferences/Language](img/thunderbird-10-preferences_language.png)
+![Preferences/Language](img/thunderbird-11-preferences_language.png)
+![Preferences/Language](img/thunderbird-12-preferences_language.png)
+![Preferences/Language/Restart](img/thunderbird-13-preferences_language-restart.png)
+![Preferences/Alerts](img/thunderbird-14-preferences_alerts.png)
+![Preferences/Reading & Display](img/thunderbird-15-preferences_reading.png)
+![Preferences/Return Receipts](img/thunderbird-16-preferences_return_receipts.png)
+![Preferences/maildir](img/thunderbird-17-preferences_maildir.png)
+![Preferences/Config Editor/Default Sort Order](img/thunderbird-18-preferences_confedit_default_sort.png)
+![Preferences/Config Editor/Default Sort Order](img/thunderbird-19-preferences_confedit_default_sort.png)
+
+Este cambio sólo hay que hacerlo si nos vamos a conectar a un servidor que no
+soporta versiones de TLS nuevas:
+![Preferences/Config Editor/TLS Minimum Version (optional)](img/thunderbird-20-preferences_confedit_tls_version.png)
+![Preferences/Config Editor/TLS Minimum Version (optional)](img/thunderbird-21-preferences_confedit_tls_version.png)
+
+
+![Preferences/Composition](img/thunderbird-22-preferences_composition.png)
+![Preferences/Attachments Keywords](img/thunderbird-23-preferences_attach_keywords.png)
+![Preferences/Attachments Keywords](img/thunderbird-24-preferences_attach_keywords.png)
+![Preferences/Attachments Keywords](img/thunderbird-25-preferences_attach_keywords.png)
+![Preferences/Close Tab](img/thunderbird-26-preferences_close.png)
+![Account Settings/Email](img/thunderbird-27-accountsettings_email.png)
+![Account Settings/Set Up GMail](img/thunderbird-28-accountsettings_gmail.png)
+![Account Settings/Gmail IMAP](img/thunderbird-29-accountsettings_gmail_imap.png)
+![Account Settings/Gmail Allow Google Account Access](img/thunderbird-30-accountsettings_gmail_allow.png)
+![Account Settings/Google Address Books & Calendars](img/thunderbird-31-accountsettings_gmail_addressbook_calendar.png)
+![Account Settings/Google Calendar Refresh Period](img/thunderbird-32-accountsettings_gmail_calendar_refresh.png)
+![Account Settings/Google Address Books & Calendars](img/thunderbird-33-accountsettings_gmail_addressbook_calendar.png)
+![Preferences/Calendar](img/thunderbird-34-preferences_calendar.png)
+![Preferences/Calendar](img/thunderbird-35-preferences_calendar.png)
+
+
 ## Foxit PDF Reader
 Es un reader PDF propietario, pero que permite hacer algunas cosas y ver algunos
 archivos que los _open source_ no pueden.
