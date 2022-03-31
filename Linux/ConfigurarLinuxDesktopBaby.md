@@ -19,7 +19,7 @@ sudo apt-add-repository ppa:system76-dev/stable
 sudo apt install build-essential subversion git vim openssh-server openssh-client
 
 # paquetes UI grafica
-sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3
+sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3 chromium chromium-l10n chromium-driver chromium-shell
 ```
 ## Entorno `/home/baby`:
 ```
@@ -67,6 +67,65 @@ file:///tmp /tmp
 file:///home/baby/Documents/ZZ-temp ZZ-temp
 EOF
 ```
+
+## Extensiones de Gnome
+
+La mayoría de las configuraciones que se podían hacer antes en Gnome Shell ahora
+está en diversas extensiones que se instalan y configuran individualmente.
+
+La página oficial de las extensiones es https://extensions.gnome.org/
+
+Pop OS ya viene con algunas instaladas. Para activar y configurar las
+extensiones instaladas hay que ir a https://extensions.gnome.org/local/
+
+Para que eso funcione hay que instalar [esta extensión (del navegador)
+](https://addons.mozilla.org/firefox/addon/gnome-shell-integration/) en Firefox
+o [esta extensión
+](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep)
+en Google Chrome o Chromium.
+
+En [esta página de soporte de System76 (Pop OS!)
+](https://support.system76.com/articles/customize-gnome/) hay recomendaciones de
+varias extensiones.
+
+Las que instalamos son las siguientes:
+
+* [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) es un
+_Dock_ estilo Mac para lanzar aplicaciones (se puede ubicar en la parte inferior 
+o a los costados de la pantalla). Cambiar estas configuraciones:
+
+![Position and Size](img/dash2dock-1-position_and_size.png)
+![Launchers](img/dash2dock-2-launchers.png)
+![Appearance](img/dash2dock-3-appearance.png)
+
+* [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
+lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
+Gnome o MS Windows)
+* [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
+estado de las teclas `NumLock` y `CapsLock` en el panel
+* [Desktop Icons NG (DING)
+](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/) agrega
+íconos al escritorio
+* [User Themes](https://extensions.gnome.org/extension/19/user-themes/) permite
+cargar _themes_ del usuario desde `~/.themes/gnome-shell`
+* [Sound Input & Output Device Chooser
+](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) 
+muestra el listado de dispositivos de salida y entrada de sonido en el menú de
+status debajo del control de volumen
+* [Clock Override](https://extensions.gnome.org/extension/1206/clock-override/)
+permite configurar el formato del reloj de la barra superior del Gnome Shell.
+Los formatos soportados son [los de gtk
+](https://docs.gtk.org/glib/method.DateTime.format.html). Un formato completito
+puede ser `%a %e %b (%Y-%m-%d_%H:%M:%S) @%;@`
+* [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
+permite gestionar estas extensiones de Gnome desde el panel
+* [Extension Update Notifier
+](https://extensions.gnome.org/extension/1166/extension-update-notifier/)
+muestra notificaciones cuando hay actualizaciones de las extensiones instaladas
+* [Tray Icons: Reloaded
+](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
+mostrar los íconos de la bandeja en el panel
+
 
 ## `ksnip` para capturar pantallas (screenshots) 
 La página oficial es la de [github](https://github.com/ksnip/ksnip).
