@@ -16,11 +16,16 @@ _Language Support_:
 sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt install build-essential subversion git vim openssh-server openssh-client
+sudo apt install build-essential subversion git vim p7zip-full p7zip-rar
+sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
-sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3 chromium chromium-l10n chromium-driver chromium-shell
+sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3 keepassxc speedcrunch
+sudo apt install chromium chromium-l10n chromium-driver chromium-shell
+sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
+sudo apt install network-manager-openvpn-gnome
 ```
+
 ## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
