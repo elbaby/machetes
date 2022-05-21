@@ -37,7 +37,7 @@ Text_**
 sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt install build-essential subversion git vim p7zip-full p7zip-rar imagemagick
+sudo apt install build-essential subversion git vim p7zip-full p7zip-rar keychain imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
