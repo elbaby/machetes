@@ -1,93 +1,28 @@
-# Instalación de Linux (Pop! OS 22.04)
-
-([acá está la versión anterior para Pop! OS 
-20.04](ConfigurarLinuxDesktopBaby_PopOS-20.04.md))
+# Instalación de Linux (POP OS 20.04)
 
 * Bajamos e instalamos con las [instrucciones oficiales](
 https://support.system76.com/articles/install-pop/)
   * Usamos "_Full Disk Encryption_" con una clave distinta a la de login
-
-En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
-algunas cosas que no están en las configuraciones generales (**_Settings_**) de
-gnome shell y la interfaz **Synaptic** de apt:
-```
-sudo apt install gnome-tweaks synaptic
-```
-
-## _Settings_ de gnome shell
-
 * Entramos (en la UI gráfica) en **Settings** &rarr; **About** y configuramos el
 **Device Name** con el nombre que le queremos poner al equipo (hostname)
-
-![About](img/pop-settings-about.png)
 * En **Settings** &rarr; **Region and Language** terminamos de instalar el
 _Language Support_:
-
-![Language Support](img/pop-settings-language_support.png)
-* En **Settings** &rarr; **Desktop** &rarr; **Desktop Options** poner **Date &
-Time and Notifications Position** en **_Right_**
-
-![Destkop/Options](img/pop-settings-desktop-options.png)
-* En **Settings** &rarr; **Desktop** &rarr; **Background** elegir la imagen de
-fondo
-
-![Desktop/Background](img/pop-settings-desktop-background.png)
-* En **Settings** &rarr; **Desktop** &rarr; **Appearance** elegir **_Light_**
-
-![Desktop/Appearence](img/pop-settings-desktop-appearance.png)
-* En **Settings** &rarr; **Desktop** &rarr; **Dock** en **Dock Options** elegir 
-**_Intelligently hide_**
-
-![Desktop/Dock](img/pop-settings-desktop-dock_1.png)
-
-![Desktop/Dock](img/pop-settings-desktop-dock_2.png)
-* En **Settings** &rarr; **Desktop** &rarr; **Workspaces** en **Multi-monitor
-Behavior** elegir **_Workspaces on Primary Display Only_**
-
-![Desktop/Workspaces](img/pop-settings-desktop-workspaces.png)
-* En **Settings** &rarr; **Privacy** &rarr; **Screen** poner **Blank Screen
-Delay** en **_10 minutes_** y **Automatic Screen Lock Delay** en **_30
-seconds_**
-
-![Privacy/Screen](img/pop-settings-privacy-screen.png)
-* En **Settings** &rarr; **Sound** en **System Volume** encender 
-**_Over-Amplification_**
-
-![Sound](img/pop-settings-sound.png)
-* En **Settings** &rarr; **Power** en **Automatic Suspend** encender **On
-Battery Power** y poner el **Delay** en **_20 minutes_** y en **Suspend & Power 
-Button** encender **_Show Battery Percentage_**
-
-![Power](img/pop-settings-power.png)
-* En **Settings** &rarr; **Accessibility** &rarr; **Seeing** encender **_Large
-Text_**
-
-![Accessibility](img/pop-settings-accessibility.png)
+![Language Support](img/pop-settings-language_support-pop2004.png)
 * En **Settings** &rarr; **Date & Time** poner **Time Format** en **_24-hour_**
-
-![Date & Time](img/pop-settings-date_time.png)
-
-
-## _Tweaks_ de gnome shell
-Abrir **Gnome Tweaks** y hacer algunos ajustes:
-
-![Top Bar](img/tweaks-top_bar.png)
-
-![Window Titlebars](img/tweaks-window_titlebars.png)
 
 
 ## Instalación paquetes básicos
 ```
-# repositorio de drivers de System76 (esto ya debería estar)
-#sudo apt-add-repository ppa:system76-dev/stable
+# repositorio de drivers de System76
+sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt install build-essential subversion git vim p7zip-full p7zip-rar grip
-sudo apt install keychain imagemagick
+sudo apt install build-essential subversion git vim p7zip-full p7zip-rar imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
-sudo apt install thunderbird vim-gtk3 keepassxc speedcrunch ksnip
+sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3 keepassxc speedcrunch
+sudo apt install chromium chromium-l10n chromium-driver chromium-shell
 sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 sudo apt install network-manager-openvpn-gnome
 ```
@@ -96,16 +31,11 @@ sudo apt install network-manager-openvpn-gnome
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
 mkdir -pv ~/.00-ENV-BACKUP
-mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
+mv -v ~/.bash* ~/.profile ~/.00-ENV-BACKUP
 
 # hacemos checkout del entorno
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
 
-# creamos el ~/.bash_USUARIO
-make ~/.bash_${LOGNAME}
-
-# Creamos el directorio ~/.ssh si no existe
-mkdir -pv ~/.ssh
 # Copiamos archivos del cliente ssh 
 cp -v ~/MOVEME_2_.ssh/* ~/.ssh
 # Esto ya debería estar así, pero por si acaso:
@@ -117,14 +47,19 @@ chmod -v 644 ~/.ssh/authorized_keys
 
 # Si el equipo es seguro, hay que agregarle el ~/.ssh/id_rsa desde otro equipo
 
-# Creamos el directorio ~/.gnupg si no existe
-mkdir -pv ~/.ssh
 # Copiamos archivos del cliente gpg 
 cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 
 # Copiamos archivos del cliente subversion 
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
+## _Tweaks_ de gnome shell
+Abrir **Gnome Tweaks** y hacer algunos ajustes:
+
+![Top Bar](img/tweaks-top_bar-pop2004.png)
+![Window Titlebars](img/tweaks-window_titlebars-pop2004.png)
+![Workspaces](img/tweaks-workspaces-pop2004.png)
+
 ## _Bookmarks_ para gnome shell
 Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
 que sea, pero es más simple clavarlo directamente en el archivo de configuración
@@ -161,10 +96,17 @@ varias extensiones.
 
 Las que instalamos son las siguientes:
 
+* [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) es un
+_Dock_ estilo Mac para lanzar aplicaciones (se puede ubicar en la parte inferior 
+o a los costados de la pantalla). Cambiar estas configuraciones:
+
+![Position and Size](img/dash2dock-1-position_and_size-pop2004.png)
+![Launchers](img/dash2dock-2-launchers-pop2004.png)
+![Appearance](img/dash2dock-3-appearance-pop2004.png)
+
 * [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
 lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
-Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede 
-usar esta extensión porque se pisan
+Gnome o MS Windows)
 * [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
 estado de las teclas `NumLock` y `CapsLock` en el panel
 * [Desktop Icons NG (DING)
@@ -176,8 +118,16 @@ cargar _themes_ del usuario desde `~/.themes/gnome-shell`
 ](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) 
 muestra el listado de dispositivos de salida y entrada de sonido en el menú de
 status debajo del control de volumen
+* [Clock Override](https://extensions.gnome.org/extension/1206/clock-override/)
+permite configurar el formato del reloj de la barra superior del Gnome Shell.
+Los formatos soportados son [los de gtk
+](https://docs.gtk.org/glib/method.DateTime.format.html). Un formato completito
+puede ser `%a %e %b (%Y-%m-%d_%H:%M:%S) @%;@`
 * [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
 permite gestionar estas extensiones de Gnome desde el panel
+* [Extension Update Notifier
+](https://extensions.gnome.org/extension/1166/extension-update-notifier/)
+muestra notificaciones cuando hay actualizaciones de las extensiones instaladas
 * [Tray Icons: Reloaded
 ](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
 mostrar los íconos de la bandeja en el panel
@@ -185,43 +135,24 @@ mostrar los íconos de la bandeja en el panel
 
 ## `ksnip` para capturar pantallas (screenshots) 
 La página oficial es la de [github](https://github.com/ksnip/ksnip).
-En Pop OS! 22.04 se puede instalar con apt o vía `flatpak`.
-
-Si no lo instalamos antes con apt, usar flatpak:
+En Pop OS la forma "oficial" de instalarlo es vía `flatpak`.
 ```
-# instalar paquete flatpak 
+# instalar paquete flatpak
 flatpak install flathub org.ksnip.ksnip
-```
-Carpeta para capturas
-```
 # crear una carpeta (dentro de ~/Pictures) para guardar las capturas
 mkdir -pv ~/Pictures/Screenshots
 ```
 Abrir la interfaz y cambiar algunas configuraciones (tocando `Alt+F7` o a través
 del menú _Options_ &rarr; _Settings_):
+![Application Settings](img/ksnip-settings-application-pop2004.png)
+![Saver Settings](img/ksnip-settings-application-saver-pop2004.png)
+![Tray Icon Settings](img/ksnip-settings-application-tray_icon-pop2004.png)
 
-![Application Settings](img/ksnip-settings-application.png)
-
-![Saver Settings](img/ksnip-settings-application-saver.png)
-
-**Capture save location and filename:**
-```
-home/baby/Pictures/Screenshots/$Y$M$D-$T.png
-```
-
-![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
-
+En particular, **Capture save location and filename:**
+`/home/baby/Pictures/Screenshots/$Y$M$D-$T.png`
 
 En la ventana principal también conviene agregar un _delay_ para la captura:
-
 ![Screenshot Capture Delay](img/ksnip-editor-capture_delay.png)
-
-Finalmente, configurarlo en las **Startup applications** para que arranque
-automáticamente al iniciar la sesión:
-
-![Launch Startup Applications](img/ksnip-startup_apps-launch.png)
-
-![Add ksnip launcher in Startup Applications](img/ksnip-startup_apps-config.png)
 
 ## Cliente de mail Mozilla Thunderbird
 
