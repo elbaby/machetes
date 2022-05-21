@@ -1,33 +1,61 @@
-# Instalación de Linux (POP OS 20.04)
+# Instalación de Linux (Pop! OS 22.04)
+
+([acá está la versión anterior para Pop! OS 
+20.04](ConfigurarLinuxDesktopBaby_PopOS-20.04.md))
 
 * Bajamos e instalamos con las [instrucciones oficiales](
 https://support.system76.com/articles/install-pop/)
   * Usamos "_Full Disk Encryption_" con una clave distinta a la de login
 * Entramos (en la UI gráfica) en **Settings** &rarr; **About** y configuramos el
 **Device Name** con el nombre que le queremos poner al equipo (hostname)
+
+![About](img/pop-settings-about.png)
 * En **Settings** &rarr; **Region and Language** terminamos de instalar el
 _Language Support_:
+
 ![Language Support](img/pop-settings-language_support.png)
 * En **Settings** &rarr; **Desktop** &rarr; **Desktop Options** poner **Date &
 Time and Notifications Position** en **_Right_**
+
+![Destkop/Options](img/pop-settings-desktop-options.png)
 * En **Settings** &rarr; **Desktop** &rarr; **Background** elegir la imagen de
 fondo
+
+![Desktop/Background](img/pop-settings-desktop-background.png)
 * En **Settings** &rarr; **Desktop** &rarr; **Appearance** elegir **_Light_**
-* En **Settings** &rarr; **Desktop** &rarr; **Dock** elegir **_Intelligently 
-hide_**
+
+![Desktop/Appearence](img/pop-settings-desktop-appearance.png)
+* En **Settings** &rarr; **Desktop** &rarr; **Dock** en **Dock Options** elegir 
+**_Intelligently hide_**
+
+![Desktop/Dock](img/pop-settings-desktop-dock_1.png)
+
+![Desktop/Dock](img/pop-settings-desktop-dock_2.png)
 * En **Settings** &rarr; **Desktop** &rarr; **Workspaces** en **Multi-monitor
 Behavior** elegir **_Workspaces on Primary Display Only_**
+
+![Desktop/Workspaces](img/pop-settings-desktop-workspaces.png)
 * En **Settings** &rarr; **Privacy** &rarr; **Screen** poner **Blank Screen
 Delay** en **_10 minutes_** y **Automatic Screen Lock Delay** en **_30
 seconds_**
+
+![Privacy/Screen](img/pop-settings-privacy-screen.png)
 * En **Settings** &rarr; **Sound** en **System Volume** encender 
 **_Over-Amplification_**
+
+![Sound](img/pop-settings-sound.png)
 * En **Settings** &rarr; **Power** en **Automatic Suspend** encender **On
 Battery Power** y poner el **Delay** en **_20 minutes_** y en **Suspend & Power 
 Button** encender **_Show Battery Percentage_**
-* En **Settings** &rarr; **Accesibility** &rarr; **Seeing** encender **_Large
+
+![Power](img/pop-settings-power.png)
+* En **Settings** &rarr; **Accessibility** &rarr; **Seeing** encender **_Large
 Text_**
+
+![Accessibility](img/pop-settings-accessibility.png)
 * En **Settings** &rarr; **Date & Time** poner **Time Format** en **_24-hour_**
+
+![Date & Time](img/pop-settings-date_time.png)
 
 
 
@@ -37,7 +65,8 @@ Text_**
 sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt install build-essential subversion git vim p7zip-full p7zip-rar keychain imagemagick
+sudo apt install build-essential subversion git vim p7zip-full p7zip-rar grip
+sudo apt install keychain imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
@@ -83,8 +112,8 @@ cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 Abrir **Gnome Tweaks** y hacer algunos ajustes:
 
 ![Top Bar](img/tweaks-top_bar.png)
+
 ![Window Titlebars](img/tweaks-window_titlebars.png)
-![Workspaces](img/tweaks-workspaces.png)
 
 ## _Bookmarks_ para gnome shell
 Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
@@ -169,6 +198,11 @@ En particular, **Capture save location and filename:**
 
 En la ventana principal también conviene agregar un _delay_ para la captura:
 ![Screenshot Capture Delay](img/ksnip-editor-capture_delay.png)
+
+Finalmente, configurarlo en las **Startup applications** para que arranque
+automáticamente al iniciar la sesión:
+![Launch Startup Applications](img/ksnip-startup_apps-launch.png)
+![Add ksnip launcher in Startup Applications](img/ksnip-startup_apps-config.png)
 
 ## Cliente de mail Mozilla Thunderbird
 
