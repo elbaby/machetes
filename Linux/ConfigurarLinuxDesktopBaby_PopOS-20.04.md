@@ -7,7 +7,8 @@ https://support.system76.com/articles/install-pop/)
 **Device Name** con el nombre que le queremos poner al equipo (hostname)
 * En **Settings** &rarr; **Region and Language** terminamos de instalar el
 _Language Support_:
-![Language Support](img/pop-settings-language_support.png)
+![Language Support](img/pop-settings-language_support-pop2004.png)
+* En **Settings** &rarr; **Date & Time** poner **Time Format** en **_24-hour_**
 
 
 ## Instalación paquetes básicos
@@ -16,7 +17,7 @@ _Language Support_:
 sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt install build-essential subversion git vim p7zip-full p7zip-rar
+sudo apt install build-essential subversion git vim p7zip-full p7zip-rar imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
@@ -55,9 +56,9 @@ cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ## _Tweaks_ de gnome shell
 Abrir **Gnome Tweaks** y hacer algunos ajustes:
 
-![Top Bar](img/tweaks-top_bar.png)
-![Window Titlebars](img/tweaks-window_titlebars.png)
-![Workspaces](img/tweaks-workspaces.png)
+![Top Bar](img/tweaks-top_bar-pop2004.png)
+![Window Titlebars](img/tweaks-window_titlebars-pop2004.png)
+![Workspaces](img/tweaks-workspaces-pop2004.png)
 
 ## _Bookmarks_ para gnome shell
 Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
@@ -99,9 +100,9 @@ Las que instalamos son las siguientes:
 _Dock_ estilo Mac para lanzar aplicaciones (se puede ubicar en la parte inferior 
 o a los costados de la pantalla). Cambiar estas configuraciones:
 
-![Position and Size](img/dash2dock-1-position_and_size.png)
-![Launchers](img/dash2dock-2-launchers.png)
-![Appearance](img/dash2dock-3-appearance.png)
+![Position and Size](img/dash2dock-1-position_and_size-pop2004.png)
+![Launchers](img/dash2dock-2-launchers-pop2004.png)
+![Appearance](img/dash2dock-3-appearance-pop2004.png)
 
 * [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
 lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
@@ -143,9 +144,9 @@ mkdir -pv ~/Pictures/Screenshots
 ```
 Abrir la interfaz y cambiar algunas configuraciones (tocando `Alt+F7` o a través
 del menú _Options_ &rarr; _Settings_):
-![Application Settings](img/ksnip-settings-application.png)
-![Saver Settings](img/ksnip-settings-application-saver.png)
-![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
+![Application Settings](img/ksnip-settings-application-pop2004.png)
+![Saver Settings](img/ksnip-settings-application-saver-pop2004.png)
+![Tray Icon Settings](img/ksnip-settings-application-tray_icon-pop2004.png)
 
 En particular, **Capture save location and filename:**
 `/home/baby/Pictures/Screenshots/$Y$M$D-$T.png`
