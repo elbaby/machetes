@@ -6,6 +6,16 @@
 * Bajamos e instalamos con las [instrucciones oficiales](
 https://support.system76.com/articles/install-pop/)
   * Usamos "_Full Disk Encryption_" con una clave distinta a la de login
+
+En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
+algunas cosas que no están en las configuraciones generales (**_Settings_**) de
+gnome shell y la interfaz **Synaptic** de apt:
+```
+sudo apt install gnome-tweaks synaptic
+```
+
+## _Settings_ de gnome shell
+
 * Entramos (en la UI gráfica) en **Settings** &rarr; **About** y configuramos el
 **Device Name** con el nombre que le queremos poner al equipo (hostname)
 
@@ -58,11 +68,18 @@ Text_**
 ![Date & Time](img/pop-settings-date_time.png)
 
 
+## _Tweaks_ de gnome shell
+Abrir **Gnome Tweaks** y hacer algunos ajustes:
+
+![Top Bar](img/tweaks-top_bar.png)
+
+![Window Titlebars](img/tweaks-window_titlebars.png)
+
 
 ## Instalación paquetes básicos
 ```
-# repositorio de drivers de System76
-sudo apt-add-repository ppa:system76-dev/stable
+# repositorio de drivers de System76 (esto ya debería estar)
+#sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
 sudo apt install build-essential subversion git vim p7zip-full p7zip-rar grip
@@ -70,7 +87,7 @@ sudo apt install keychain imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
-sudo apt install gnome-tweaks synaptic thunderbird vim-gtk3 keepassxc speedcrunch ksnip
+sudo apt install thunderbird vim-gtk3 keepassxc speedcrunch ksnip
 sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 sudo apt install network-manager-openvpn-gnome
 ```
@@ -108,13 +125,6 @@ cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 # Copiamos archivos del cliente subversion 
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
-## _Tweaks_ de gnome shell
-Abrir **Gnome Tweaks** y hacer algunos ajustes:
-
-![Top Bar](img/tweaks-top_bar.png)
-
-![Window Titlebars](img/tweaks-window_titlebars.png)
-
 ## _Bookmarks_ para gnome shell
 Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
 que sea, pero es más simple clavarlo directamente en el archivo de configuración
@@ -189,19 +199,28 @@ mkdir -pv ~/Pictures/Screenshots
 ```
 Abrir la interfaz y cambiar algunas configuraciones (tocando `Alt+F7` o a través
 del menú _Options_ &rarr; _Settings_):
+
 ![Application Settings](img/ksnip-settings-application.png)
+
 ![Saver Settings](img/ksnip-settings-application-saver.png)
+
+**Capture save location and filename:**
+```
+home/baby/Pictures/Screenshots/$Y$M$D-$T.png
+```
+
 ![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
 
-En particular, **Capture save location and filename:**
-`/home/baby/Pictures/Screenshots/$Y$M$D-$T.png`
 
 En la ventana principal también conviene agregar un _delay_ para la captura:
+
 ![Screenshot Capture Delay](img/ksnip-editor-capture_delay.png)
 
 Finalmente, configurarlo en las **Startup applications** para que arranque
 automáticamente al iniciar la sesión:
+
 ![Launch Startup Applications](img/ksnip-startup_apps-launch.png)
+
 ![Add ksnip launcher in Startup Applications](img/ksnip-startup_apps-config.png)
 
 ## Cliente de mail Mozilla Thunderbird
