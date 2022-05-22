@@ -35,8 +35,8 @@ fondo
 * En **Settings** &rarr; **Desktop** &rarr; **Appearance** elegir **_Light_**
 
 ![Desktop/Appearence](img/pop-settings-desktop-appearance.png)
-* En **Settings** &rarr; **Desktop** &rarr; **Dock** en **Dock Options** elegir 
-**_Intelligently hide_**
+* En **Settings** &rarr; **Desktop** &rarr; **Dock** configurar las siguientes
+opciones:
 
 ![Desktop/Dock](img/pop-settings-desktop-dock_1.png)
 
