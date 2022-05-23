@@ -2,6 +2,8 @@
 
 * [Copiar archivos de un repositorio git a otro manteniendo la
 historia](git-cp-repo2repo.md)
+* [Cliente ssh nuevo no puede negociar con servidor viejo algoritmo de firma
+mutuo para login sin password](ssh-passwordless-old-server.md)
 
 ___
 <!-- LICENSE -->
