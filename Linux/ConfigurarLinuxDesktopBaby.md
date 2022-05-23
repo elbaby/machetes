@@ -92,6 +92,7 @@ sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 sudo apt install network-manager-openvpn-gnome
 
 # paquetes vía flatpak (sólo para el usuario)
+flatpak install com.github.tchx84.Flatseal
 flatpak install com.bitwarden.desktop org.kpassxc.KeePassXC
 flatpak install org.telegram.desktop im.riot.Riot us.zoom.Zoom
 flatpak install com.spotify.Client com.stremio.Stremio org.kde.kpat
