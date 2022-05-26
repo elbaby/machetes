@@ -230,6 +230,13 @@ automáticamente al iniciar la sesión:
 
 ![Add ksnip launcher in Startup Applications](img/ksnip-startup_apps-config.png)
 
+## Algunas cosas más
+
+* [Instalar y configurar etckeeper para trackear cambios en 
+/etc](InstalarEtckeeper.md)
+* [Habilitar procesamiento de archivos PDF en 
+ImageMagick](../tips-tricks/imagemagick-pdf.md)
+
 ## Cliente de mail Mozilla Thunderbird
 
 [Configurar Thunderbird](ConfigurarThunderbird.md)

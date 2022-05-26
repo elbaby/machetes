@@ -2,6 +2,8 @@
 
 * [Configurar un desktop (o notebook) con Linux (al gusto del
 baby)](ConfigurarLinuxDesktopBaby.md)
+* [Instalar etckeeper para mantener la historia de modificaciones en
+/etc](InstalarEtckeeper.md)
 * [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del
