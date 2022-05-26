@@ -12,6 +12,7 @@ hosteado en un equipo que borré :-(
 * Instalación y configuración de [PowerDNS](PowerDNS)
 * Instalación y configuración de [Caddy](Caddy)
 * Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
+* [Truquitos y consejos](tips-tricks) varios
 
 
 

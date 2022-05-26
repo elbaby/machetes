@@ -1,14 +1,10 @@
-# Linux
+# Tips & Tricks
 
-* [Configurar un desktop (o notebook) con Linux (al gusto del
-baby)](ConfigurarLinuxDesktopBaby.md)
-* [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
-Debian](OracleVirtualBox)
-* [Configurar una VM Linode recién creada con Ubuntu (al gusto del
-baby)](ConfigurarLinodeBaby.md)
-* [Instalar Nextcloud usando snap](InstalarNextcloudSnap.md)
-* [OfflineIMAP](OfflineIMAP.md)
-
+* [Copiar archivos de un repositorio git a otro manteniendo la
+historia](git-cp-repo2repo.md)
+* [Cliente ssh nuevo no puede negociar con servidor viejo algoritmo de firma
+mutuo para login sin password](ssh-passwordless-old-server.md)
+* [ImageMagick no procesa archivos PDF en Linux post 2018](imagemagick-pdf.md)
 
 ___
 <!-- LICENSE -->

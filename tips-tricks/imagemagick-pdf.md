@@ -1,14 +1,19 @@
-# Linux
+# Soporte para archivos PDF en ImageMagik en Linux nuevos
 
-* [Configurar un desktop (o notebook) con Linux (al gusto del
-baby)](ConfigurarLinuxDesktopBaby.md)
-* [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
-Debian](OracleVirtualBox)
-* [Configurar una VM Linode recién creada con Ubuntu (al gusto del
-baby)](ConfigurarLinodeBaby.md)
-* [Instalar Nextcloud usando snap](InstalarNextcloudSnap.md)
-* [OfflineIMAP](OfflineIMAP.md)
+A partir de 2018, por problemas de seguridad, el procesamiento de archivos .PDF
+está bloqueado por política en muchas distros. Para habilitarlo hay que editar
+el archivo `/etc/ImageMagick-6/policy.xml`, buscar la línea que dice:
+```
+<policy domain="coder" rights="none" pattern="PDF" />
+```
+y cambiar el `none` por **`read|write`**:
+```
+<policy domain="coder" rights="read|write" pattern="PDF" />
+```
 
+[Esta es
+una](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion)
+de muchas fuentes.
 
 ___
 <!-- LICENSE -->
