@@ -87,13 +87,12 @@ sudo apt install keychain imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
-sudo apt install thunderbird vim-gtk3 keepassxc speedcrunch ksnip
+sudo apt install thunderbird vim-gtk3 network-manager-openvpn-gnome speedcrunch
 sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
-sudo apt install network-manager-openvpn-gnome
 
 # paquetes vía flatpak (sólo para el usuario)
 flatpak install com.github.tchx84.Flatseal
-flatpak install com.bitwarden.desktop org.kpassxc.KeePassXC
+flatpak install com.bitwarden.desktop org.kpassxc.KeePassXC org.ksnip.ksnip
 flatpak install org.telegram.desktop im.riot.Riot us.zoom.Zoom
 flatpak install com.spotify.Client com.stremio.Stremio org.kde.kpat
 
