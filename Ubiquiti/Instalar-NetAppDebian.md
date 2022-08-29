@@ -80,7 +80,7 @@ recomienda utilizar **Chrome**).
 Esto va a dar un **ERROR SSL** ya que el certificado que tiene la aplicación es
 autofirmado.
 
-Se puede instalar un [Caddy](Caddy.md) para usar de proxy reverso con 
+Se puede instalar un [Caddy](/Caddy) para usar de proxy reverso con 
 certificados obtenidos vía LetsEncrypt.
 
 ## Setup inicial
