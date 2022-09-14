@@ -140,7 +140,7 @@ Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
 que sea, pero es más simple clavarlo directamente en el archivo de configuración
 correspondiente:
 ```
-mkdir -pv ~/Documents/ZZ-temp
+mkdir -pv ~/Documents/ZZ-temp ~/Pictures/Screenshots
 cat >> ~/.config/gtk-3.0/bookmarks <<EOF
 file:///home/baby/Documents/Cuentas Cuentas
 file:///home/baby/Pictures/Screenshots Screenshots
