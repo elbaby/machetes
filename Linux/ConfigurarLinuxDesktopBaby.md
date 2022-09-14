@@ -117,7 +117,7 @@ cp -v ~/MOVEME_2_.ssh/* ~/.ssh
 # Esto ya debería estar así, pero por si acaso:
 chmod -v 700 ~/.ssh
 
-# Autorizamos la conexión vía ssh con mi clave pública primaria
+# Autorizamos la conexión vía ssh con mis claves públicas
 cp -v /dev/null ~/.ssh/authorized_keys
 for key in ed25519 ecdsa rsa ; do
   cat id_${key}.pub >> ~/.ssh/authorized_keys
@@ -127,10 +127,11 @@ chmod -v 644 ~/.ssh/authorized_keys
 # Si el equipo es seguro, hay que agregarle los ~/.ssh/id_${key} desde otro equipo
 
 # Creamos el directorio ~/.gnupg si no existe
-mkdir -pv ~/.ssh
+mkdir -pv ~/.gnupg
 # Copiamos archivos del cliente gpg 
 cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 
+# El directorio ~/.subversion se creó durante el svn checkout
 # Copiamos archivos del cliente subversion 
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
