@@ -171,17 +171,8 @@ varias extensiones.
 
 Las que instalamos son las siguientes:
 
-* [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
-lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
-Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede 
-usar esta extensión porque se pisan
 * [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
 estado de las teclas `NumLock` y `CapsLock` en el panel
-* [Desktop Icons NG (DING)
-](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/) agrega
-íconos al escritorio
-* [User Themes](https://extensions.gnome.org/extension/19/user-themes/) permite
-cargar _themes_ del usuario desde `~/.themes/gnome-shell`
 * [Sound Input & Output Device Chooser
 ](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) 
 muestra el listado de dispositivos de salida y entrada de sonido en el menú de
@@ -191,6 +182,18 @@ permite gestionar estas extensiones de Gnome desde el panel
 * [Tray Icons: Reloaded
 ](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
 mostrar los íconos de la bandeja en el panel
+
+Otras que se pueden instalar:
+
+* [Desktop Icons NG (DING)
+](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/) agrega
+íconos al escritorio
+* [User Themes](https://extensions.gnome.org/extension/19/user-themes/) permite
+cargar _themes_ del usuario desde `~/.themes/gnome-shell`
+* [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
+lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
+Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede 
+usar esta extensión porque se pisan
 
 
 ## `ksnip` para capturar pantallas (screenshots) 
