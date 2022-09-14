@@ -79,6 +79,18 @@ EOF
 sudo git rm --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O
 ```
 
+Configurar el usuario en el repositorio:
+```
+cd /etc
+sudo git config user.email scm+{HOSTNAME}@baby.com.ar
+sudo git config user.name "${USER} (${HOSNTAME} admin)"
+```
+
+Hacer commit de los cambios que hicimos
+```
+cd /etc
+sudo git commit -m "ajustes de configuración inicial etckeeper"
+```
 
 ___
 <!-- LICENSE -->
