@@ -118,10 +118,13 @@ cp -v ~/MOVEME_2_.ssh/* ~/.ssh
 chmod -v 700 ~/.ssh
 
 # Autorizamos la conexión vía ssh con mi clave pública primaria
-cp -v ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+cp -v /dev/null ~/.ssh/authorized_keys
+for key in ed25519 ecdsa rsa ; do
+  cat id_${key}.pub >> ~/.ssh/authorized_keys
+done
 chmod -v 644 ~/.ssh/authorized_keys
 
-# Si el equipo es seguro, hay que agregarle el ~/.ssh/id_rsa desde otro equipo
+# Si el equipo es seguro, hay que agregarle los ~/.ssh/id_${key} desde otro equipo
 
 # Creamos el directorio ~/.gnupg si no existe
 mkdir -pv ~/.ssh
