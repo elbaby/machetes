@@ -87,11 +87,11 @@ sudo apt install keychain imagemagick
 sudo apt install openssh-server openssh-client openvpn
 
 # paquetes UI grafica
-sudo apt install thunderbird vim-gtk3 network-manager-openvpn-gnome speedcrunch
+sudo apt install vim-gtk3 network-manager-openvpn-gnome speedcrunch
 sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 
 # paquetes vía flatpak (sólo para el usuario)
-flatpak install com.github.tchx84.Flatseal
+flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird
 flatpak install com.bitwarden.desktop org.kpassxc.KeePassXC org.ksnip.ksnip
 flatpak install org.telegram.desktop im.riot.Riot us.zoom.Zoom
 flatpak install com.spotify.Client com.stremio.Stremio org.kde.kpat
@@ -245,7 +245,7 @@ ImageMagick](../tips-tricks/imagemagick-pdf.md)
 
 ## Cliente de mail Mozilla Thunderbird
 
-[Configurar Thunderbird](ConfigurarThunderbird.md)
+[Configurar Thunderbird](ConfigurarThunderbirdFlatpak.md)
 
 ## Foxit PDF Reader
 
