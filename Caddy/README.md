@@ -7,24 +7,19 @@ https://caddyserver.com/docs/install#debian-ubuntu-raspbian
 Vamos a instalar desde los [repositorios de Caddy](https://caddyserver.com/).
 
 Obtener la clave pública con la que están firmados los paquetes y repositorios
-y ponerla en **`/usr/share/keyrings/caddyserver-archive-keyring.gpg`**:
-```
-curl https://dl.cloudsmith.io/public/caddy/stable/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/caddyserver-archive-keyring.gpg >/dev/null
-```
-
+y ponerla en **`/usr/share/keyrings/caddy-stable-archive-keyring.gpg`**.
 Agregar el repositorio para la versión `stable` en un archivo 
-**`/etc/apt/sources.list.d/caddy-stable.list`** (hay que agregarle la
-información de dónde está la clave con la que se firma el repositorio, ya que
-no quedó en `/etc/apt/strusted.gpg.d` para evitar que esa clave se pueda usar
-para firmar _otros_ repositorios). La versión para `debian` sirve tanto para
+**`/etc/apt/sources.list.d/caddy-stable.list`** 
+La versión para `debian` sirve tanto para
 Debian como para Ubuntu y Raspbian:
 
 ```
 export NOMBRESO=debian
 export VERSIONSERVER=stable
-curl "https://dl.cloudsmith.io/public/caddy/${VERSIONSERVER}/${NOMBRESO}.deb.txt" \
-| sed -e 's#\(deb\(-src\)\?\) #\1 [arch=amd64 signed-by=/usr/share/keyrings/caddyserver-archive-keyring.gpg] #' \
-| sudo tee /etc/apt/sources.list.d/caddy-${VERSIONSERVER}.list
+# Obtener la clave pública con la que están firmados los paquetes y repositorios
+curl "https://dl.cloudsmith.io/public/caddy/${VERSIONSERVER}/gpg.key" | sudo gpg --dearmor -o /usr/share/keyrings/caddy-${VERSIONSERVER}-archive-keyring.gpg
+# Bajar la configuración del repositorio (ya está configurado para buscar la firma en /usr/share/keyrings)
+sudo curl --output /etc/apt/sources.list.d/caddy-${VERSIONSERVER}.list "https://dl.cloudsmith.io/public/caddy/${VERSIONSERVER}/${NOMBRESO}.deb.txt" 
 ```
 
 Ejecutar los siguientes comandos para actualizar los datos de los repositorios
