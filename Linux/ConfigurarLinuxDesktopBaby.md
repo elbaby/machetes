@@ -95,7 +95,7 @@ flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird
 flatpak install com.bitwarden.desktop org.kpassxc.KeePassXC org.ksnip.ksnip
 flatpak install org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom
 flatpak install com.mastermindzh.tidal-hifi com.spotify.Client 
-flatpak install com.stremio.Stremio org.kde.kpat
+flatpak install com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre
 
 ```
 
