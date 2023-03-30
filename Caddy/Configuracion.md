@@ -200,6 +200,22 @@ En cambio, utilizando `reload` se inicia un servidor nuevo, se mantienen dos
 procesos en paralelo hasta que termina de configurarse el nuevo y recién cuando
 está todo listo se mata el servidor viejo y el nuevo toma los ports.
 
+# Ubicación de los certificados
+
+Los certificados que Caddy genera localmente u obtiene a través del protocolo 
+ACME, se encuentran dentro del `${HOME}` del mismo Caddy (usualmente en
+`/var/lib/caddy` bajo el path `local/share/caddy/certificates`).
+
+Dentro de ese directorio hay un directorio `local` para los certificados que se
+generan dentro de la CA local (no válidos públicamente) y uno para cada
+proveedor de certificados a través del protocolo ACME (como letsencrypt.org o
+zerssl.com).
+
+Dentro de cada uno de estos directorios hay un subdirectorio por cada nombre de
+dominio/certificado donde está el certificado en formato PEM (ascii) y la clave
+privada también en formato PEM, además de un archivito JSON con información del
+emisor del certificado.
+
 ___
 <!-- LICENSE -->
 ___
