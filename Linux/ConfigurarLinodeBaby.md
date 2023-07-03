@@ -1,6 +1,6 @@
 # Configurar una VM Linode con Ubuntu recién instalado
 
-2020-08-29: Esto está probado con Ubuntu 20.04
+2023-07-03: Esto está probado con Ubuntu 22.04
 
 ## Primer login como `root`
 
@@ -19,7 +19,7 @@ useradd -c "Mariano Absatz" -s /bin/bash -m baby
 # Copio el ~/.ssh de root (que ya me deja entrar) al usuario baby (y cambio el 
 # ownership)
 cp -rv ~root/.ssh ~baby
-chown -rv baby.baby ~baby/.ssh
+chown -Rv baby.baby ~baby/.ssh
 
 # Lo agrego al grupo sudo
 adduser baby sudo
