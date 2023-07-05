@@ -42,11 +42,16 @@ ssh baby@${IP_DEL_LINODE}
 
 # VERIFICAR QUE ESTOY ADENTRO DE LA NUEVA MAQUINA
 
+# Setear el hostname (se va a ver después de desloguearse/reloguearse)
+HOST_NAME=<poner acá el FQDN del host>
+sudo hostnamectl set-hostname $HOST_NAME
+
+# Habilitar los locales es_AR.UTF-8 y en_GB.UTF-8 (por default sólo viene habilitado en_US.UTF-8)
+sudo sed -i.BAK -e 's/^# es_AR.UTF-8/es_AR.UTF-8/' -e 's/^# en_GB.UTF-8/en_GB.UTF-8/'  /etc/locale.gen
+sudo locale-gen
 
 # Es un buen momento para actualizar los paquetes
-
 sudo apt update && sudo apt dist-upgrade
-
 ```
 
 ___
