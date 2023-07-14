@@ -46,12 +46,57 @@ ssh baby@${IP_DEL_LINODE}
 HOST_NAME=<poner acá el FQDN del host>
 sudo hostnamectl set-hostname $HOST_NAME
 
-# Habilitar los locales es_AR.UTF-8 y en_GB.UTF-8 (por default sólo viene habilitado en_US.UTF-8)
-sudo sed -i.BAK -e 's/^# es_AR.UTF-8/es_AR.UTF-8/' -e 's/^# en_GB.UTF-8/en_GB.UTF-8/'  /etc/locale.gen
+# Habilitar los locales es_AR.UTF-8 y en_GB.UTF-8
+# (por default sólo viene habilitado en_US.UTF-8)
+sudo sed -i.BAK -e 's/^# es_AR.UTF-8/es_AR.UTF-8/' \
+    -e 's/^# en_GB.UTF-8/en_GB.UTF-8/'  /etc/locale.gen
 sudo locale-gen
 
 # Es un buen momento para actualizar los paquetes
 sudo apt update && sudo apt dist-upgrade
+```
+
+## Instalación paquetes básicos
+```
+sudo apt install build-essential subversion git vim p7zip-full p7zip-rar grip
+sudo apt install keychain imagemagick
+sudo apt install openssh-server openssh-client openvpn
+```
+
+## Entorno `/home/baby`:
+```
+# backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
+mkdir -pv ~/.00-ENV-BACKUP
+mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
+
+# hacemos checkout del entorno
+svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
+
+# creamos el ~/.bash_USUARIO
+make ~/.bash_${LOGNAME}
+
+# Creamos el directorio ~/.ssh si no existe
+mkdir -pv ~/.ssh
+# Copiamos archivos del cliente ssh 
+cp -v ~/MOVEME_2_.ssh/* ~/.ssh
+# Esto ya debería estar así, pero por si acaso:
+chmod -v 700 ~/.ssh
+
+# Autorizamos la conexión vía ssh con mis claves públicas
+cp -v /dev/null ~/.ssh/authorized_keys
+for key in ed25519 ecdsa rsa ; do
+  cat id_${key}.pub >> ~/.ssh/authorized_keys
+done
+chmod -v 644 ~/.ssh/authorized_keys
+
+# Creamos el directorio ~/.gnupg si no existe
+mkdir -pv ~/.gnupg
+# Copiamos archivos del cliente gpg 
+cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
+
+# El directorio ~/.subversion se creó durante el svn checkout
+# Copiamos archivos del cliente subversion 
+cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
 
 ___
