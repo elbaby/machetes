@@ -53,14 +53,15 @@ sudo sed -i.BAK -e 's/^# es_AR.UTF-8/es_AR.UTF-8/' \
 sudo locale-gen
 
 # Es un buen momento para actualizar los paquetes
-sudo apt update && sudo apt dist-upgrade
+sudo apt-get update
+sudo apt-get dist-upgrade
 ```
 
 ## Instalación paquetes básicos
 ```
-sudo apt install build-essential subversion git vim p7zip-full p7zip-rar grip
-sudo apt install keychain imagemagick
-sudo apt install openssh-server openssh-client openvpn
+sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar grip
+sudo apt-get install keychain imagemagick
+sudo apt-get install openssh-server openssh-client openvpn
 ```
 
 ## Entorno `/home/baby`:
