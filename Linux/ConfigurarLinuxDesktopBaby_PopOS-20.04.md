@@ -36,6 +36,10 @@ mv -v ~/.bash* ~/.profile ~/.00-ENV-BACKUP
 # hacemos checkout del entorno
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
 
+# Si queremos usar LaTeX, descomentar la próxima línea que mantiene fonts
+# para tener en ~/texmf
+#svn checkout http://svn.ybab.net/baby/conf/baby/texmf
+
 # Copiamos archivos del cliente ssh 
 cp -v ~/MOVEME_2_.ssh/* ~/.ssh
 # Esto ya debería estar así, pero por si acaso:

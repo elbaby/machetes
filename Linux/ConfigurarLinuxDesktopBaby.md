@@ -108,6 +108,10 @@ mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig ~/.hg
 # hacemos checkout del entorno
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
 
+# Si queremos usar LaTeX, descomentar la próxima línea que mantiene fonts
+# para tener en ~/texmf
+#svn checkout http://svn.ybab.net/baby/conf/baby/texmf
+
 # creamos el ~/.bash_USUARIO
 make ~/.bash_${LOGNAME}
 
