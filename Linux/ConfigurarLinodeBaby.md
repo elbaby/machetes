@@ -100,6 +100,11 @@ cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
 
+## Algunas cosas más
+
+* [Instalar y configurar etckeeper para trackear cambios en 
+/etc](InstalarEtckeeper.md)
+
 ___
 <!-- LICENSE -->
 ___

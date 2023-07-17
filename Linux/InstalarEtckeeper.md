@@ -86,11 +86,33 @@ sudo git config user.email scm+{HOSTNAME}@baby.com.ar
 sudo git config user.name "${USER} (${HOSNTAME} admin)"
 ```
 
-Hacer commit de los cambios que hicimos
+Agregar y hacer commit de los cambios que hicimos
 ```
 cd /etc
+sudo git add .gitignore .etckeeper etckeeper/etckeeper.conf systemd/system/multi-user.target.wants/etckeeper.timer
 sudo git commit -m "ajustes de configuración inicial etckeeper"
 ```
+
+# Problema si se usa `snapd`
+
+Si hay paquetes instalados utilizando `snap`, las actualizaciones de estos
+paquetes las realiza el daemon `snapd` automáticamente sin utilizar APT, con lo
+cual `etckeeper` no se entera de estos cambios.
+
+Si al hacer un `git status /etc` aparecen cambios debajo del directorio
+`/etc/systemd/system` que impiden realizar acciones con APT, se puede utilizar
+el siguiente comando:
+```
+sudo git add /etc/systemd/system && \
+    sudo git commit -m 'actualizaciones de snaps que etckeeper no maneja automáticamente' \
+    /etc/systemd/system && sudo git add /etc/.etckeeper
+```
+
+Opcionalmente, se puede crear un alias en `.bashrc` como este:
+```
+alias gitsnap="sudo git add /etc/systemd/system && sudo git commit -m 'actualizaciones de snaps que etckeeper no maneja automáticamente' /etc/systemd/system && sudo git add /etc/.etckeeper"
+```
+
 
 ___
 <!-- LICENSE -->
