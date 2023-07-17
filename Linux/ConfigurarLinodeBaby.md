@@ -86,7 +86,7 @@ chmod -v 700 ~/.ssh
 # Autorizamos la conexión vía ssh con mis claves públicas
 cp -v /dev/null ~/.ssh/authorized_keys
 for key in ed25519 ecdsa rsa ; do
-  cat id_${key}.pub >> ~/.ssh/authorized_keys
+  cat ~/.ssh/id_${key}.pub >> ~/.ssh/authorized_keys
 done
 chmod -v 644 ~/.ssh/authorized_keys
 
