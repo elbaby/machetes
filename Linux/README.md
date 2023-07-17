@@ -6,7 +6,7 @@ baby)](ConfigurarLinuxDesktopBaby.md)
 /etc](InstalarEtckeeper.md)
 * [Adaptador USB - serial port](USBserial.md)
 * [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
-Debian](OracleVirtualBox)
+Debian](OracleVirtualBox.md)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del
 baby)](ConfigurarLinodeBaby.md)
 * [Instalar Nextcloud usando snap](InstalarNextcloudSnap.md)
