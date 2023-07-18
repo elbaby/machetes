@@ -82,20 +82,19 @@ Abrir **Gnome Tweaks** y hacer algunos ajustes:
 #sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt install build-essential subversion git vim p7zip-full p7zip-rar grip
-sudo apt install keychain imagemagick
-sudo apt install openssh-server openssh-client openvpn
+sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
+    ucspi-tcp-ipv6 grip keychain imagemagick \
 
 # paquetes UI grafica
-sudo apt install vim-gtk3 network-manager-openvpn-gnome speedcrunch
-sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
+sudo apt-get install vim-gtk3 network-manager-openvpn-gnome speedcrunch \
+    gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 
 # paquetes vía flatpak (sólo para el usuario)
-flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird
-flatpak install com.bitwarden.desktop org.kpassxc.KeePassXC org.ksnip.ksnip
-flatpak install org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom
-flatpak install com.mastermindzh.tidal-hifi com.spotify.Client 
-flatpak install com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre
+flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird \
+    com.bitwarden.desktop org.kpassxc.KeePassXC org.ksnip.ksnip \
+    org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
+    com.mastermindzh.tidal-hifi com.spotify.Client \
+    com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre
 
 ```
 
@@ -103,7 +102,8 @@ flatpak install com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
 mkdir -pv ~/.00-ENV-BACKUP
-mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
+mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig \
+    ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
 
 # hacemos checkout del entorno
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
@@ -129,7 +129,8 @@ for key in ed25519 ecdsa rsa ; do
 done
 chmod -v 644 ~/.ssh/authorized_keys
 
-# Si el equipo es seguro, hay que agregarle los ~/.ssh/id_${key} desde otro equipo
+# Si el equipo es seguro, hay que agregarle los ~/.ssh/id_${key} desde 
+# otro equipo
 
 # Creamos el directorio ~/.gnupg si no existe
 mkdir -pv ~/.gnupg

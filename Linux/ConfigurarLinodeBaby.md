@@ -65,16 +65,17 @@ sudo reboot
 
 ## Instalación paquetes básicos
 ```
-sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar grip
-sudo apt-get install keychain imagemagick
-sudo apt-get install openssh-server openssh-client openvpn
+sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
+    ucspi-tcp-ipv6 grip keychain imagemagick 
+    openssh-server openssh-client openvpn
 ```
 
 ## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
 mkdir -pv ~/.00-ENV-BACKUP
-mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
+mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig \
+    ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
 
 # hacemos checkout del entorno
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
