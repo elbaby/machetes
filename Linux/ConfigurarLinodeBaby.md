@@ -52,9 +52,15 @@ sudo sed -i.BAK -e 's/^# es_AR.UTF-8/es_AR.UTF-8/' \
     -e 's/^# en_GB.UTF-8/en_GB.UTF-8/'  /etc/locale.gen
 sudo locale-gen
 
+# Configurar el timezone
+sudo timedatectl set-timezone America/Argentina/Buenos_Aires
+
 # Es un buen momento para actualizar los paquetes
 sudo apt-get update
 sudo apt-get dist-upgrade
+
+# Finalmente, rebootear para que los logs empiecen a generarse con la hora local
+sudo reboot
 ```
 
 ## Instalación paquetes básicos
