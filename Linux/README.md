@@ -9,6 +9,7 @@ baby)](ConfigurarLinuxDesktopBaby.md)
 Debian](OracleVirtualBox.md)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del
 baby)](ConfigurarLinodeBaby.md)
+* [Instalar el mail server Postfix en Ubuntu](InstalarPostfix.md)
 * [Instalar Nextcloud usando snap](InstalarNextcloudSnap.md)
 * [OfflineIMAP](OfflineIMAP.md)
 
