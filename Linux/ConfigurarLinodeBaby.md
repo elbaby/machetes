@@ -1,6 +1,6 @@
 # Configurar una VM Linode con Ubuntu recién instalado
 
-2020-08-29: Esto está probado con Ubuntu 20.04
+2023-07-03: Esto está probado con Ubuntu 22.04
 
 ## Primer login como `root`
 
@@ -19,7 +19,7 @@ useradd -c "Mariano Absatz" -s /bin/bash -m baby
 # Copio el ~/.ssh de root (que ya me deja entrar) al usuario baby (y cambio el 
 # ownership)
 cp -rv ~root/.ssh ~baby
-chown -rv baby.baby ~baby/.ssh
+chown -Rv baby.baby ~baby/.ssh
 
 # Lo agrego al grupo sudo
 adduser baby sudo
@@ -42,12 +42,75 @@ ssh baby@${IP_DEL_LINODE}
 
 # VERIFICAR QUE ESTOY ADENTRO DE LA NUEVA MAQUINA
 
+# Setear el hostname (se va a ver después de desloguearse/reloguearse)
+HOST_NAME=<poner acá el FQDN del host>
+sudo hostnamectl set-hostname $HOST_NAME
+
+# Habilitar los locales es_AR.UTF-8 y en_GB.UTF-8
+# (por default sólo viene habilitado en_US.UTF-8)
+sudo sed -i.BAK -e 's/^# es_AR.UTF-8/es_AR.UTF-8/' \
+    -e 's/^# en_GB.UTF-8/en_GB.UTF-8/'  /etc/locale.gen
+sudo locale-gen
+
+# Configurar el timezone
+sudo timedatectl set-timezone America/Argentina/Buenos_Aires
 
 # Es un buen momento para actualizar los paquetes
+sudo apt-get update
+sudo apt-get dist-upgrade
 
-sudo apt update && sudo apt dist-upgrade
-
+# Finalmente, rebootear para que los logs empiecen a generarse con la hora local
+sudo reboot
 ```
+
+## Instalación paquetes básicos
+```
+sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
+    ucspi-tcp-ipv6 grip keychain imagemagick 
+    openssh-server openssh-client openvpn
+```
+
+## Entorno `/home/baby`:
+```
+# backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
+mkdir -pv ~/.00-ENV-BACKUP
+mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig \
+    ~/.hgrc ~/.msmtp* ~/.00-ENV-BACKUP
+
+# hacemos checkout del entorno
+svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
+
+# creamos el ~/.bash_USUARIO
+make ~/.bash_${LOGNAME}
+
+# Creamos el directorio ~/.ssh si no existe
+mkdir -pv ~/.ssh
+# Copiamos archivos del cliente ssh 
+cp -v ~/MOVEME_2_.ssh/* ~/.ssh
+# Esto ya debería estar así, pero por si acaso:
+chmod -v 700 ~/.ssh
+
+# Autorizamos la conexión vía ssh con mis claves públicas
+cp -v /dev/null ~/.ssh/authorized_keys
+for key in ed25519 ecdsa rsa ; do
+  cat ~/.ssh/id_${key}.pub >> ~/.ssh/authorized_keys
+done
+chmod -v 644 ~/.ssh/authorized_keys
+
+# Creamos el directorio ~/.gnupg si no existe
+mkdir -pv ~/.gnupg
+# Copiamos archivos del cliente gpg 
+cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
+
+# El directorio ~/.subversion se creó durante el svn checkout
+# Copiamos archivos del cliente subversion 
+cp -v ~/MOVEME_2_.subversion/* ~/.subversion
+```
+
+## Algunas cosas más
+
+* [Instalar y configurar etckeeper para trackear cambios en 
+/etc](InstalarEtckeeper.md)
 
 ___
 <!-- LICENSE -->

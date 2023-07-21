@@ -1,7 +1,20 @@
+# Soporte para archivos PDF en ImageMagik en Linux nuevos
 
-* [Instalación de Caddy server](Instalacion.md)
-* [Configuración de Caddy server](Configuracion.md)
-* [Ver los logs](Logs.md)
+A partir de 2018, por problemas de seguridad, el procesamiento de archivos .PDF
+está bloqueado por política en muchas distros. Para habilitarlo hay que editar
+el archivo `/etc/ImageMagick-6/policy.xml`, buscar la línea que dice:
+```
+<policy domain="coder" rights="none" pattern="PDF" />
+```
+y cambiar el `none` por **`read|write`**:
+```
+<policy domain="coder" rights="read|write" pattern="PDF" />
+```
+
+[Esta es
+una](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion)
+de muchas fuentes.
+
 ___
 <!-- LICENSE -->
 ___

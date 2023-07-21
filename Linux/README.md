@@ -1,8 +1,17 @@
 # Linux
 
-* [Configurar una VM Linode recién creada con Ubuntu (al gusto del baby)](
-ConfigurarLinodeBaby.md)
+* [Configurar un desktop (o notebook) con Linux (al gusto del
+baby)](ConfigurarLinuxDesktopBaby.md)
+* [Instalar etckeeper para mantener la historia de modificaciones en
+/etc](InstalarEtckeeper.md)
+* [Adaptador USB - serial port](USBserial.md)
+* [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
+Debian](OracleVirtualBox.md)
+* [Configurar una VM Linode recién creada con Ubuntu (al gusto del
+baby)](ConfigurarLinodeBaby.md)
+* [Instalar el mail server Postfix en Ubuntu](InstalarPostfix.md)
 * [Instalar Nextcloud usando snap](InstalarNextcloudSnap.md)
+* [OfflineIMAP](OfflineIMAP.md)
 
 
 ___

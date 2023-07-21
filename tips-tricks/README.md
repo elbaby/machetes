@@ -1,7 +1,11 @@
+# Tips & Tricks
 
-* [Instalación de Caddy server](Instalacion.md)
-* [Configuración de Caddy server](Configuracion.md)
-* [Ver los logs](Logs.md)
+* [Copiar archivos de un repositorio git a otro manteniendo la
+historia](git-cp-repo2repo.md)
+* [Cliente ssh nuevo no puede negociar con servidor viejo algoritmo de firma
+mutuo para login sin password](ssh-passwordless-old-server.md)
+* [ImageMagick no procesa archivos PDF en Linux post 2018](imagemagick-pdf.md)
+
 ___
 <!-- LICENSE -->
 ___

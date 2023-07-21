@@ -11,7 +11,9 @@ hosteado en un equipo que borré :-(
 * Instalación, configuración y uso de [rclone](rclone)
 * Instalación y configuración de [PowerDNS](PowerDNS)
 * Instalación y configuración de [Caddy](Caddy)
-* Algunas (muy pocas) cosas que aprendí a hacer con el [Mikrotik](Mikrotik)
+* Algunas (muy pocas) cosas que aprendí a hacer con [Mikrotik](Mikrotik) y con
+[Ubiquiti](Ubiquiti)
+* [Truquitos y consejos](tips-tricks) varios
 
 
 
