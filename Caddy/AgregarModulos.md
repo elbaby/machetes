@@ -1,35 +1,60 @@
+[[_TOC_]]
+
 A partir de la versión 2.4.4, Caddy permite [agregar módulos al binario
 instalado](https://caddyserver.com/docs/command-line#caddy-add-package).
 
 Si el paquete está instalado con el paquete `caddy` de Debian, los cambios se 
 perderían con un upgrade. Para evitarlo se puede utilizar `dpkg-divert` y
-`update-alternatives`:
+`update-alternatives`
+
+## Usar `dpkg-divert` para que APT no actualice la versión con módulos agregados
+del ejecutable de Caddy
 
 ```
 # Mover el binario original a /usr/bin/caddy.default
 sudo dpkg-divert --divert /usr/bin/caddy.default --rename /usr/bin/caddy
-# Hacer una copia en /usr/bin/caddy.custom
-sudo cp /usr/bin/caddy.default /usr/bin/caddy.custom
 ```
 
-Ahora se puede actualizar `caddy.custom` con los módulos deseados:
+## Hacer una copia del ejecutable de Caddy para agregarle los módulos
+
 ```
+# Hacer una copia en /usr/bin/caddy.custom
+sudo cp /usr/bin/caddy.default /usr/bin/caddy.custom
+
+# Actualizar `caddy.custom` con los módulos deseados:
 sudo /usr/bin/caddy.custom add-package github.com/caddyserver/transform-encoder
 ```
 
-Configurar las alternativas:
+## Configurar _alternatives_ para que use uno u otro ejecutable de Caddy
 
 ```
 # Configurar el binario original como alternativa con baja prioridad (10)
 sudo update-alternatives --install /usr/bin/caddy caddy /usr/bin/caddy.default 10
-# Configurar el binario compilado como alternativa con alta prioridad (50)
+
+# Configurar el binario con los módulos agregados como alternativa con alta prioridad (50)
 sudo update-alternatives --install /usr/bin/caddy caddy /usr/bin/caddy.custom 50
 ```
 
-Si más adelante se desea volver al original se puede reconfigurar usando
-
+Si más adelante se desea volver a usar el ejecutable original se puede
+reconfigurar usando:
 ```
 sudo update-alternatives --config caddy
+```
+y seleccionando la opción que corresponde a `caddy.default`.
+
+## Upgrades del Caddy
+
+Cuando se actualiza ahora el caddy usando APT, se actualizará el binario
+en `/usr/bin/caddy.default` y no el que se modificó en `/usr/bin/caddy.custom`.
+
+Si se actualizó el Caddy y se desea agregar los módulos y utilzar la nueva
+versión hay que hacer lo siguiente:
+```
+# Volver a hacer la copia (del nuevo) binario en /usr/bin/caddy.custom
+sudo cp /usr/bin/caddy.default /usr/bin/caddy.custom
+
+# Actualizar el nuevo `caddy.custom` con los módulos deseados:
+sudo /usr/bin/caddy.custom add-package github.com/caddyserver/transform-encoder
 ```
 ___
 <!-- LICENSE -->
