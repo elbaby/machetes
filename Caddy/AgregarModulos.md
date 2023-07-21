@@ -1,5 +1,3 @@
-[[_TOC_]]
-
 A partir de la versión 2.4.4, Caddy permite [agregar módulos al binario
 instalado](https://caddyserver.com/docs/command-line#caddy-add-package).
 
