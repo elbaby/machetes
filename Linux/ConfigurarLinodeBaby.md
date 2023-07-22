@@ -70,6 +70,11 @@ sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
     openssh-server openssh-client openvpn
 ```
 
+* Configurar `vim` como el editor preferido del sistema:
+```
+sudo update-alternatives --set editor /usr/bin/vim.basic
+```
+
 ## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)

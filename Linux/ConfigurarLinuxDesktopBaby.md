@@ -98,6 +98,11 @@ flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird \
 
 ```
 
+* Configurar `vim` como el editor preferido del sistema:
+```
+sudo update-alternatives --set editor /usr/bin/vim.basic
+```
+
 ## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)

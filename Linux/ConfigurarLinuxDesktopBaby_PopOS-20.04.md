@@ -27,6 +27,11 @@ sudo apt install gimp gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 sudo apt install network-manager-openvpn-gnome
 ```
 
+* Configurar `vim` como el editor preferido del sistema:
+```
+sudo update-alternatives --set editor /usr/bin/vim.basic
+```
+
 ## Entorno `/home/baby`:
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
