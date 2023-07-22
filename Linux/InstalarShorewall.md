@@ -72,24 +72,24 @@ for IPversion in 4 6 ; do
 
   for ConfigFile in params interfaces zones policy rules stoppedrules; do
     EXT=".gz"
-	EXPATH="examples/one-interface"
-	# el archivo params no viene comprimido
-	if [ ${ConfigFile} = "params" ] ; then EXT="" ; fi
-	# el archivo stoppedrules no está en los ejemplos de una interfaz
-	if [ ${ConfigFile} = "stoppedrules" ] ; then EXPATH="examples/two-interfaces" ; fi
+    EXPATH="examples/one-interface"
+    # el archivo params no viene comprimido
+    if [ ${ConfigFile} = "params" ] ; then EXT="" ; fi
+    # el archivo stoppedrules no está en los ejemplos de una interfaz
+    if [ ${ConfigFile} = "stoppedrules" ] ; then EXPATH="examples/two-interfaces" ; fi
 
     # copiar archivo de configuración vacío
-	sudo cp -v /usr/share/doc/shorewall${IPversion}/${EXPATH}/${ConfigFile} \
-	    /etc/shorewall${IPversion}/
-	# symlink a archivo de configuración anotado
-	sudo ln -sv /usr/share/doc/shorewall${IPversion}/${EXPATH}/${ConfigFile}.annotated${EXT} \
-	    /etc/shorewall${IPversion}/
+    sudo cp -v /usr/share/doc/shorewall${IPversion}/${EXPATH}/${ConfigFile} \
+        /etc/shorewall${IPversion}/
+    # symlink a archivo de configuración anotado
+    sudo ln -sv /usr/share/doc/shorewall${IPversion}/${EXPATH}/${ConfigFile}.annotated${EXT} \
+        /etc/shorewall${IPversion}/
 
   done
 done
 ```
 
-### Configuración del servicio (`shorewall.conf`/`shorewall6.conf`)
+### Archivo de configuración general (`shorewall.conf`/`shorewall6.conf`)
 
 El archivo
 [`shorewall.conf`](https://shorewall.org/manpages/shorewall.conf.html) permite
@@ -127,7 +127,7 @@ DOCKER=Yes
 En el archivo[`params`](https://shorewall.org/manpages/shorewall-params.html) se
 configuran variables que se pueden utilizar en otros archivos de configuración.
 
-* `/etc/shorewall/params`:
+* `/etc/shorewall/params`
 
 ### Interfaces (`interfaces`)
 
