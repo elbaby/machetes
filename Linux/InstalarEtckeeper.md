@@ -82,8 +82,8 @@ sudo git rm --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O
 Configurar el usuario en el repositorio:
 ```
 cd /etc
-sudo git config user.email scm+{HOSTNAME}@baby.com.ar
-sudo git config user.name "${USER} (${HOSNTAME} admin)"
+sudo git config user.email scm+${HOSTNAME}@baby.com.ar
+sudo git config user.name "${USER} (${HOSTNAME} admin)"
 ```
 
 Agregar y hacer commit de los cambios que hicimos
