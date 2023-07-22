@@ -66,7 +66,7 @@ sudo reboot
 ## Instalación paquetes básicos
 ```
 sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
-    ucspi-tcp-ipv6 grip keychain imagemagick 
+    net-tools nmap ucspi-tcp-ipv6 grip keychain imagemagick \
     openssh-server openssh-client openvpn
 ```
 

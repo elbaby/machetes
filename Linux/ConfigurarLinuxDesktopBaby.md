@@ -83,7 +83,8 @@ Abrir **Gnome Tweaks** y hacer algunos ajustes:
 
 # paquetes headless
 sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
-    ucspi-tcp-ipv6 grip keychain imagemagick \
+    net-tools nmap ucspi-tcp-ipv6 grip keychain imagemagick \
+    openssh-server openssh-client openvpn
 
 # paquetes UI grafica
 sudo apt-get install vim-gtk3 network-manager-openvpn-gnome speedcrunch \
