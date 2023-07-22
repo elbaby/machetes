@@ -116,6 +116,7 @@ cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 
 * [Instalar y configurar etckeeper para trackear cambios en 
 /etc](InstalarEtckeeper.md)
+* [Instalar y configurar el firewall Shorewall](InstalarShorewall.md)
 
 ___
 <!-- LICENSE -->
