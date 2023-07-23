@@ -31,7 +31,7 @@ EOF
 
 sudo tee /etc/apt/sources.list.d/mongodb.list <<EOF
 # Los repos de MongoDB 3.6 sólo están para Stretch (ni Buster ni Bullseye)
-deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb36-archive-keyring.gpg] http://repo.mongodb.org/apt/debian stretch/mongodb-org/3.6 main
+deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb36-archive-keyring.gpg] https://repo.mongodb.org/apt/debian stretch/mongodb-org/3.6 main
 EOF
 
 sudo tee /etc/apt/sources.list.d/bellsoft-java.list <<EOF
@@ -118,15 +118,15 @@ access](img/netapp-setup2_advancedRemoteLocalAccess.png)
 ___
 <!-- LICENSE -->
 ___
-<a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+<a rel="licencia" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
 <img alt="Creative Commons License" style="border-width:0"
 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
 <br /><br />
 Este documento está licenciado en los términos de una <a rel="licencia"
-href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
 Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
 <br /><br />
 This document is licensed under a <a rel="license" 
-href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">
+href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
 Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 <!-- END --> 

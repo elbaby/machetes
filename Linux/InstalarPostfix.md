@@ -19,13 +19,13 @@ servidor (si los mails son usuario@example.com, entonces acá va
 
 Editar `/etc/postfix/main.cf`
 
-En la variable [`myhostname`](http://www.postfix.org/postconf.5.html#myhostname)
+En la variable [`myhostname`](https://www.postfix.org/postconf.5.html#myhostname)
 poner el nombre con el que se quiere que se identifique el server al atender una
 conexión (por default es el hostname del equipo, pero podríamos querer que sea
 otro nombre).
 
 En la variable
-[`mydestination`](http://www.postfix.org/postconf.5.html#mydestination) agregar
+[`mydestination`](https://www.postfix.org/postconf.5.html#mydestination) agregar
 otros dominios para los que se quiera aceptar mail.
 
 Otra variante es [utilizar un archivo con expresiones regulares compatibles con
@@ -156,15 +156,15 @@ del servidor)
 ___
 <!-- LICENSE -->
 ___
-<a rel="licencia" href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+<a rel="licencia" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
 <img alt="Creative Commons License" style="border-width:0"
 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
 <br /><br />
 Este documento está licenciado en los términos de una <a rel="licencia"
-href="http://creativecommons.org/licenses/by-sa/4.0/deed.es">
+href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
 Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
 <br /><br />
 This document is licensed under a <a rel="license"
-href="http://creativecommons.org/licenses/by-sa/4.0/deed.en">
+href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
 Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 <!-- END -->
