@@ -38,15 +38,17 @@ mydestination = pcre:/etc/postfix/mydestination.pcre
 ```
 y en `/etc/postfix/mydestination.pcre` poner:
 ```
-/^myhost\.example\.com$/	ACCEPT
-/^correo\.example\.com$/	ACCEPT
-/^localhost\.example\.com$/	ACCEPT
-/^localhost$/			ACCEPT
-/^example\.com$/		ACCEPT
-/^.*\.example\.net$/		ACCEPT
-/^example\.net$/		ACCEPT
+/^myhost\.example\.com$/    ACCEPT
+/^correo\.example\.com$/    ACCEPT
+/^localhost\.example\.com$/ ACCEPT
+/^localhost$/               ACCEPT
+/^example\.com$/            ACCEPT
+/^.*\.example\.net$/        ACCEPT
+/^example\.net$/            ACCEPT
 ```
-Entre la expresión regular y el `ACCEPT` _debe_ ir _exactamente **UN (1)**_ `<TAB>`.
+En lugar de "ACCEPT" puede ir cualquier cosa, ya que lo único que se verifica
+es que la clave exista (que la dirección matchee la expresión regular).
+
 Esto acepta mails para direcciones:
 * `<localpart>@myhost.example.com`
 * `<localpart>@correo.example.com`
