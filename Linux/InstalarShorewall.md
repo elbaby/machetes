@@ -20,7 +20,7 @@ _Shorewall_](https://shorewall.org/Install.htm)
 
 Se puede [configurar APT para que use 
 _testing_](https://shorewall.org/Install.htm#Debian) que suele tener la última
-versión disponible de Shorewall (en 2023-07, la 5.2.8, pero la versión incluída 
+versión disponible de Shorewall (en 2023-07, la 5.2.8), pero la versión incluída 
 en buster y bullseye (5.2.3) es razonable.
  
 La instalación es simplemente:
