@@ -237,8 +237,31 @@ el port 80 al momento de pedir o renovar los certificados.
 
 La invocación es:
 ```
-sudo certbot certonly --standalone
+sudo certbot certonly --standalone --domain servidorweb.example.com
 ```
+
+## Crear certificados en forma no-interactiva
+
+`certbot` tiene una opción `--non-interactive` (o `-n`). Para que esta opción
+funcione, hay que utilizar también la opción `--agree-tos` para aceptar los
+términos del servicio, y la opción `--email` (o `-m`) para especificar la
+dirección de mail para pasarle al servidor para recibir notificaciones de
+eventuales problemas.
+
+También hay que especificar el nombre (o nombres) de dominio para el que se
+solicita el certificado, con la opción `--domain` (o `--domains` o `-d`).
+
+Para especificar múltiples nombres de dominio se puede utilizar la opción varias
+veces, cada vez con un nombre, o una vez, con una lista de nombres de dominios
+separadas por comas.
+
+Una invocación posible sería:
+```
+sudo certbot certonly --apache --non-interactive --agree-tos \
+    --email hostmaster+tls-certbot_${HOSTNAME}@example.net \
+    --domain servidorweb.example.com
+```
+
 
 
 ___
