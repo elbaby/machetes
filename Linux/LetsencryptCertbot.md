@@ -101,6 +101,9 @@ Si al servidor se llega a través de un NAT o similar, es importante que el port
 servidor donde se va a ejecutar el `certbot` (en caso contrario habrá que
 utilizar un _challenge_ vía DNS).
 
+Si el servidor es el que se va a utilizar para brindar el servicio HTTPS,
+también hay que abrir el port 443.
+
 ## Uso simple (plugins para servidores)
 
 El uso más simple de `certbot` es con el comando `run` (default) que solicita y
@@ -135,15 +138,15 @@ dirección micorreo@gmail.com).
 certificado para cada servidor virtual que tenga definido uno o más nombres de
 dominio con esos nombres de dominio.
 
-Utilizará el mismo servidor web para usar un _challenge_ DNS para obtener los
-certificados.
+Utilizará el mismo servidor web para validar el _challenge_ HTTP que le presenta
+el servidor ACME para obtener los certificados.
 
 Una vez obtenidos los certificados, los despliega y modifica los servidores
 virtuales para que redireccione cada uno a un nuevo servidor virtual que atienda
 en el port 443 (https), tenga una configuración semejante al servidor virtual
 original pero utilizando el certificado obtenido.
 
-### Ejmplo de interacción
+### Ejemplo de interacción
 
 ```
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
@@ -194,22 +197,6 @@ If you like Certbot, please consider supporting our work by:
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
 
-## Configurar los servidores manualmente
-
-Si se prefiere modificar manualmente los archivos de configuración de los
-servidores (digamos que el plugin no es especialmente prolijo al armar las
-configuraciones), en lugar de `certbot run` hay que usar `certbot certonly`:
-
-La invocación para apache es:
-```
-certbot certonly --apache
-```
-y para nginx:
-```
-certbot certonly --nginx
-```
-
-
 ### Timer para renovar los certificados
 
 La instalación de los certificados debe haber configurado un timer en `systemd`
@@ -220,6 +207,37 @@ Para verificar el funcionamiento de la renovación (sin renovar los certificados
 se puede correr el siguiente comando:
 ```
 sudo certbot renew --dry-run
+```
+
+## Configurar los servidores manualmente
+
+Si se prefiere modificar manualmente los archivos de configuración de los
+servidores (digamos que el plugin no es especialmente prolijo al armar las
+configuraciones), en lugar de `certbot run` hay que usar `certbot certonly`:
+
+La invocación para apache es:
+```
+sudo certbot certonly --apache
+```
+y para nginx:
+```
+sudo certbot certonly --nginx
+```
+
+## Validar con servidor web interno de `certbot`
+
+`certbot` puede utilizar un servidor web interno (_standalone_) para validar el
+_challenge_ HTTP que le presenta el servidor ACME para obtener los certificados.
+
+Esto sirve para generar certificados en servidores que no son web (por ejemplo
+servidores de mail) o en servidores web que no son apache o nginx.
+
+Para utilizarlo, hay que asegurarse de que no esté corriendo otro servidor en
+el port 80 al momento de pedir o renovar los certificados.
+
+La invocación es:
+```
+sudo certbot certonly --standalone
 ```
 
 
