@@ -2,11 +2,13 @@
 
 * [Configurar un desktop (o notebook) con Linux (al gusto del
 baby)](ConfigurarLinuxDesktopBaby.md)
+* [Configurar una VM Linode recién creada con Ubuntu (al gusto del
+baby)](ConfigurarLinodeBaby.md)
 * [Instalar y configurar el firewall Shorewall](InstalarShorewall.md)
 * [Instalar etckeeper para mantener la historia de modificaciones en
 /etc](InstalarEtckeeper.md)
-* [Configurar una VM Linode recién creada con Ubuntu (al gusto del
-baby)](ConfigurarLinodeBaby.md)
+* [Instalación y uso de certbot para obtener certificados digitales X.509 de
+Let's Encrypt](LetsencryptCertbot.md)
 * [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
 * [Instalar el mail server Postfix en Ubuntu](InstalarPostfix.md)
