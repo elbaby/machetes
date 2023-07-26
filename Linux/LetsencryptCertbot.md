@@ -83,15 +83,9 @@ de dominio ya sea utilizando el protocolo HTTP o el protocolo DNS.
 Por ahora nos limitamos a utilizar el protocolo HTTP en el mismo servidor donde
 se utilizará el certificado.
 
-## Configurar el nombre de dominio en el DNS público
+## Antes de empezar
 
-Todos los nombres de dominio para los que se van a solicitar el certificado
-deben estar configurados en el DNS.
-
-Asegurarse de que los nombres estén correctos en _todos_ los servidores
-autoritativos para los nombres.
-
-## Configurar el firewall
+### Configurar el firewall
 
 Es necesario que el port 80 (default del servicio HTTP) esté abierto en el
 servidor.
@@ -104,7 +98,17 @@ utilizar un _challenge_ vía DNS).
 Si el servidor es el que se va a utilizar para brindar el servicio HTTPS,
 también hay que abrir el port 443.
 
-## Uso simple (plugins para servidores)
+### Configurar el nombre de dominio en el DNS público
+
+Todos los nombres de dominio para los que se van a solicitar el certificado
+deben estar configurados en el DNS.
+
+Asegurarse de que los nombres estén correctos en _todos_ los servidores
+autoritativos para los nombres.
+
+## Solicitar y desplegar un certificado nuevo
+
+### Uso simple (plugins para servidores)
 
 El uso más simple de `certbot` es con el comando `run` (default) que solicita y
 despliega los certificados y configura automáticamente el servidor web para que
@@ -146,7 +150,7 @@ virtuales para que redireccione cada uno a un nuevo servidor virtual que atienda
 en el port 443 (https), tenga una configuración semejante al servidor virtual
 original pero utilizando el certificado obtenido.
 
-### Ejemplo de interacción
+#### Ejemplo de interacción
 
 ```
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
@@ -197,7 +201,7 @@ If you like Certbot, please consider supporting our work by:
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
 
-### Timer para renovar los certificados
+#### Timer para renovar los certificados
 
 La instalación de los certificados debe haber configurado un timer en `systemd`
 para renovar periódicamente los certificados en
@@ -209,7 +213,7 @@ se puede correr el siguiente comando:
 sudo certbot renew --dry-run
 ```
 
-## Configurar los servidores manualmente
+### Configurar los servidores manualmente
 
 Si se prefiere modificar manualmente los archivos de configuración de los
 servidores (digamos que el plugin no es especialmente prolijo al armar las
@@ -224,7 +228,7 @@ y para nginx:
 sudo certbot certonly --nginx
 ```
 
-## Validar con servidor web interno de `certbot`
+### Validar con servidor web interno de `certbot`
 
 `certbot` puede utilizar un servidor web interno (_standalone_) para validar el
 _challenge_ HTTP que le presenta el servidor ACME para obtener los certificados.
@@ -240,7 +244,7 @@ La invocación es:
 sudo certbot certonly --standalone --domain servidorweb.example.com
 ```
 
-## Crear certificados en forma no-interactiva
+### Crear certificados en forma no-interactiva
 
 `certbot` tiene una opción `--non-interactive` (o `-n`). Para que esta opción
 funcione, hay que utilizar también la opción `--agree-tos` para aceptar los
@@ -262,6 +266,76 @@ sudo certbot certonly --apache --non-interactive --agree-tos \
     --domain servidorweb.example.com
 ```
 
+## Listar los certificados
+
+El comando `sudo certbot certificates` lista todos los certificados en el
+sistema, con los nombres de dominio, tipo de clave, fecha de expiración y paths.
+
+## Renovar certificados
+
+`certbot` en general se configura para [renovar
+automáticamente](https://certbot.eff.org/docs/using.html#automated-renewals).
+En particular, en los Debian y Ubuntu modernos lo hace con un _timer_ de
+`systemd`.
+
+Para ver los _timers_ activos en `systemd` se puede usar el comando:
+```
+sudo systemctl list-timers
+```
+
+Allí debería aparecer una unidad `snap.certbot.renew.timer` o similar listando
+el servicio que activa, cuándo fue la última vez que lo activo y cuándo la
+próxima que lo activará.
+
+Para [renovar](https://certbot.eff.org/docs/using.html#renewing-certificates)
+certificados se utiliza el comando **`certbot renew`**.
+
+Si se lo invoca sin más opciones, va a revisar todos los certificados e
+intentará renovar todos aquellos a los que le falte **menos de 30 días** para
+la fecha de expiración (los certificados Let's Encrypt se emiten por 90 días).
+
+También se puede forzar la renovación aunque falten más de 30 días para la fecha
+de expiración utilizando la opció `--force-renewal`.
+
+Si se desea renovar un certificado en particular, hay que usar la opción
+`--cert-name` con el [nombre del certificado](#nombre-del-certificado) que se
+quiere renovar.
+
+## _Hooks_
+
+Los comandos `run`, `certonly` y `renew` de `certbot` soportan las opciones
+`--pre-hook`, `--post-hook` y `--deploy-hook`.
+
+* `--pre-hook` recibe como argumento un comando que ejecutará antes de un
+intento por obtener o renovar un certificado (por ejemplo, para detener un
+servicio antes de realizar la solicitud).
+
+* `--post-hook` recibe como argumento un comando que ejecutará después de un
+intento por obtener o renovar un certificado (por ejemplo, para reiniciar el
+servicio después de realizar la solicitud).
+
+* `--deploy-hook` recibe como argumento un comando que ejecutará después de
+_obtener_ un certificado (por ejemplo para recargar la configuración de un
+servicio que usa el certificado).
+
+Si un `certbot renew` se aplica a múltiples certificados y todos tienen el mismo
+`--pre-hook`, el _hook_ se ejecutará una sola vez antes de intentar renovar el
+primer certificado.
+
+Si un `certbot renew` se aplica a múltiples certificados y todos tienen el mismo
+`--post-hook`, el _hook_ se ejecutará una sola vez después de intentar renovar
+el último certificado.
+
+Si un `certbot renew` se aplica a múltiples certificados, el `--deploy-hook` se
+ejecutará _cada_ vez que se obtenga un certificado. En este caso, en la variable
+de entorno `${RENEWED_LINEAGE}` estará el path completo al subdirectorio donde
+están los archivos correspondientes al certificado obtenido (por ejemplo
+`/etc/letsencrypt/live/servidorweb.example.com`) y la variable de entorno
+`${RENEWED_DOMAINS}` tendra el o los nombres de dominio contenidos en el
+certificado (si es más de uno, los nombres están separados por un espacio en
+blanco).
+
+
 ## "_Nombre_" del certificado
 
 `certbot` utiliza internamente un "_nombre_" para cada certificado que solicita.
@@ -279,15 +353,28 @@ El _nombre_ se asigna al crear el certificado (no cambia con las renovaciones).
 Se puede usar la opción **`--cert-name`** con `certbot run` o `certbot certonly`
 para poner un nombre arbitrario al certificado que se solicita.
 
-## Listar los certificados
-
-El comando `sudo certbot certificates` lista todos los certificados en el
-sistema, con los nombres de dominio, tipo de clave, fecha de expiración y paths.
-
 ## Otras opciones
 
 Todas las opciones de línea de comandos del `certbot` están en
 https://certbot.eff.org/docs/using.html#certbot-command-line-options
+
+### Ejecuciones de prueba
+
+Por un lado, la opción **`--dry-run`** simula el comando (ya sea de creación o
+renovación del certificado), pero no modifica nada.
+
+Por otro lado, la opción `--test-cert` (o `--staging`) utiliza una autoridad de
+certificación (CA) alternativa que emite certificados que **no son válidos** (ya
+que la CA no tiene una cadena de certificación hacia una CA raíz aceptada).
+Los certificados obtenidos con esta opción son correctos (en cuanto al formato
+X.509), pero no serán aceptados por los clientes automáticamente (el navegador
+dará un error de certificado inválido).
+
+La ventaja de estos certificados es que el _rate limiting_ de la CA es mucho
+menor y se pueden solicitar y renovar múltiples veces, con o sin errores, antes
+de que la CA empiece generar un error automático por exceso de uso.
+
+### Tipo de clave
 
 Las versiones actuales (2023-07) de `certbot` generan por default un par de
 claves utilizando el Algoritmo de Firma Digital de Curva Elíptica (ECDSA).
@@ -296,8 +383,9 @@ En algunos casos en que se esperen clientes (o en el caso de un servidor de
 mail) puede ser conveniente utilizar un certificado RSA en lugar del default
 ECDSA.
 
-La opción **`--key-type`** que acepta las opciones `rsa` o `ecdsa` (default)
-selecciona el tipo de clave.
+La opción 
+[**`--key-type`**](https://certbot.eff.org/docs/using.html#rsa-and-ecdsa-keys)
+que acepta las opciones `rsa` o `ecdsa` (default) selecciona el tipo de clave.
 
 Cuando se especifica una clave **RSA** se puede especificar el tamaño de la
 clave en bits con la opción **`--rsa-key-size`**. El default es `2048` (y hoy en
@@ -306,7 +394,7 @@ más corta que eso).
 
 Cuando se especifica una clave **ECDSA** se puede especificar la curva elíptica
 específica y sus parámetros con la opción **`--elliptic-curve`**. El default es
-`secp256r1`. Otras opciones soportadas son `secp384r1` y `secp521r1`.
+`secp256r1`. La otra opción soportada es `secp384r1`.
 
 
 ___
