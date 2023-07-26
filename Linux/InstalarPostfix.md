@@ -1,8 +1,33 @@
 # Instalar y configurar un servidor Postfix en Ubuntu
 
-2023-07-17: Esto está probado con Ubuntu 22.04
+
+### Bibliografía
+
+* [Postfix Documentation](https://www.postfix.org/documentation.html)
+* [Postfix Basic
+Configuration](https://www.postfix.org/BASIC_CONFIGURATION_README.html)
+* [Postfix Standard Configuration
+Examples](https://www.postfix.org/STANDARD_CONFIGURATION_README.html)
+* [Postfix Architecture Overview](https://www.postfix.org/OVERVIEW.html)
+* [Postfix Address Classes](https://www.postfix.org/ADDRESS_CLASS_README.html)
+* [Postfix Address
+Rewriting](https://www.postfix.org/ADDRESS_REWRITING_README.html)
+* [Postfix Virtual Domain Hosting
+Howto](https://www.postfix.org/VIRTUAL_README.html)
+* [Postfix Lookup Table Overview](https://www.postfix.org/DATABASE_README.html)
+* [Postfix SASL Howto](https://www.postfix.org/SASL_README.html)
+* [Postfix TLS Support](https://www.postfix.org/TLS_README.html)
+* [Postfix SMTP relay and access
+control](https://www.postfix.org/SMTPD_ACCESS_README.html)
+* [Postfix Bottleneck Analysis](https://www.postfix.org/QSHAPE_README.html)
+  * [Postfix queue
+directories](https://www.postfix.org/QSHAPE_README.html#queues)
+* [Postfix Performance Tuning](https://www.postfix.org/TUNING_README.html)
+* [Postfix Debugging Howto](https://www.postfix.org/DEBUG_README.html)
 
 ## Instalar el paquete Postfix de los repositorios estándar
+
+2023-07-17: Esto está probado con Ubuntu 22.04
 
 ```
 sudo apt-get install postfix postfix-pcre
@@ -109,19 +134,12 @@ sudo postmap /etc/postfix/virtual_aliases
 
 ## Usar TLS con certificados letsencrypt
 
-### Instalar certbot
+### Instalar `certbot`
 
-Documentación: https://eff-certbot.readthedocs.io/en/stable/
+Seguir las instrucciones para [instalar
+certbot](LetsencryptCertbot.md#instalación-de-certbot-en-debian-o-ubuntu) en la
+[página de certbot de esta wiki](LetsencryptCertbot.md).
 
-https://eff-certbot.readthedocs.io/en/stable/using.html#certbot-command-line-options
-
-Instalar la última versión de [**certbot**](https://certbot.eff.org/) usando las
-[instrucciones](https://certbot.eff.org/instructions) del sitio oficial.
-
-Al seleccionar el software del servidor web, elegir **`Other`**.
-En 2023-07, la última versión que figura de Ubuntu es 20.04 que funciona.
-El link específico es
-[este](https://certbot.eff.org/instructions?ws=other&os=ubuntufocal).
 
 ### Obtener un certificado
 
@@ -129,31 +147,61 @@ Vamos a intentar obtener un certificado válido para el nombre definido como
 `myhostname` en la configuración de postfix y también para el hostname del
 equipo (que podría ser el mismo o no).
 
-Primero hacemos una corrida "en vacío" para verificar que funciona:
+Primero hacemos una corrida "en vacío" para verificar que funciona crear un
+certificado:
 ```
 sudo certbot certonly --non-interactive --agree-tos \
     --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
-    --test-cert --dry-run --standalone --key-type rsa --rsa-key-size 4096 \
+    --test-cert --dry-run --standalone \
     --domains `sudo postconf -h myhostname`,${HOSTNAME}
 ```
 
-Si la corrida funcionó bien, se puede emitir un certificado con el siguiente
-comando:
+
+Si la corrida funcionó bien, se puede emitir un certificado con clave RSA  con
+el siguiente comando:
 ```
 sudo certbot certonly --non-interactive --agree-tos \
     --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
     --standalone --key-type rsa --rsa-key-size 4096 \
+    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
+      ${RENEWED_LINEAGE}/fullchain.pem \
+      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
+      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem' \
+    --cert-name CERT_`sudo postconf -h myhostname`_RSA \
     --domains `sudo postconf -h myhostname`,${HOSTNAME}
 ```
 
-Esto dejó los siguientes archivos en la carpeta
-`/etc/letsencrypt/live/<nombre-del-server>/`:
+y un certificado con clave ECDSA con el siguiente comando:
+```
+sudo certbot certonly --non-interactive --agree-tos \
+    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
+    --standalone --key-type ecdsa --elliptic-curve secp384r1 \
+    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
+      ${RENEWED_LINEAGE}/fullchain.pem \
+      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
+      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem' \
+    --cert-name CERT_`sudo postconf -h myhostname`_ECDSA \
+    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+```
+
+Esto dejó los siguientes archivos del certificado RSA en la carpeta
+`/etc/letsencrypt/live/CERT_<nombre-del-server>_RSA/` y los del certificado
+ECDSA en la carpeta `/etc/letsencrypt/live/CERT_<nombre-del-server>_ECDSA/`.
+En cada carpeta están los siguientes archivos:
 * `cert.pem`: el certificado para el server
 * `chain.pem`: la cadena de certificados desde el emisor hasta la raíz
 * `fullchain.pem`: el certificado para el server junto con la cadena de
 certificados hasta la raíz
-* `privkey.pem`: la clave privada del server (este archivo _nunca_ debe salir
-del servidor)
+* `privkey.pem`: la clave privada del server
+Estos son links simbólicos a las últimas versiones de estos archivos que se
+mantienen en `/etc/letsencrypt/archive/CERT_<nombre-del-server>_ECDSA/`.
+
+Adicionalmente, la opción `--deploy-hook` armó (en la misma carpeta
+`/etc/letsencrypt/live/CERT_<nombre-del-server>_ECDSA/`) el archivo
+* **`privkeyfullchain.pem`**: Esto tiene la clave privada del server, seguida
+por el certificado para el server, seguida por la cadena de certificados hasta
+la raíz (esto es, la concatenación de `privkey.pem` y `fullchain.pem` que es el
+formato que prefieren las versiones nuevas de Postfix.
 
 ___
 <!-- LICENSE -->
