@@ -305,7 +305,7 @@ día los navegadores podrían rechazar sitios con certificados cuya clave RSA es
 más corta que eso).
 
 Cuando se especifica una clave **ECDSA** se puede especificar la curva elíptica
-específica y sus parámetros con la opción **`elliptic-curve`**. El default es
+específica y sus parámetros con la opción **`--elliptic-curve`**. El default es
 `secp256r1`. Otras opciones soportadas son `secp384r1` y `secp521r1`.
 
 
