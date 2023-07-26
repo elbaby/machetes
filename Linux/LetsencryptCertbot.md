@@ -262,6 +262,51 @@ sudo certbot certonly --apache --non-interactive --agree-tos \
     --domain servidorweb.example.com
 ```
 
+## "_Nombre_" del certificado
+
+`certbot` utiliza internamente un "_nombre_" para cada certificado que solicita.
+Este nombre se usa para identificar al certificado localmente y es el nombre que
+se utiliza como nombre para los directorios que contienen certificados y claves
+bajo `/etc/letsencrypt/live` y bajo `/etc/letsencrypt/live`.
+
+Por default, `certbot` utiliza el primer nombre de dominio del certificado como
+_nombre_ de ese certificado (e.g: dominio.example.com). Si ya hay en el sistema
+un certificado con ese nombre, les agrega un número detrás (e.g:
+dominio.example.com-001).
+
+El _nombre_ se asigna al crear el certificado (no cambia con las renovaciones).
+
+Se puede usar la opción **`--cert-name`** con `certbot run` o `certbot certonly`
+para poner un nombre arbitrario al certificado que se solicita.
+
+## Listar los certificados
+
+El comando `sudo certbot certificates` lista todos los certificados en el
+sistema, con los nombres de dominio, tipo de clave, fecha de expiración y paths.
+
+## Otras opciones
+
+Todas las opciones de línea de comandos del `certbot` están en
+https://certbot.eff.org/docs/using.html#certbot-command-line-options
+
+Las versiones actuales (2023-07) de `certbot` generan por default un par de
+claves utilizando el Algoritmo de Firma Digital de Curva Elíptica (ECDSA).
+Alternativamente, puede generar pares de claves utilizando el algoritmo RSA.
+En algunos casos en que se esperen clientes (o en el caso de un servidor de
+mail) puede ser conveniente utilizar un certificado RSA en lugar del default
+ECDSA.
+
+La opción **`--key-type`** que acepta las opciones `rsa` o `ecdsa` (default)
+selecciona el tipo de clave.
+
+Cuando se especifica una clave **RSA** se puede especificar el tamaño de la
+clave en bits con la opción **`--rsa-key-size`**. El default es `2048` (y hoy en
+día los navegadores podrían rechazar sitios con certificados cuya clave RSA es
+más corta que eso).
+
+Cuando se especifica una clave **ECDSA** se puede especificar la curva elíptica
+específica y sus parámetros con la opción **`elliptic-curve`**. El default es
+`secp256r1`. Otras opciones soportadas son `secp384r1` y `secp521r1`.
 
 
 ___
