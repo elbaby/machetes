@@ -301,6 +301,80 @@ Si se desea renovar un certificado en particular, hay que usar la opción
 `--cert-name` con el [nombre del certificado](#nombre-del-certificado) que se
 quiere renovar.
 
+## Revocar un certificado
+
+Para [revocar un
+certificado](https://certbot.eff.org/docs/using.html#revoking-certificates) se
+utiliza el comando
+```
+sudo certbot revoke --cert-name <nombre-del-certificado>
+```
+
+Alternativamente, en lugar de la opción `--cert-name` se puede utilizar la
+opción `--cert-path` y pasar el path completo del archivo `cert.pem`.
+
+Opcionalmente, se puede pasar la opción `--reason` que acepta los valores
+`unspecified` (el default), `keycompromise`, `affiliationchanged`, `superseded`
+y `cessationofoperation`.
+
+Luego de revocar el certificado, `certbot` preguntará si se quiere borrar el
+certificado (y todas las versiones anteriores) o dejarlo. Para evitar esta
+interacción, se puede usar la opción `--delete-after-revoke` para borrarlo
+automáticamente después de revocarlo o `--no-delete-after-revoke` para
+mantenerlo.
+
+Si se revoca un certificado pero _no_ se lo borra, el mismo será renovado la
+próxima vez que se ejecute un `certbot renew` (esto normalmente se ejecuta una
+o dos veces al día automáticamente).
+
+Si se revocó un certificado porque se sospecha que se pudo haber filtrado la
+clave privada, pero se lo desea seguir usando, lo mejor es no borrar el
+certificado y luego renovarlo inmediatamente (lo que generará una nueva clave
+privada y un nuevo certificado):
+```
+NOMBRE=<nombre-del-certificado>
+sudo certbot revoke --cert-name ${NOMBRE} --reason keycompromise \
+    --no-delete-after-revoke
+sudo certbot renew --cert-name ${NOMBRE}
+```
+
+## Borrar un certificado
+
+**OJO**: Si se borra un certificado, esta acción es _irreversible_ (en el
+sentido que la clave privada y el certificado borrado no se pueden volver a
+conseguir). Sí es posible emitir un _nuevo_ certificado con los mismos
+parámetros.
+
+También, **_antes_** de borrar un certificado, hay que revisar bien que no haya
+ninguna referencia a él en algún servicio que esté ejecutándose (como apache,
+nginx, postfix u otro).
+
+Antes de borrar un certificado en particular, se pueden ejecutar estos comandos
+para ver si hay alguna referencia en algún archivo de configuración bajo `/etc`
+(ojo que también _podría_ haber alguna configuración en _otro_ lado que lo
+utilice):
+```
+NOMBRE=<nombre-del-certificado>
+grep --dereference-recursive /etc/letsencrypt/live/${NOMBRE} | \
+  grep --invert-match ^/etc/letsencrypt
+```
+Antes de borrar el certificado, modificar los archivos de configuración de los
+servicios que lo referencian para que no lo utilicen y reiniciar esos servicios.
+
+Para [borrar un
+certificado](https://certbot.eff.org/docs/using.html#deleting-certificates) se
+utiliza el comando
+```
+sudo certbot delete
+```
+
+Esto muestra la lista de certificados y permite elegir qué certificado borrar.
+
+Alternativamente, se puede especificar el certificado en la línea de comandos:
+```
+sudo certbot delete --cert-name <nombre-del-certificado>
+```
+
 ## _Hooks_
 
 Los comandos `run`, `certonly` y `renew` de `certbot` soportan las opciones
@@ -335,7 +409,6 @@ están los archivos correspondientes al certificado obtenido (por ejemplo
 certificado (si es más de uno, los nombres están separados por un espacio en
 blanco).
 
-
 ## "_Nombre_" del certificado
 
 `certbot` utiliza internamente un "_nombre_" para cada certificado que solicita.
@@ -352,6 +425,10 @@ El _nombre_ se asigna al crear el certificado (no cambia con las renovaciones).
 
 Se puede usar la opción **`--cert-name`** con `certbot run` o `certbot certonly`
 para poner un nombre arbitrario al certificado que se solicita.
+
+Para ver el _nombre_ de todos los certificados en el sistema, se pueden [listar
+los certificados](#listar-los-certificados) con el comando `sudo certbot
+certificates` y allí se listarán todos los certificados, cada uno con su nombre.
 
 ## Otras opciones
 
