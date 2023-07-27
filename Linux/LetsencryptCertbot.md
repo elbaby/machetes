@@ -355,11 +355,17 @@ para ver si hay alguna referencia en algún archivo de configuración bajo `/etc
 utilice):
 ```
 NOMBRE=<nombre-del-certificado>
-grep --dereference-recursive /etc/letsencrypt/live/${NOMBRE} | \
+sudo grep --dereference-recursive /etc/letsencrypt/live/${NOMBRE} /etc | \
   grep --invert-match ^/etc/letsencrypt
 ```
 Antes de borrar el certificado, modificar los archivos de configuración de los
 servicios que lo referencian para que no lo utilicen y reiniciar esos servicios.
+
+Un certificado se puede borrar sin revocar (suponiendo que la clave no haya sido
+compromentida). Sin embargo, como la CA no se entera de este borrado, cuando el
+certificado (borrado) esté por expirar, la CA enviará mensajes a la dirección de
+mail utilizada cuando el mismo se creó avisando esto. Por eso conviene [revocar
+el certificado](#revocar-un-certificado) antes de borrarlo.
 
 Para [borrar un
 certificado](https://certbot.eff.org/docs/using.html#deleting-certificates) se
@@ -473,7 +479,94 @@ Cuando se especifica una clave **ECDSA** se puede especificar la curva elíptica
 específica y sus parámetros con la opción **`--elliptic-curve`**. El default es
 `secp256r1`. La otra opción soportada es `secp384r1`.
 
+# Algunos ejemplos
 
+## Generación de certificados para Postfix
+
+Vamos a intentar obtener un certificado válido para el nombre definido como
+`myhostname` en la configuración de postfix y también para el hostname del
+equipo (que podría ser el mismo o no).
+
+Primero hacemos una corrida "en vacío" para verificar que funciona crear un
+certificado:
+```
+sudo certbot certonly --non-interactive --agree-tos \
+    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
+    --test-cert --dry-run --standalone \
+    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+```
+
+Si la corrida funcionó bien, se puede emitir un certificado con clave RSA  con
+el siguiente comando:
+```
+sudo certbot certonly --non-interactive --agree-tos \
+    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
+    --standalone --key-type rsa --rsa-key-size 4096 \
+    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
+      ${RENEWED_LINEAGE}/fullchain.pem \
+      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
+      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem \
+      && systemctl reload postfix' \
+    --cert-name CERT_`sudo postconf -h myhostname`_RSA \
+    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+```
+
+y un certificado con clave ECDSA con el siguiente comando:
+```
+sudo certbot certonly --non-interactive --agree-tos \
+    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
+    --standalone --key-type ecdsa --elliptic-curve secp384r1 \
+    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
+      ${RENEWED_LINEAGE}/fullchain.pem \
+      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
+      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem \
+      && systemctl reload postfix' \
+    --cert-name CERT_`sudo postconf -h myhostname`_ECDSA \
+    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+```
+
+Esto dejó los siguientes archivos del certificado RSA en la carpeta
+`/etc/letsencrypt/live/CERT_<nombre-del-server>_RSA/` y los del certificado
+ECDSA en la carpeta `/etc/letsencrypt/live/CERT_<nombre-del-server>_ECDSA/`.
+En cada carpeta están los siguientes archivos:
+* `cert.pem`: el certificado para el server
+* `chain.pem`: la cadena de certificados desde el emisor hasta la raíz
+* `fullchain.pem`: el certificado para el server junto con la cadena de
+certificados hasta la raíz
+* `privkey.pem`: la clave privada del server
+Estos son links simbólicos a las últimas versiones de estos archivos que se
+mantienen en `/etc/letsencrypt/archive/CERT_<nombre-del-server>_ECDSA/`.
+
+Adicionalmente, la opción `--deploy-hook` armó (en la misma carpeta
+`/etc/letsencrypt/live/CERT_<nombre-del-server>_ECDSA/`) el archivo
+* **`privkeyfullchain.pem`**: Esto tiene la clave privada del server, seguida
+por el certificado para el server, seguida por la cadena de certificados hasta
+la raíz (esto es, la concatenación de `privkey.pem` y `fullchain.pem` que es el
+formato que prefieren las versiones nuevas de Postfix.
+
+Finalmente, se hace un `reload` del servicio `postfix` para que lea los nuevos
+certificados.
+
+## Revocar y borrar todos los certificados de un servidor que se migró
+
+Asegurarse de que ningún servicio (apache, nginx, postfix, etc) esté usando
+un certificado de estos:
+```
+sudo grep --dereference-recursive /etc/letsencrypt/live/ /etc | \
+  grep --invert-match ^/etc/letsencrypt
+```
+Si acá no apareció nada, es una buena señal. Si apareció algo, revisar los
+archivos que aparecen.
+
+**CUIDADO**: Esto va a revocar y borrar todos los certificados que haya en el
+sistema **sin preguntar nada**:
+```
+for NOMBRE in `sudo ls /etc/letsencrypt/live/` ; do
+  [ ${NOMBRE} == "README" ] && continue
+  sudo certbot revoke --cert-name ${NOMBRE} --reason superseded \
+    --delete-after-revoke --non-interactive
+done
+```
 ___
 <!-- LICENSE -->
 ___
