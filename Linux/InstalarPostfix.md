@@ -134,6 +134,14 @@ sudo postmap /etc/postfix/virtual_aliases
 
 ## Usar TLS con certificados letsencrypt
 
+### Directorio para certificados
+
+Armamos en `/etc/postfix` un directorio para poner las claves y certificados
+TLS:
+```
+sudo mkdir --mode=0700 --verbose --parents /etc/postfix/certs
+```
+
 ### Instalar `certbot`
 
 Seguir las instrucciones para [instalar
@@ -141,7 +149,7 @@ certbot](LetsencryptCertbot.md#instalación-de-certbot-en-debian-o-ubuntu) en la
 [página de certbot de esta wiki](LetsencryptCertbot.md).
 
 
-### Obtener un certificado
+### Obtener certificados
 
 Vamos a intentar obtener un certificado válido para el nombre definido como
 `myhostname` en la configuración de postfix y también para el hostname del
@@ -158,30 +166,36 @@ sudo certbot certonly --non-interactive --agree-tos \
 
 
 Si la corrida funcionó bien, se puede emitir un certificado con clave RSA  con
-el siguiente comando:
+los siguientes comandos:
 ```
-sudo certbot certonly --non-interactive --agree-tos \
-    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
-    --standalone --key-type rsa --rsa-key-size 4096 \
-    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
-      ${RENEWED_LINEAGE}/fullchain.pem \
-      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
-      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem' \
-    --cert-name CERT_`sudo postconf -h myhostname`_RSA \
-    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+CERTNAME="CERT_`sudo postconf -h myhostname`_RSA"
+KEYOPTIONS="--key-type rsa --rsa-key-size 4096"
+
+DOMAINS="`sudo postconf -h myhostname`,${HOSTNAME}"
+EMAIL="hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain`"
+POSTFIXCERTDIR="/etc/postfix/certs"
+
+sudo certbot certonly --non-interactive --agree-tos --email ${EMAIL} \
+    --standalone --cert-name ${CERTNAME} --domains ${DOMAINS} ${KEYOPTIONS} \
+    --deploy-hook "cat \${RENEWED_LINEAGE}/privkey.pem \${RENEWED_LINEAGE}/fullchain.pem \
+      > ${POSTFIXCERTDIR}/${CERTNAME}.pem && chmod 0600 ${POSTFIXCERTDIR}/${CERTNAME}.pem \
+      && systemctl reload postfix"
 ```
 
-y un certificado con clave ECDSA con el siguiente comando:
+y un certificado con clave ECDSA con los siguientes comandos:
 ```
-sudo certbot certonly --non-interactive --agree-tos \
-    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
-    --standalone --key-type ecdsa --elliptic-curve secp384r1 \
-    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
-      ${RENEWED_LINEAGE}/fullchain.pem \
-      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
-      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem' \
-    --cert-name CERT_`sudo postconf -h myhostname`_ECDSA \
-    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+CERTNAME="CERT_`sudo postconf -h myhostname`_ECDSA"
+KEYOPTIONS="--key-type ecdsa --elliptic-curve secp384r1"
+
+DOMAINS="`sudo postconf -h myhostname`,${HOSTNAME}"
+EMAIL="hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain`"
+POSTFIXCERTDIR="/etc/postfix/certs"
+
+sudo certbot certonly --non-interactive --agree-tos --email ${EMAIL} \
+    --standalone --cert-name ${CERTNAME} --domains ${DOMAINS} ${KEYOPTIONS} \
+    --deploy-hook "cat \${RENEWED_LINEAGE}/privkey.pem \${RENEWED_LINEAGE}/fullchain.pem \
+      > ${POSTFIXCERTDIR}/${CERTNAME}.pem && chmod 0600 ${POSTFIXCERTDIR}/${CERTNAME}.pem \
+      && systemctl reload postfix"
 ```
 
 Esto dejó los siguientes archivos del certificado RSA en la carpeta
@@ -196,12 +210,85 @@ certificados hasta la raíz
 Estos son links simbólicos a las últimas versiones de estos archivos que se
 mantienen en `/etc/letsencrypt/archive/CERT_<nombre-del-server>_ECDSA/`.
 
-Adicionalmente, la opción `--deploy-hook` armó (en la misma carpeta
-`/etc/letsencrypt/live/CERT_<nombre-del-server>_ECDSA/`) el archivo
-* **`privkeyfullchain.pem`**: Esto tiene la clave privada del server, seguida
-por el certificado para el server, seguida por la cadena de certificados hasta
-la raíz (esto es, la concatenación de `privkey.pem` y `fullchain.pem` que es el
-formato que prefieren las versiones nuevas de Postfix.
+Adicionalmente, la opción `--deploy-hook` armó (en la carpeta
+`/etc/postfix/certs`) los archivos:
+* **`CERT_<nombre-del-server>_RSA.pem`**
+* **`CERT_<nombre-del-server>_ECDSA.pem`**
+
+Cada uno de estos tiene la clave privada
+del server, seguida por el certificado para el server, seguida por la cadena de
+certificados hasta la raíz (esto es, la concatenación de `privkey.pem` y
+`fullchain.pem` que es el formato que prefieren las versiones nuevas de Postfix
+(desde Postfix 3.4 en adelante).
+
+Finalmente, se hace un `reload` del servicio `postfix` para que lea los nuevos
+certificados.
+
+Estos certificados [se renuevan
+automáticamente](LetsencryptCertbot.md#renovar-certificados) (y esto incluye la
+corrida del `deploy-hook`).
+
+## Configurar los certificados para _recibir_ mail con `smtpd`
+
+Ver: https://www.postfix.org/TLS_README.html#server_tls
+
+Editar el archivo de configuración **`/etc/postfix/main.cf`**.
+
+* _Borrar_ (o comentar) si existen las líneas con las variables
+[`smtpd_tls_key_file`](https://www.postfix.org/postconf.5.html#smtpd_tls_key_file) y
+[`smtpd_tls_cert_file`](https://www.postfix.org/postconf.5.html#smtpd_tls_cert_file)
+(normalmente en Debian y Ubuntu apuntan a una clave privada 
+`/etc/ssl/private/ssl-cert-snakeoil.key` y un certificado autofirmado 
+`/etc/ssl/certs/ssl-cert-snakeoil.pem` respectivamente).
+* _Agregar_ la variable
+[`smtpd_tls_chain_files`](https://www.postfix.org/postconf.5.html#smtpd_tls_chain_files)
+que acepta un archivo o una lista de archivos (separados por comas o espacio en
+blanco) consistentes cada uno en una clave privada seguida del certificado del
+sitio y la cadena de verificación.
+* _Agregar_ (o verificar que está configurada) la variable
+[smtpd_tls_security_level](https://www.postfix.org/postconf.5.html#smtpd_tls_security_level)
+con el valor **`may`** para usar TLS oportunístico (**no** usar el valor
+`encrypt` ya que no se aceptarían conexiones de clientes que no utilizan TLS
+y la Internet está _llena_ de servidores que no lo utilizan)
+* Configurar explícitamente la variable
+[smtpd_tls_loglevel](https://www.postfix.org/postconf.5.html#smtpd_tls_loglevel)
+con el [nivel de _logging_ deseado para
+TLS](https://www.postfix.org/TLS_README.html#server_logging). Este valor debería
+estar entre `0` y `2`. `3` únicamente si hay errores de negociación TLS,
+mientras se lo revisa. El nivel `4` no debería usarse nunca.
+```
+smtpd_tls_chain_files=/etc/postfix/certs/CERT_<nombre-del-server>_ECDSA.pem
+                      /etc/postfix/certs/CERT_<nombre-del-server>_RSA.pem
+smtpd_tls_security_level=may
+smtpd_tls_loglevel=1
+```
+
+Recargar el servicio `postfix` para tomar la nueva configuración:
+```
+systemctl reload postfix
+```
+
+### Recibir conexiones TLS en el port SMTPS
+
+Si, además de aceptar conexiones en el port SMTP 25 (que pueden utilizar
+STARTTLS para iniciar el _handshake_ TLS) se desean aceptar conexiones TLS en
+el port SMTPS 465 (que realizan el _handshake_ antes del HELO/EHLO), hay que
+habilitar el servicio `smtps` en el archivo `/etc/postfix/master.cf`.
+
+En general esa línea ya está en el archivo y simplemente hay que quitarle el `#`
+del principio de la línea
+```
+# ==========================================================================
+# service type  private unpriv  chroot  wakeup  maxproc command + args
+#               (yes)   (yes)   (no)    (never) (100)
+# ==========================================================================
+smtps     inet  n       -       y       -       -       smtpd
+```
+
+Recargar el servicio `postfix` para tomar la nueva configuración:
+```
+systemctl reload postfix
+```
 
 ___
 <!-- LICENSE -->
