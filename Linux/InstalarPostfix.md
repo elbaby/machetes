@@ -332,7 +332,7 @@ estar entre `0` y `2`. `3` únicamente si hay errores de negociación TLS,
 mientras se lo revisa. El nivel `4` no debería usarse nunca.
 ```
 # smtp/lmtp client TLS parameters
-smtpd_tls_chain_files=
+smtp_tls_chain_files=
 smtp_tls_CApath=/etc/ssl/certs
 smtp_tls_security_level=may
 smtp_tls_session_cache_database=btree:${data_directory}/smtp_scache
