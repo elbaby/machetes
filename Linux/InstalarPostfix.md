@@ -246,20 +246,26 @@ que acepta un archivo o una lista de archivos (separados por comas o espacio en
 blanco) consistentes cada uno en una clave privada seguida del certificado del
 sitio y la cadena de verificación.
 * _Agregar_ (o verificar que está configurada) la variable
-[smtpd_tls_security_level](https://www.postfix.org/postconf.5.html#smtpd_tls_security_level)
+[`smtpd_tls_security_level`](https://www.postfix.org/postconf.5.html#smtpd_tls_security_level)
 con el valor **`may`** para usar TLS oportunístico (**no** usar el valor
 `encrypt` ya que no se aceptarían conexiones de clientes que no utilizan TLS
 y la Internet está _llena_ de servidores que no lo utilizan)
+* Configurar una [cache de sesiones TLS para el
+servidor](https://www.postfix.org/TLS_README.html#server_tls_cache) usando la
+variable
+[`smtpd_tls_session_cache_database`](https://www.postfix.org/postconf.5.html#smtpd_tls_session_cache_database)
 * Configurar explícitamente la variable
-[smtpd_tls_loglevel](https://www.postfix.org/postconf.5.html#smtpd_tls_loglevel)
+[`smtpd_tls_loglevel`](https://www.postfix.org/postconf.5.html#smtpd_tls_loglevel)
 con el [nivel de _logging_ deseado para
 TLS](https://www.postfix.org/TLS_README.html#server_logging). Este valor debería
 estar entre `0` y `2`. `3` únicamente si hay errores de negociación TLS,
 mientras se lo revisa. El nivel `4` no debería usarse nunca.
 ```
+# smtpd server TLS parameters
 smtpd_tls_chain_files=/etc/postfix/certs/CERT_<nombre-del-server>_ECDSA.pem
                       /etc/postfix/certs/CERT_<nombre-del-server>_RSA.pem
 smtpd_tls_security_level=may
+smtpd_tls_session_cache_database=btree:${data_directory}/smtpd_scache
 smtpd_tls_loglevel=1
 ```
 
@@ -288,6 +294,50 @@ smtps     inet  n       -       y       -       -       smtpd
 Recargar el servicio `postfix` para tomar la nueva configuración:
 ```
 systemctl reload postfix
+```
+
+## Configurar los certificados para _enviar_ mail con `smtp`
+
+Ver: https://www.postfix.org/TLS_README.html#client_tls
+
+Editar el archivo de configuración **`/etc/postfix/main.cf`**.
+
+* [_No conviene_](https://www.postfix.org/TLS_README.html#client_cert_key)
+configurar una clave privada y certificado del lado del cliente, por lo que hay
+que asegurarse de que la variable
+[`smtp_tls_chain_files`](https://www.postfix.org/postconf.5.html#smtp_tls_chain_files)
+esté vacía
+* Configurar la variable
+[`smtp_tls_CApath`](https://www.postfix.org/postconf.5.html#smtp_tls_CApath) con
+el path al directorio donde están los certificados de autoridades de
+certificación (CA) aceptadas
+* _Agregar_ (o verificar que está configurada) la variable
+[`smtp_tls_security_level`](https://www.postfix.org/postconf.5.html#smtp_tls_security_level)
+con el valor **`may`** para usar TLS oportunístico (**no** usar el valor
+`encrypt` ya que no se aceptarían conexiones a servidores que no utilizan TLS
+y la Internet está _llena_ de servidores que no lo utilizan)
+* Configurar una [cache de sesiones TLS para el
+cliente](https://www.postfix.org/TLS_README.html#client_tls_cache) usando la
+variable
+[`smtp_tls_session_cache_database`](https://www.postfix.org/postconf.5.html#smtp_tls_session_cache_database)
+* Configurar la [reutilización de las conexiones TLS del
+cliente](https://www.postfix.org/TLS_README.html#client_tls_reuse) usando la
+variable
+[`smtp_tls_connection_reuse`](https://www.postfix.org/postconf.5.html#smtp_tls_connection_reuse)
+* Configurar explícitamente la variable
+[`smtp_tls_loglevel`](https://www.postfix.org/postconf.5.html#smtp_tls_loglevel)
+con el [nivel de _logging_ deseado para
+TLS](https://www.postfix.org/TLS_README.html#client_logging). Este valor debería
+estar entre `0` y `2`. `3` únicamente si hay errores de negociación TLS,
+mientras se lo revisa. El nivel `4` no debería usarse nunca.
+```
+# smtp/lmtp client TLS parameters
+smtpd_tls_chain_files=
+smtp_tls_CApath=/etc/ssl/certs
+smtp_tls_security_level=may
+smtp_tls_session_cache_database=btree:${data_directory}/smtp_scache
+smtp_tls_connection_reuse=yes
+smtp_tls_loglevel=1
 ```
 
 ___
