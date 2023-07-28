@@ -251,7 +251,7 @@ automáticamente al iniciar la sesión:
 ## Algunas cosas más
 
 * [Instalar y configurar etckeeper para trackear cambios en 
-/etc](InstalarEtckeeper.md)
+/etc](Etckeeper.md)
 * [Habilitar procesamiento de archivos PDF en 
 ImageMagick](../tips-tricks/imagemagick-pdf.md)
 

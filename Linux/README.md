@@ -6,7 +6,7 @@ baby)](DesktopBaby.md)
 baby)](VMUbuntuBaby.md)
 * [Instalar y configurar el firewall Shorewall](InstalarShorewall.md)
 * [Instalar etckeeper para mantener la historia de modificaciones en
-/etc](InstalarEtckeeper.md)
+/etc](Etckeeper.md)
 * [Instalación y uso de certbot para obtener certificados digitales X.509 de
 Let's Encrypt](LetsencryptCertbot.md)
 * [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
