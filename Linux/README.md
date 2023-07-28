@@ -4,7 +4,7 @@
 baby)](DesktopBaby.md)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del
 baby)](VMUbuntuBaby.md)
-* [Instalar y configurar el firewall Shorewall](InstalarShorewall.md)
+* [Instalar y configurar el firewall Shorewall](Shorewall.md)
 * [Instalar etckeeper para mantener la historia de modificaciones en
 /etc](Etckeeper.md)
 * [Instalación y uso de certbot para obtener certificados digitales X.509 de
