@@ -1,20 +1,20 @@
 # Linux
 
-* [Configurar un desktop (o notebook) con Linux (al gusto del
+* [Configurar un **desktop** (o notebook) con Linux (al gusto del
 baby)](DesktopBaby.md)
-* [Configurar una VM Linode recién creada con Ubuntu (al gusto del
+* [Configurar una **VM Linode** recién creada con Ubuntu (al gusto del
 baby)](VMUbuntuBaby.md)
-* [Instalar y configurar el firewall Shorewall](Shorewall.md)
-* [Instalar etckeeper para mantener la historia de modificaciones en
+* [Instalar y configurar el firewall **Shorewall**](Shorewall.md)
+* [Instalar **etckeeper** para mantener la historia de modificaciones en
 /etc](Etckeeper.md)
-* [Instalación y uso de certbot para obtener certificados digitales X.509 de
-Let's Encrypt](LetsencryptCertbot.md)
-* [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
+* [Instalación y uso de **certbot** para obtener certificados digitales X.509 de
+**Let's Encrypt** (letsencrypt)](LetsencryptCertbot.md)
+* [Instalar **VirtualBox** de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
-* [Instalar el mail server Postfix en Ubuntu](Postfix.md)
-* [Instalar Nextcloud usando snap](NextcloudSnap.md)
-* [OfflineIMAP](OfflineIMAP.md)
-* [Adaptador USB - serial port](USBserial.md)
+* [Instalar el mail server **Postfix** en Ubuntu](Postfix.md)
+* [Instalar **Nextcloud** usando snap](NextcloudSnap.md)
+* [**OfflineIMAP**](OfflineIMAP.md)
+* [Adaptador **USB** - serial port](USBserial.md)
 
 
 ___
