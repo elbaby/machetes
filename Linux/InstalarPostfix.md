@@ -340,6 +340,26 @@ smtp_tls_connection_reuse=yes
 smtp_tls_loglevel=1
 ```
 
+Para poder [reutilizar las conexiones TLS del
+cliente](https://www.postfix.org/TLS_README.html#client_tls_reuse) también hay
+que habilitar el servicio [`tlsproxy`](https://www.postfix.org/tlsproxy.8.html)
+para que escuche en un _unix socket_ en el archivo `/etc/postfix/master.cf`.
+
+En general esa línea ya está en el archivo y simplemente hay que quitarle el `#`
+del principio de la línea
+```
+# ==========================================================================
+# service type  private unpriv  chroot  wakeup  maxproc command + args
+#               (yes)   (yes)   (no)    (never) (100)
+# ==========================================================================
+tlsproxy  unix  -       -       y       -       0       tlsproxy
+```
+
+Recargar el servicio `postfix` para tomar la nueva configuración:
+```
+systemctl reload postfix
+```
+
 ___
 <!-- LICENSE -->
 ___
