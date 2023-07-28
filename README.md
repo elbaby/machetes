@@ -1,5 +1,9 @@
 # machetes
-Documentación de cosas que aprendo a hacer y si no las anoto acá, me las olvido
+Documentación de cosas que aprendo a hacer y si no las anoto acá, me las olvido.
+
+Esta página debería estar siempre en 
+[WIKI.CLUELESS.AR](https://wiki.clueless.ar) (pero, como sabemos, _puede
+fallar_).
 
 Esto nació en https://wiki.clueless.com.ar y lo perdí al olvidarme que estaba 
 hosteado en un equipo que borré :-(
