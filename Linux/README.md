@@ -11,7 +11,7 @@ baby)](VMUbuntuBaby.md)
 Let's Encrypt](LetsencryptCertbot.md)
 * [Instalar VirtualBox de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
-* [Instalar el mail server Postfix en Ubuntu](InstalarPostfix.md)
+* [Instalar el mail server Postfix en Ubuntu](Postfix.md)
 * [Instalar Nextcloud usando snap](NextcloudSnap.md)
 * [OfflineIMAP](OfflineIMAP.md)
 * [Adaptador USB - serial port](USBserial.md)
