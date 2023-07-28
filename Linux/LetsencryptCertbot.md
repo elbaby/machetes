@@ -483,6 +483,12 @@ específica y sus parámetros con la opción **`--elliptic-curve`**. El default 
 
 ## Generación de certificados para Postfix
 
+Armamos en `/etc/postfix` un directorio para poner las claves y certificados
+TLS:
+```
+sudo mkdir --mode=0700 --verbose --parents /etc/postfix/certs
+```
+
 Vamos a intentar obtener un certificado válido para el nombre definido como
 `myhostname` en la configuración de postfix y también para el hostname del
 equipo (que podría ser el mismo o no).
@@ -497,32 +503,36 @@ sudo certbot certonly --non-interactive --agree-tos \
 ```
 
 Si la corrida funcionó bien, se puede emitir un certificado con clave RSA  con
-el siguiente comando:
+los siguientes comandos:
 ```
-sudo certbot certonly --non-interactive --agree-tos \
-    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
-    --standalone --key-type rsa --rsa-key-size 4096 \
-    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
-      ${RENEWED_LINEAGE}/fullchain.pem \
-      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
-      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem \
-      && systemctl reload postfix' \
-    --cert-name CERT_`sudo postconf -h myhostname`_RSA \
-    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+CERTNAME="CERT_`sudo postconf -h myhostname`_RSA"
+KEYOPTIONS="--key-type rsa --rsa-key-size 4096"
+
+DOMAINS="`sudo postconf -h myhostname`,${HOSTNAME}"
+EMAIL="hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain`"
+POSTFIXCERTDIR="/etc/postfix/certs"
+
+sudo certbot certonly --non-interactive --agree-tos --email ${EMAIL} \
+    --standalone --cert-name ${CERTNAME} --domains ${DOMAINS} ${KEYOPTIONS} \
+    --deploy-hook "cat \${RENEWED_LINEAGE}/privkey.pem \${RENEWED_LINEAGE}/fullchain.pem \
+      > ${POSTFIXCERTDIR}/${CERTNAME}.pem && chmod 0600 ${POSTFIXCERTDIR}/${CERTNAME}.pem \
+      && systemctl reload postfix"
 ```
 
-y un certificado con clave ECDSA con el siguiente comando:
+y un certificado con clave ECDSA con los siguientes comandos:
 ```
-sudo certbot certonly --non-interactive --agree-tos \
-    --email hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain` \
-    --standalone --key-type ecdsa --elliptic-curve secp384r1 \
-    --deploy-hook 'cat ${RENEWED_LINEAGE}/privkey.pem \
-      ${RENEWED_LINEAGE}/fullchain.pem \
-      > ${RENEWED_LINEAGE}/privkeyfullchain.pem ;\
-      chmod 0600 ${RENEWED_LINEAGE}/privkeyfullchain.pem \
-      && systemctl reload postfix' \
-    --cert-name CERT_`sudo postconf -h myhostname`_ECDSA \
-    --domains `sudo postconf -h myhostname`,${HOSTNAME}
+CERTNAME="CERT_`sudo postconf -h myhostname`_ECDSA"
+KEYOPTIONS="--key-type ecdsa --elliptic-curve secp384r1"
+
+DOMAINS="`sudo postconf -h myhostname`,${HOSTNAME}"
+EMAIL="hostmaster+tls-certbot-${HOSTNAME}@`sudo postconf -h mydomain`"
+POSTFIXCERTDIR="/etc/postfix/certs"
+
+sudo certbot certonly --non-interactive --agree-tos --email ${EMAIL} \
+    --standalone --cert-name ${CERTNAME} --domains ${DOMAINS} ${KEYOPTIONS} \
+    --deploy-hook "cat \${RENEWED_LINEAGE}/privkey.pem \${RENEWED_LINEAGE}/fullchain.pem \
+      > ${POSTFIXCERTDIR}/${CERTNAME}.pem && chmod 0600 ${POSTFIXCERTDIR}/${CERTNAME}.pem \
+      && systemctl reload postfix"
 ```
 
 Esto dejó los siguientes archivos del certificado RSA en la carpeta
@@ -537,15 +547,22 @@ certificados hasta la raíz
 Estos son links simbólicos a las últimas versiones de estos archivos que se
 mantienen en `/etc/letsencrypt/archive/CERT_<nombre-del-server>_ECDSA/`.
 
-Adicionalmente, la opción `--deploy-hook` armó (en la misma carpeta
-`/etc/letsencrypt/live/CERT_<nombre-del-server>_ECDSA/`) el archivo
-* **`privkeyfullchain.pem`**: Esto tiene la clave privada del server, seguida
-por el certificado para el server, seguida por la cadena de certificados hasta
-la raíz (esto es, la concatenación de `privkey.pem` y `fullchain.pem` que es el
-formato que prefieren las versiones nuevas de Postfix.
+Adicionalmente, la opción `--deploy-hook` armó (en la carpeta
+`/etc/postfix/certs`) los archivos:
+* **`CERT_<nombre-del-server>_RSA.pem`**
+* **`CERT_<nombre-del-server>_ECDSA.pem`**
+
+Cada uno de estos tiene la clave privada del server, seguida por el certificado
+para el server, seguida por la cadena de certificados hasta la raíz (esto es, la
+concatenación de `privkey.pem` y `fullchain.pem` que es el formato que prefieren
+las versiones nuevas de Postfix (desde Postfix 3.4 en adelante).
 
 Finalmente, se hace un `reload` del servicio `postfix` para que lea los nuevos
 certificados.
+
+Estos certificados [se renuevan
+automáticamente](LetsencryptCertbot.md#renovar-certificados) (y esto incluye la
+corrida del `deploy-hook`).
 
 ## Revocar y borrar todos los certificados de un servidor que se migró
 
