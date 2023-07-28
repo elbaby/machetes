@@ -164,7 +164,6 @@ sudo certbot certonly --non-interactive --agree-tos \
     --domains `sudo postconf -h myhostname`,${HOSTNAME}
 ```
 
-
 Si la corrida funcionó bien, se puede emitir un certificado con clave RSA  con
 los siguientes comandos:
 ```
@@ -215,11 +214,10 @@ Adicionalmente, la opción `--deploy-hook` armó (en la carpeta
 * **`CERT_<nombre-del-server>_RSA.pem`**
 * **`CERT_<nombre-del-server>_ECDSA.pem`**
 
-Cada uno de estos tiene la clave privada
-del server, seguida por el certificado para el server, seguida por la cadena de
-certificados hasta la raíz (esto es, la concatenación de `privkey.pem` y
-`fullchain.pem` que es el formato que prefieren las versiones nuevas de Postfix
-(desde Postfix 3.4 en adelante).
+Cada uno de estos tiene la clave privada del server, seguida por el certificado
+para el server, seguida por la cadena de certificados hasta la raíz (esto es, la
+concatenación de `privkey.pem` y `fullchain.pem` que es el formato que prefieren
+las versiones nuevas de Postfix (desde Postfix 3.4 en adelante).
 
 Finalmente, se hace un `reload` del servicio `postfix` para que lea los nuevos
 certificados.
