@@ -257,7 +257,7 @@ ImageMagick](../tips-tricks/imagemagick-pdf.md)
 
 ## Cliente de mail Mozilla Thunderbird
 
-[Configurar Thunderbird](ConfigurarThunderbirdFlatpak.md)
+[Configurar Thunderbird](ThunderbirdFlatpak.md)
 
 ## Foxit PDF Reader
 
