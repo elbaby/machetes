@@ -3,7 +3,7 @@
 * [Configurar un desktop (o notebook) con Linux (al gusto del
 baby)](ConfigurarLinuxDesktopBaby.md)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del
-baby)](ConfigurarLinodeBaby.md)
+baby)](VMUbuntuBaby.md)
 * [Instalar y configurar el firewall Shorewall](InstalarShorewall.md)
 * [Instalar etckeeper para mantener la historia de modificaciones en
 /etc](InstalarEtckeeper.md)

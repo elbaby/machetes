@@ -1,6 +1,6 @@
-# Configurar una VM Linode con Ubuntu recién instalado
+# Configurar una VM con Ubuntu recién instalado
 
-2023-07-03: Esto está probado con Ubuntu 22.04
+2023-07-03: Esto está probado con una VM Ubuntu 22.04 en Linode.
 
 ## Primer login como `root`
 
