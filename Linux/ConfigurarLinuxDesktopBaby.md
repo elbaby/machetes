@@ -261,7 +261,7 @@ ImageMagick](../tips-tricks/imagemagick-pdf.md)
 
 ## Foxit PDF Reader
 
-[Instalar Foxit PDF Reader](ConfigurarFoxit.md)
+[Instalar Foxit PDF Reader](Foxit.md)
 
 ___
 <!-- LICENSE -->

@@ -169,7 +169,7 @@ En la ventana principal también conviene agregar un _delay_ para la captura:
 
 ## Foxit PDF Reader
 
-[Instalar Foxit PDF Reader](ConfigurarFoxit.md)
+[Instalar Foxit PDF Reader](Foxit.md)
 
 ___
 <!-- LICENSE -->
