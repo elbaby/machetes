@@ -1,7 +1,7 @@
 # Instalación de Linux (Pop! OS 22.04)
 
 ([acá está la versión anterior para Pop! OS 
-20.04](ConfigurarLinuxDesktopBaby_PopOS-20.04.md))
+20.04](DesktopBaby_PopOS-20.04.md))
 
 * Bajamos e instalamos con las [instrucciones oficiales](
 https://support.system76.com/articles/install-pop/)

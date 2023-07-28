@@ -1,7 +1,7 @@
 # Linux
 
 * [Configurar un desktop (o notebook) con Linux (al gusto del
-baby)](ConfigurarLinuxDesktopBaby.md)
+baby)](DesktopBaby.md)
 * [Configurar una VM Linode recién creada con Ubuntu (al gusto del
 baby)](VMUbuntuBaby.md)
 * [Instalar y configurar el firewall Shorewall](InstalarShorewall.md)
