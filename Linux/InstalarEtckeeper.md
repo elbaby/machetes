@@ -79,11 +79,12 @@ EOF
 sudo git rm --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O
 ```
 
-Configurar el usuario en el repositorio:
+Configurar el usuario y el pager (ninguno) en el repositorio:
 ```
 cd /etc
 sudo git config user.email scm+${HOSTNAME}@baby.com.ar
 sudo git config user.name "${USER} (${HOSTNAME} admin)"
+sudo git config core.pager cat
 ```
 
 Agregar y hacer commit de los cambios que hicimos
