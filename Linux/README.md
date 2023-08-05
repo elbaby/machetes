@@ -5,6 +5,7 @@ baby)](DesktopBaby.md)
 * [Configurar una **VM Linode** recién creada con Ubuntu (al gusto del
 baby)](VMUbuntuBaby.md)
 * [Instalar y configurar el firewall **Shorewall**](Shorewall.md)
+* [Instalar y configurar **fail2ban**](Fail2ban.md)
 * [Instalar **etckeeper** para mantener la historia de modificaciones en
 /etc](Etckeeper.md)
 * [Instalación y uso de **certbot** para obtener certificados digitales X.509 de
@@ -15,7 +16,6 @@ Debian](OracleVirtualBox.md)
 * [Instalar **Nextcloud** usando snap](NextcloudSnap.md)
 * [**OfflineIMAP**](OfflineIMAP.md)
 * [Adaptador **USB** - serial port](USBserial.md)
-
 
 ___
 <!-- LICENSE -->
