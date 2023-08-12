@@ -86,7 +86,7 @@ mv -v ~/.bash* ~/.profile ~/.pam_environment ~/.vim* ~/.caff* ~/.gitconfig \
 svn checkout http://svn.ybab.net/baby/conf/baby/home_env/ .
 
 # creamos el ~/.bash_USUARIO
-make ~/.bash_${LOGNAME}
+make .bash_${LOGNAME}
 
 # Creamos el directorio ~/.ssh si no existe
 mkdir -pv ~/.ssh
