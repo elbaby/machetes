@@ -35,7 +35,7 @@ cd ~/www/git.example.com
 mkdir -pv gitrepos
 ```
 
-### Proteger el acceso https a ese subdirecotrio con usuario y clave
+### Proteger el acceso https a ese subdirectorio con usuario y clave
 
 Fuente: https://help.dreamhost.com/hc/en-us/articles/216363187-Password-protecting-your-site-with-an-htaccess-file
 
@@ -88,20 +88,18 @@ Referencias:
 * https://john.albin.net/git/convert-subversion-to-git
 
 * Loguearse vía ssh al usuario que tiene asociado el repositorio subversion.
-* Crear una working copy local del repositorio:
-```
-SVNREPO=nombre_del_repositorio
-mkdir -pv ${HOME}/tmp
-svn checkout file://${HOME}/svn/semap ${HOME}/tmp/${SVNREPO}.svn
-cd ${HOME}/tmp/${SVNREPO}.svn
-```
 * Obtener los nombres de usuario de los commits del repositorio subversion (en
 subversion, los nombres de usuario sólo tienen un string simple, no tienen el
 nombre completo ni el mail que es lo que necesita git).
 ```
+SVNREPO=nombre_del_repositorio
+
+mkdir -pv ${HOME}/tmp
+
 cd ${HOME}/tmp/${SVNREPO}.svn
-svn log -q | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); \
-    print $2" = "$2" <"$2">"}' | sort -u > ${HOME}/tmp/authors_svn2git.txt
+svn log -q file://${HOME}/svn/${SVNREPO}|awk -F '|' '/^r/ {sub("^ ", "", $2); \
+    sub(" $", "", $2); print $2" = "$2" <"$2">"}' \
+	| sort -u > ${HOME}/tmp/authors_svn2git.txt
 ```
 Esto dejó en el archivo `${HOME}/tmp/authors_svn2git.txt` una lista de nombres
 con el formato siguiente
@@ -120,7 +118,8 @@ juan = Juan Pérez <juan.perez@example.com>
 
 * Clonar el repositorio usando `git svn`:
 ```
-git svn clone file://${HOME}/svn/semap --no-metadata \
+SVNREPO=nombre_del_repositorio
+git svn clone file://${HOME}/svn/${SVNREPO} --no-metadata \
   --authors-file ${HOME}/tmp/authors_svn2git.txt ${HOME}/tmp/${SVNREPO}.git
 ```
 
@@ -153,10 +152,12 @@ ssh-copy-id -i ~/.ssh/svn2git-key giteaxamplecom@server.dreamhost.com
 * Ir al repositorio git que ya clonamos y agregarle un `remote` que apunte al
 repositorio que creamos en el servidor:
 ```
+SVNREPO=nombre_del_repositorio
 USUARIOREMOTO=gitexamplecom
 SERVERREMOTO=server.dreamhost.com
 NOMBREREMOTO=dreamhostgit
 GITREPOREMOTO='~/www/git.example.com/gitrepos/miproyecto.git'
+PWDIRREMOTO=www
 cd ${HOME}/tmp/${SVNREPO}.git
 
 # el nombre del branch (podría ser trunk, master, main u otro)
@@ -171,6 +172,12 @@ git config --add --local core.sshCommand 'ssh -i ~/.ssh/svn2git-key'
 
 # push al remoto por primera vez:
 git push --set-upstream ${NOMBREREMOTO} main
+```
+* Opcionalmente, podemos copiar los archivos de permisos y claves subversion a
+un subdirectorio (no accesible desde la web) del servidor remoto:
+```
+scp -i ~/.ssh/svn2git-key ${HOME}/svn/${SVNREPO}.access \
+  ${HOME}/svn/${SVNREPO}.passwd ${USUARIOREMOTO}@${SERVERREMOTO}:${PWDIRREMOTO}/
 ```
 
 ## Clonar el repositorio desde otro lado
