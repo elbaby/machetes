@@ -96,13 +96,12 @@ SVNREPO=nombre_del_repositorio
 
 mkdir -pv ${HOME}/tmp
 
-cd ${HOME}/tmp/${SVNREPO}.svn
 svn log -q file://${HOME}/svn/${SVNREPO}|awk -F '|' '/^r/ {sub("^ ", "", $2); \
     sub(" $", "", $2); print $2" = "$2" <"$2">"}' \
-	| sort -u > ${HOME}/tmp/authors_svn2git.txt
+	| sort -u > ${HOME}/tmp/authors_${SVNREPO}_svn2git.txt
 ```
-Esto dejó en el archivo `${HOME}/tmp/authors_svn2git.txt` una lista de nombres
-con el formato siguiente
+Esto dejó en el archivo `${HOME}/tmp/authors_${SVNREPO}_svn2git.txt` una lista
+de nombres con el formato siguiente
 ```
 baby = baby <baby>
 juan = juan <juan>
@@ -120,7 +119,8 @@ juan = Juan Pérez <juan.perez@example.com>
 ```
 SVNREPO=nombre_del_repositorio
 git svn clone file://${HOME}/svn/${SVNREPO} --no-metadata \
-  --authors-file ${HOME}/tmp/authors_svn2git.txt ${HOME}/tmp/${SVNREPO}.git
+  --authors-file ${HOME}/tmp/authors_${SVNREPO}_svn2git.txt \
+  ${HOME}/tmp/${SVNREPO}.git
 ```
 
 * Pasar las propiedades `svn:ignore` a `.gitignore`
