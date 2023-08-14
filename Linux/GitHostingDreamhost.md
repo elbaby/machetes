@@ -76,7 +76,8 @@ mkdir -pv miproyecto.git
 
 * Crear en el nuevo directorio un repositorio vacío
 ```
-cd ~/www/git.example.com/gitrepos/miproyecto.git
+NOMBREREPO=nombre_del_repositorio
+cd ~/www/git.example.com/gitrepos/${NOMBREREPO}.git
 git init --bare
 git symbolic-ref HEAD refs/heads/main
 ```
@@ -97,8 +98,8 @@ SVNREPO=nombre_del_repositorio
 mkdir -pv ${HOME}/tmp
 
 svn log -q file://${HOME}/svn/${SVNREPO}|awk -F '|' '/^r/ {sub("^ ", "", $2); \
-    sub(" $", "", $2); print $2" = "$2" <"$2">"}' \
-	| sort -u > ${HOME}/tmp/authors_${SVNREPO}_svn2git.txt
+  sub(" $", "", $2); print $2" = "$2" <"$2">"}' \
+  | sort -u > ${HOME}/tmp/authors_${SVNREPO}_svn2git.txt
 ```
 Esto dejó en el archivo `${HOME}/tmp/authors_${SVNREPO}_svn2git.txt` una lista
 de nombres con el formato siguiente
