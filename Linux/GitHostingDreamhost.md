@@ -156,7 +156,6 @@ repositorio que creamos en el servidor:
 SVNREPO=nombre_del_repositorio
 USUARIOREMOTO=gitexamplecom
 SERVERREMOTO=server.dreamhost.com
-NOMBREREMOTO=dreamhostgit
 GITREPOREMOTO='~/www/git.example.com/gitrepos/miproyecto.git'
 PWDIRREMOTO=www
 cd ${HOME}/tmp/${SVNREPO}.git
@@ -167,12 +166,12 @@ MAINBRANCH=`git rev-parse --abbrev-ref HEAD`
 git branch -m ${MAINBRANCH} main
 
 # agregar el remoto
-git remote add ${NOMBREREMOTO} ssh://${USUARIOREMOTO}@${SERVERREMOTO}/${GITREPOREMOTO}
+git remote add origin ssh://${USUARIOREMOTO}@${SERVERREMOTO}/${GITREPOREMOTO}
 # configurar el comando ssh que usa git para este repo, para que use la clave generada
 git config --add --local core.sshCommand 'ssh -i ~/.ssh/svn2git-key'
 
 # push al remoto por primera vez:
-git push --set-upstream ${NOMBREREMOTO} main
+git push --set-upstream origin main
 ```
 * Opcionalmente, podemos copiar los archivos de permisos y claves subversion a
 un subdirectorio (no accesible desde la web) del servidor remoto:
