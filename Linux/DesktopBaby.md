@@ -82,13 +82,13 @@ Abrir **Gnome Tweaks** y hacer algunos ajustes:
 #sudo apt-add-repository ppa:system76-dev/stable
 
 # paquetes headless
-sudo apt-get install build-essential subversion git vim p7zip-full p7zip-rar \
-    net-tools nmap ucspi-tcp-ipv6 grip keychain imagemagick \
+sudo apt-get install build-essential subversion git git-filter-repo vim grip \
+    p7zip-full p7zip-rar net-tools nmap ucspi-tcp-ipv6 keychain imagemagick \
     openssh-server openssh-client openvpn
 
 # paquetes UI grafica
-sudo apt-get install vim-gtk3 network-manager-openvpn-gnome speedcrunch \
-    gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
+sudo apt-get install vim-gtk3 network-manager-openvpn-gnome gparted exfatprogs \
+    speedcrunch gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 
 # paquetes vía flatpak (sólo para el usuario)
 flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird \
