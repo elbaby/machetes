@@ -15,6 +15,8 @@ Debian](OracleVirtualBox.md)
 * [Instalar el mail server **Postfix** en Ubuntu](Postfix.md)
 * [Instalar **Nextcloud** usando snap](NextcloudSnap.md)
 * [Migrar un repositorio **svn** a **git** en Dreamhost](GitHostingDreamhost.md)
+* [Crear una partición encriptada dentro de un
+archivo](EncryptedPartitionInFile.md)
 * [**OfflineIMAP**](OfflineIMAP.md)
 * [Adaptador **USB** - serial port](USBserial.md)
 
