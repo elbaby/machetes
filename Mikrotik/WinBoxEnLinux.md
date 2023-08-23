@@ -22,10 +22,10 @@ wine /opt/MikroTikWinBox/winbox64.exe
 ```
 
 * Crear una entrada en el escritorio
-  * [Buscar un ícono
+* [Buscar un ícono
 apropiado](https://www.google.com/search?q=winbox+icon&tbm=isch) en formato PNG
 y guardarlo en `/opt/MikroTikWinBox/winbox.png`
-  * Crear un archivo para lanzar la aplicación
+* Crear un archivo para lanzar la aplicación
 ```
 cat << EOF| sudo tee /opt/MikroTikWinBox/WinBox.desktop
 #!/usr/bin/env xdg-open
