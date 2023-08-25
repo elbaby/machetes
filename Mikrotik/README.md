@@ -3,7 +3,10 @@
 * [Crear un servidor de VPN para acceso remoto usando PPTP](VPN-PPTP-SERVER.md)
 * [Actualizar nombre DNS dinámico con dynDNS desde un router Mikrotik (usando 
 webfig)](dynDNS.md)
+* [Backups de Mikrotik](Backup.md)
 * [Usar WinBox en Linux](WinBoxEnLinux.md)
+* [Configurar un MikroTik como WiFi Repeater/Range Extender
+(video)](https://youtu.be/LNiNd4-a3xs)
 
 
 ___
