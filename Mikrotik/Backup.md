@@ -12,8 +12,9 @@ Vía ssh se puede hacer el backup y redirigirlo a un archivo:
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
+FILENAME=<nombre del archivo donde dejar el backup>
 
-ssh ${USUARIO}@${MIKROTIK} export > backup-export_${MIKROTIK}.rsc
+ssh ${USUARIO}@${MIKROTIK} export > ${FILENAME}.rsc
 ```
 
 ### Información sensible
@@ -44,9 +45,9 @@ utilizar el comando `sed` para juntar las líneas:
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup (extensión .rsc)>
+FILENAME=<nombre del archivo donde dejar el backup>
 
-ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}
+ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
 ```
 
 ### Exportación concisa
@@ -59,9 +60,9 @@ para ver cambios.
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup (extensión .rsc)>
+FILENAME=<nombre del archivo donde dejar el backup>
 
-ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}
+ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}.rsc
 ```
 
 ## Backup binario completo
@@ -70,14 +71,14 @@ ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup (extensión .backup)>
+FILENAME=<nombre del archivo donde dejar el backup>
 
 # Generar el backup dentro del MikroTik
-ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}
+ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}.backup
 # Bajar el backup
-scp ${USUARIO}@${MIKROTIK}:/${FILENAME} ${FILENAME}
+scp ${USUARIO}@${MIKROTIK}:/${FILENAME}.backup ${FILENAME}.backup
 # Opcionalmente, borrar el backup dentro del MikroTik
-ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}
+ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}.backup
 ```
 
 ## Backup de licencia
