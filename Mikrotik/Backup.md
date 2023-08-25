@@ -44,8 +44,9 @@ utilizar el comando `sed` para juntar las líneas:
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
+FILENAME=<nombre del archivo donde dejar el backup (extensión .rsc)>
 
-ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > backup-export_${MIKROTIK}.rsc
+ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}
 ```
 
 ### Exportación concisa
@@ -58,13 +59,26 @@ para ver cambios.
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
+FILENAME=<nombre del archivo donde dejar el backup (extensión .rsc)>
 
-ssh ${USUARIO}@${MIKROTIK} export terse > backup-export_${MIKROTIK}.rsc
+ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}
 ```
 
 ## Backup binario completo
 
 * Referencia: https://help.mikrotik.com/docs/display/ROS/Backup
+```
+USUARIO=admin
+MIKROTIK=<ip o nombre de host del equipo>
+FILENAME=<nombre del archivo donde dejar el backup (extensión .backup)>
+
+# Generar el backup dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}
+# Bajar el backup
+scp ${USUARIO}@${MIKROTIK}:/${FILENAME} ${FILENAME}
+# Opcionalmente, borrar el backup dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}
+```
 
 ## Backup de licencia
 
@@ -81,16 +95,21 @@ que se puede bajar desde la interfaz:
 ```
 
 Si se conecta vía ssh, se puede enviar el comando para generar el archivo y
-luego otro para imprimirlo por consola:
+luego bajarlo:
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
+FILEPREFIX=<prefijo del nombre del archivo donde dejar la licencia> (puede ser vacío)
 
-# Generar el archivo de licencia:
+# Obtener el id de la licencia
+KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | \
+   sed -e 's/^ *software-id: *//' -e 's/\r//'`
+
+# Generar el archivo de licencia dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /system license output
 
-# Imprimir el contenido del archivo de licencia (number=0)
-ssh ${USUARIO}@${MIKROTIK} :put [/file get number=0 contents ]
+# Bajar el archivo con la licencia
+scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILEPREFIX}${KEYID}.key
 ```
 ___
 <!-- LICENSE -->
