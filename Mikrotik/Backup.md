@@ -100,7 +100,7 @@ luego bajarlo:
 ```
 USUARIO=admin
 MIKROTIK=<ip o nombre de host del equipo>
-FILEPREFIX=<prefijo del nombre del archivo donde dejar la licencia> (puede ser vacío)
+FILENAME=<prefijo del nombre del archivo donde dejar la licencia>
 
 # Obtener el id de la licencia
 KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | \
@@ -110,7 +110,7 @@ KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | \
 ssh ${USUARIO}@${MIKROTIK} /system license output
 
 # Bajar el archivo con la licencia
-scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILEPREFIX}${KEYID}.key
+scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
 ```
 ___
 <!-- LICENSE -->
