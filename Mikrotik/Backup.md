@@ -118,7 +118,7 @@ ssh ${USUARIO}@${MIKROTIK} /system license output
 # Bajar el archivo con la licencia
 scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
 # convertirlo a formato de texto linux (sólo LF, no CRLF)
-fromdos ${FILENAME}.key
+fromdos ${FILENAME}_${KEYID}.key
 
 # Opcionalmente, borrar el archivo de licencia dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /file remove ${KEYID}.key
@@ -153,7 +153,7 @@ ssh ${USUARIO}@${MIKROTIK} /system license output
 # Bajar el archivo con la licencia
 scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
 # convertirlo a formato de texto linux (sólo LF, no CRLF)
-fromdos ${FILENAME}.key
+fromdos ${FILENAME}_${KEYID}.key
 # Borrar el archivo de licencia dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /file remove ${KEYID}.key
 ```
