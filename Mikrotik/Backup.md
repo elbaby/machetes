@@ -110,7 +110,7 @@ luego bajarlo:
 
 # Obtener el id de la licencia
 KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | sed -e 's/^ *software-id: *//' -e 's/\r//'`
-echo "KEYD=${KEYID}
+echo "KEYID=${KEYID}"
 
 # Generar el archivo de licencia dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /system license output
@@ -147,7 +147,7 @@ ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}.backup
 
 # Obtener el id de la licencia
 KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | sed -e 's/^ *software-id: *//' -e 's/\r//'`
-echo "KEYD=${KEYID}
+echo "KEYID=${KEYID}"
 # Generar el archivo de licencia dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /system license output
 # Bajar el archivo con la licencia
