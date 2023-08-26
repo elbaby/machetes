@@ -21,10 +21,12 @@ fromdos ${FILENAME}.rsc
 
 ### Información sensible
 Si se quiere hacer backup también de información sensible (passwords, claves
-privadas, etc), se debe usar la opción `show-sensitive=yes` en RouterOS 7.x
-o la opción `hide-sensitive=no` en RouterOS 6.x
+privadas, etc), se debe usar la opción `show-sensitive` en RouterOS 7.x.
+
+En RouterOS 6.x, la información sensible se muestra por defecto. Para evitarlo
+hay que utilizar la opción `hide-sensitive`.
 ```
-export hide-sensitive=no
+export hide-sensitive
 ```
 
 ### Incluir _defaults_
