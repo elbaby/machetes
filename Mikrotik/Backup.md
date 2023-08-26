@@ -84,7 +84,7 @@ ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}
 # Bajar el backup binario
 scp ${USUARIO}@${MIKROTIK}:/${FILENAME}.backup ${FILENAME}.backup
 # Opcionalmente, borrar el backup binario dentro del MikroTik
-ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}.backup
+ssh ${USUARIO}@${MIKROTIK} /file remove \"${FILENAME}.backup\"
 ```
 
 ## Backup de licencia
@@ -121,7 +121,7 @@ scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
 fromdos ${FILENAME}_${KEYID}.key
 
 # Opcionalmente, borrar el archivo de licencia dentro del MikroTik
-ssh ${USUARIO}@${MIKROTIK} /file remove ${KEYID}.key
+ssh ${USUARIO}@${MIKROTIK} /file remove \"${KEYID}.key\"
 ```
 
 ## Todos los pasos juntos
@@ -143,7 +143,7 @@ ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}
 # Bajar el backup binario
 scp ${USUARIO}@${MIKROTIK}:/${FILENAME}.backup ${FILENAME}.backup
 # Borrar el backup binario dentro del MikroTik
-ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}.backup
+ssh ${USUARIO}@${MIKROTIK} /file remove \"${FILENAME}.backup\"
 
 # Obtener el id de la licencia
 KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | sed -e 's/^ *software-id: *//' -e 's/\r//'`
@@ -155,7 +155,7 @@ scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
 # convertirlo a formato de texto linux (sólo LF, no CRLF)
 fromdos ${FILENAME}_${KEYID}.key
 # Borrar el archivo de licencia dentro del MikroTik
-ssh ${USUARIO}@${MIKROTIK} /file remove ${KEYID}.key
+ssh ${USUARIO}@${MIKROTIK} /file remove \"${KEYID}.key\"
 ```
 
 ___
