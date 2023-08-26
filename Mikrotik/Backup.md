@@ -10,11 +10,13 @@ hace el backup de toda la configuración.
 
 Vía ssh se puede hacer el backup y redirigirlo a un archivo:
 ```
-USUARIO=admin
-MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup>
+#USUARIO=admin
+#MIKROTIK=<ip o nombre de host del equipo>
+#FILENAME=<nombre del archivo donde dejar el backup>
 
 ssh ${USUARIO}@${MIKROTIK} export > ${FILENAME}.rsc
+# convertirlo a formato de texto linux (sólo LF, no CRLF)
+fromdos ${FILENAME}.rsc
 ```
 
 ### Información sensible
@@ -43,11 +45,13 @@ RouterOS, con lo cual no se puede usar en versiones anteriores.
 Para hacer que no se "recorten" las líneas, se puede exportar vía `ssh` y
 utilizar el comando `sed` para juntar las líneas:
 ```
-USUARIO=admin
-MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup>
+#USUARIO=admin
+#MIKROTIK=<ip o nombre de host del equipo>
+#FILENAME=<nombre del archivo donde dejar el backup>
 
 ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
+# convertirlo a formato de texto linux (sólo LF, no CRLF)
+fromdos ${FILENAME}.rsc
 ```
 
 ### Exportación concisa
@@ -58,26 +62,28 @@ por secciones.
 Esto es conveniente para mantener en un repositorio `git` y comparar versiones
 para ver cambios.
 ```
-USUARIO=admin
-MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup>
+#USUARIO=admin
+#MIKROTIK=<ip o nombre de host del equipo>
+#FILENAME=<nombre del archivo donde dejar el backup>
 
 ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}.rsc
+# convertirlo a formato de texto linux (sólo LF, no CRLF)
+fromdos ${FILENAME}.rsc
 ```
 
 ## Backup binario completo
 
 * Referencia: https://help.mikrotik.com/docs/display/ROS/Backup
 ```
-USUARIO=admin
-MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<nombre del archivo donde dejar el backup>
+#USUARIO=admin
+#MIKROTIK=<ip o nombre de host del equipo>
+#FILENAME=<nombre del archivo donde dejar el backup>
 
-# Generar el backup dentro del MikroTik
+# Generar el backup binario dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}.backup
-# Bajar el backup
+# Bajar el backup binario
 scp ${USUARIO}@${MIKROTIK}:/${FILENAME}.backup ${FILENAME}.backup
-# Opcionalmente, borrar el backup dentro del MikroTik
+# Opcionalmente, borrar el backup binario dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}.backup
 ```
 
@@ -98,20 +104,60 @@ que se puede bajar desde la interfaz:
 Si se conecta vía ssh, se puede enviar el comando para generar el archivo y
 luego bajarlo:
 ```
-USUARIO=admin
-MIKROTIK=<ip o nombre de host del equipo>
-FILENAME=<prefijo del nombre del archivo donde dejar la licencia>
+#USUARIO=admin
+#MIKROTIK=<ip o nombre de host del equipo>
+#FILENAME=<prefijo del nombre del archivo donde dejar la licencia>
 
 # Obtener el id de la licencia
-KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | \
-   sed -e 's/^ *software-id: *//' -e 's/\r//'`
+KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | sed -e 's/^ *software-id: *//' -e 's/\r//'`
+echo "KEYD=${KEYID}
 
 # Generar el archivo de licencia dentro del MikroTik
 ssh ${USUARIO}@${MIKROTIK} /system license output
 
 # Bajar el archivo con la licencia
 scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
+# convertirlo a formato de texto linux (sólo LF, no CRLF)
+fromdos ${FILENAME}.key
+
+# Opcionalmente, borrar el archivo de licencia dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /file remove ${KEYID}.key
 ```
+
+## Todos los pasos juntos
+
+Aquí para un gran copy/paste que haga todos los backups (configuración / binario
+licencia):
+```
+#USUARIO=admin
+#MIKROTIK=<ip o nombre de host del equipo>
+#FILENAME=<nombre del archivo donde dejar el backup>
+
+# Generar y bajar el backup de la configuración
+ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
+# convertirlo a formato de texto linux (sólo LF, no CRLF)
+fromdos ${FILENAME}.rsc
+
+# Generar el backup binario dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /system backup save dont-encrypt=yes name=${FILENAME}.backup
+# Bajar el backup binario
+scp ${USUARIO}@${MIKROTIK}:/${FILENAME}.backup ${FILENAME}.backup
+# Borrar el backup binario dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /file remove ${FILENAME}.backup
+
+# Obtener el id de la licencia
+KEYID=`ssh ${USUARIO}@${MIKROTIK} /system license print | grep software-id: | sed -e 's/^ *software-id: *//' -e 's/\r//'`
+echo "KEYD=${KEYID}
+# Generar el archivo de licencia dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /system license output
+# Bajar el archivo con la licencia
+scp ${USUARIO}@${MIKROTIK}:/${KEYID}.key ${FILENAME}_${KEYID}.key
+# convertirlo a formato de texto linux (sólo LF, no CRLF)
+fromdos ${FILENAME}.key
+# Borrar el archivo de licencia dentro del MikroTik
+ssh ${USUARIO}@${MIKROTIK} /file remove ${KEYID}.key
+```
+
 ___
 <!-- LICENSE -->
 ___
