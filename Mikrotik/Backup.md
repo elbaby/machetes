@@ -134,9 +134,15 @@ licencia):
 #USUARIO=admin
 #MIKROTIK=<ip o nombre de host del equipo>
 #FILENAME=<nombre del archivo donde dejar el backup>
+#La línea siguiente descomentarla SOLAMENTE si el RouterOS es 6.40 o más nuevo
+#CONCISA=si
 
 # Generar y bajar el backup de la configuración
-ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
+if [ ${CONCISA} ] ; then
+  ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}.rsc
+else
+  ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
+fi
 # convertirlo a formato de texto linux (sólo LF, no CRLF)
 fromdos ${FILENAME}.rsc
 
