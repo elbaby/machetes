@@ -22,6 +22,9 @@ fromdos ${FILENAME}.rsc
 ### Información sensible
 Si se quiere hacer backup también de información sensible (passwords, claves
 privadas, etc), se debe usar la opción `show-sensitive` en RouterOS 7.x.
+```
+export show-sensitive
+```
 
 En RouterOS 6.x, la información sensible se muestra por defecto. Para evitarlo
 hay que utilizar la opción `hide-sensitive`.
@@ -135,13 +138,15 @@ licencia):
 #MIKROTIK=<ip o nombre de host del equipo>
 #FILENAME=<nombre del archivo donde dejar el backup>
 #La línea siguiente descomentarla SOLAMENTE si el RouterOS es 6.40 o más nuevo
-#CONCISA=si
+#CONCISA=" terse "
+#La línea siguiente descomentarla SOLAMENTE si el RouterOS es 7 o más nuevo
+#SENSITIVE=" show-sensitive "
 
 # Generar y bajar el backup de la configuración
 if [ ${CONCISA} ] ; then
-  ssh ${USUARIO}@${MIKROTIK} export terse > ${FILENAME}.rsc
+  ssh ${USUARIO}@${MIKROTIK} export ${SENSITIVE} ${CONCISA} > ${FILENAME}.rsc
 else
-  ssh ${USUARIO}@${MIKROTIK} export | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
+  ssh ${USUARIO}@${MIKROTIK} export ${SENSITIVE} | sed ':x; /\\\r$/ { N; s/\\\r\n    //; tx }' > ${FILENAME}.rsc
 fi
 # convertirlo a formato de texto linux (sólo LF, no CRLF)
 fromdos ${FILENAME}.rsc
