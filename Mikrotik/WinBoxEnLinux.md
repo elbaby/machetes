@@ -39,9 +39,14 @@ EOF
 ```
    * Hacer una copia en el escritorio y darle permisos de ejecución
 ```
-cp /opt/MikroTikWinBox/WinBox.desktop $(xdg-user-dir DESKTOP)
+cp -v /opt/MikroTikWinBox/WinBox.desktop $(xdg-user-dir DESKTOP)
 gio set $(xdg-user-dir DESKTOP)/WinBox.desktop metadata::trusted true
-chmod +x $(xdg-user-dir DESKTOP)/WinBox.desktop
+chmod -v +x $(xdg-user-dir DESKTOP)/WinBox.desktop
+```
+   * Hacer una copia en la carpeta de aplicaciones del usuario para poder
+ejecutarlo desde el menú de aplicaciones
+```
+cp -v $(xdg-user-dir DESKTOP)/WinBox.desktop ${HOME}/.local/share/applications
 ```
 
 ___
