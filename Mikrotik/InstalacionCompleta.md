@@ -159,8 +159,49 @@ Presionar **`+`** y luego configurar **Address**: `192.168.88.1/24` e
 ![configurar la dirección IP](img/ci-wb-ip-addr-1.png
 "configurar la dirección IP")
 
-Ahora, ya se puede ingresar nuevamente a través de la web en http://192.168.88.1
-con el usuario **admin** pero ahora sí con la _password_ que se [configuró
-recién](#password-del-administrador):
+## Acceso al router para configuración
 
-![login con clave](img/ci-login-1.png "login con clave")
+Ahora ya se puede ingresar al router para configurarlo utilizando el usuario
+**admin** con la _password_ que se [configuró
+anteriormente](#password-del-administrador).
+
+Existen tres formas de acceso:
+* Vía web, se ingresa a la herramienta **WebFig**
+* Con la GUI **WinBox**
+* Utilizando la **consola**, ya sea vía ssh, o con el botón **Terminal** de
+WebFig o la opción **New Terminal** de WinBox.
+
+### Acceso web con WebFig
+
+![login con clave en webfig](img/ci-login-1.png "login con clave en webfig")
+
+### Acceso GUI con WinBox
+
+![conectarse con clave en winbox](img/ci-wb-connect-1.png
+"conectarse con clave en winbox")
+
+### Acceso CONSOLA con SSH
+
+![login con clave en consola via ssh](img/ci-ssh-1.png
+"login con clave en consola via ssh")
+
+## Esquema de la red
+
+Vamos a crear 3 VLANs, cada una con una subred /24:
+
+![esquema de la red](img/ci-redes.png "esquema de la red")
+
+* **LAN** Esta va a ser la red por default, donde se conectan los dispositivos
+cableados (computadoras de escritorio, televisores, etc), y también habrá una
+red wifi en 2.4Ghz y otra en 5Ghz sobre esta VLAN para dispositivos inalámbricos
+propios.
+  * Esta red utilizará la **VLAN 10**
+  * Esta red utilizará la subred **10.10.10.0/24**
+* **GUEST** Esta va a ser la red wifi para "invitados". Sólo se dará salida a
+internet y _no_ tendrá acceso al resto de la casa.
+  * Esta red utilizará la **VLAN 99**
+  * Esta red utilizará la subred **10.99.99.0/24**
+* **MGMT** Esta va a ser la red para administrar los routers y APs. Sólo tendrá
+acceso controlado desde LAN y no tendrá salida a internet.
+  * Esta red utilizará la **VLAN 13**
+  * Esta red utilizará la subred **10.13.13.0/24**
