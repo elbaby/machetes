@@ -156,6 +156,9 @@ En WinBox, ir a **IP** => **Address**:
 Presionar **`+`** y luego configurar **Address**: `192.168.88.1/24` e
 **interface**: `ether2` y luego apretar el botón **OK**
 
+![configurar la dirección IP](img/ci-wb-ip-addr-1.png
+"configurar la dirección IP")
+
 Ahora, ya se puede ingresar nuevamente a través de la web en http://192.168.88.1
 con el usuario **admin** pero ahora sí con la _password_ que se [configuró
 recién](#password-del-administrador):
