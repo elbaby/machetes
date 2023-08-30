@@ -1,5 +1,7 @@
 # Mikrotik
 
+* [Instalación completa sin usar la configuración por
+_default_](InstalacionCompleta.md)
 * [Crear un servidor de VPN para acceso remoto usando PPTP](VPN-PPTP-SERVER.md)
 * [Actualizar nombre DNS dinámico con dynDNS desde un router Mikrotik (usando 
 webfig)](dynDNS.md)
