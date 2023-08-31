@@ -1,5 +1,4 @@
-# Instalación completa de router MikroTik sin utilizar la configuración por
-_default_
+# Instalación completa de router MikroTik sin utilizar la configuración por _default_
 
 Referencias:
 * [Manual oficial de
@@ -31,10 +30,15 @@ acceso controlado desde LAN y no tendrá salida a internet.
 
 ## Preparación inicial
 
+Referencia: [Manual: Getting started / First Time
+Configuration](https://help.mikrotik.com/docs/display/ROS/First+Time+Configuration)
+
 * Lo primero que vamos a hacer es [resetear por completo la configuración del
 router](IC_ResetearConfiguracion.md).
 
 * Luego tendremos [tres formas de acceso al router](IC_Acceso.md)
+
+* Vamos a [proteger el router](IC_Segurizar.md)
 
 ___
 <!-- LICENSE -->
