@@ -2,7 +2,7 @@
 
 Ahora ya se puede ingresar al router para configurarlo utilizando el usuario
 **admin** con la _password_ que se [configuró
-anteriormente](#password-del-administrador).
+anteriormente](IC_ResetearConfiguracion.md#password-del-administrador).
 
 Existen tres formas de acceso:
 * Vía web, se ingresa a la herramienta **WebFig**

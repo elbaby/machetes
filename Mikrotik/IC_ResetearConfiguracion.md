@@ -1,7 +1,7 @@
 # Configuración por primera vez
 
-Referencia: [Manual: Getting started / First Time
-Configuration](https://help.mikrotik.com/docs/display/ROS/First+Time+Configuration)
+Referencia: [Manual: Connecting to the
+Router](https://help.mikrotik.com/docs/display/ROS/First+Time+Configuration#FirstTimeConfiguration-ConnectingtotheRouter)
 
 Si el router es nuevo o está recién reseteado, en general se puede acceder a la
 configuración a través de http://192.68.88.1 con usuario **admin** y **_sin 
@@ -15,7 +15,7 @@ un cable directo desde la computadora o conectado al mismo switch.
 Después, hay que configurar una dirección IP en la computadora. Primero,
 averiguar el nombre del dispositivo de red en la computadora. Usamos el comando
 `networkctl` de `systemd`:
-```
+```bash
 $ networkctl list
 WARNING: systemd-networkd is not running, output will be incomplete.
 
@@ -31,7 +31,7 @@ interfaz ethernet cableada (la que vamos a utilizar), `wlp0s20f3` es la interfaz
 inalámbrica y `docker0` es un dispositivo virtual que se conecta a contenedores.
 
 Ahora veamos las direcciones configuradas en la interfaz ethernet:
-```
+```bash
 # poner en la variable ${DEV} el nombre de la interfaz ethernet
 DEV=enp57s0f1
 
@@ -40,7 +40,7 @@ ip address show dev ${DEV}
 
 La salida va a ser algo así:
 
-```
+```bash
 $ ip address show dev ${DEV}
 2: enp57s0f1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 80:fa:5b:6a:36:ef brd ff:ff:ff:ff:ff:ff
@@ -56,7 +56,7 @@ Vamos a configurar una dirección IP cualquiera dentro de la red
 en el Mikrotik) y una ruta a la red 192.168.88.0/24 a través de esa interfaz.
 Pongamos, por ejemplo, la 192.168.88.100:
 
-```
+```bash
 # poner en la variable ${DEV} el nombre de la interfaz ethernet
 DEV=enp57s0f1
 IP=192.168.88.100
@@ -68,7 +68,7 @@ sudo ip route add ${NET} dev ${DEV} scope link src ${IP}
 
 Ahora, la interfaz tiene, además de la dirección que ya tenía, la nueva
 dirección y tenemos una ruta hacia esa red por esa interfaz:
-```
+```bash
 $ ip address show dev ${DEV}
 2: enp57s0f1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 80:fa:5b:6a:36:ef brd ff:ff:ff:ff:ff:ff
