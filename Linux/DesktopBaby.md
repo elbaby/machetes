@@ -92,10 +92,10 @@ sudo apt-get install vim-gtk3 network-manager-openvpn-gnome gparted exfatprogs \
     speedcrunch gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
 
 # paquetes vía flatpak (sólo para el usuario)
-flatpak install com.github.tchx84.Flatseal org.mozilla.Thunderbird \
-    com.bitwarden.desktop org.kpassxc.KeePassXC org.ksnip.ksnip \
+flatpak install --assumeyes flathub com.github.tchx84.Flatseal \
+    com.bitwarden.desktop org.keepassxc.KeePassXC org.ksnip.ksnip \
     org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
-    com.mastermindzh.tidal-hifi com.spotify.Client \
+    com.mastermindzh.tidal-hifi com.spotify.Client org.mozilla.Thunderbird \
     com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre
 
 ```
