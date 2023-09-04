@@ -90,16 +90,15 @@ cups/printers.conf.O
 EOF
 
 # quitar los archivos del repositorio sin borrarlos
-for FILE in /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O ; do
-  sudo git rm --cached ${FILE}
-done
+cd /etc
+sudo git rm --ignore-unmatch --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O
 ```
 
 Agregar y hacer commit de los cambios que hicimos
 ```
 cd /etc
 sudo git add .gitignore .etckeeper /etc/cups
-sudo git commit -m "ajustes de configuración inicial etckeeper"
+sudo git commit -m "agrego archivos que se modifican frecuentemente al .gitignore (y los saco del repo)"
 ```
 
 # Problema si se usa `snapd`
