@@ -9,9 +9,10 @@ https://support.system76.com/articles/install-pop/)
 
 En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
 algunas cosas que no están en las configuraciones generales (**_Settings_**) de
-gnome shell y la interfaz **Synaptic** de apt:
+gnome shell y la interfaz **Synaptic** de apt y actualizamos todos los paquetes:
 ```
-sudo apt install gnome-tweaks synaptic
+sudo apt-get install gnome-tweaks synaptic
+sudo apt-get dist-upgrade
 ```
 
 ## _Settings_ de gnome shell
