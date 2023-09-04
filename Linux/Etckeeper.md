@@ -15,6 +15,13 @@ sudo git log /etc
 
 # Algunos ajustes
 
+## Configurar el usuario y el pager en el repositorio:
+```
+cd /etc
+sudo git config user.email scm+${HOSTNAME}@baby.com.ar
+sudo git config user.name "${USER} (${HOSTNAME} admin)"
+sudo git config core.pager cat
+```
 
 ## Commit automático
 
@@ -56,6 +63,13 @@ Además, hay que deshabilitar timer de `systemd`:
 sudo systemctl disable etckeeper.timer
 ```
 
+Agregar y hacer commit de los cambios que hicimos
+```
+cd /etc
+sudo git add .etckeeper etckeeper/etckeeper.conf
+sudo git commit -m "ajustes de configuración inicial etckeeper"
+```
+
 ## Archivos que se modifican en forma automática con frecuencia
 
 Hay algunos archivos que las aplicaciones modifican con frecuencia en forma
@@ -76,21 +90,15 @@ cups/printers.conf.O
 EOF
 
 # quitar los archivos del repositorio sin borrarlos
-sudo git rm --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O
-```
-
-Configurar el usuario y el pager (ninguno) en el repositorio:
-```
-cd /etc
-sudo git config user.email scm+${HOSTNAME}@baby.com.ar
-sudo git config user.name "${USER} (${HOSTNAME} admin)"
-sudo git config core.pager cat
+for FILE in /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O ; do
+  sudo git rm --cached ${FILE}
+done
 ```
 
 Agregar y hacer commit de los cambios que hicimos
 ```
 cd /etc
-sudo git add .gitignore .etckeeper etckeeper/etckeeper.conf systemd/system/multi-user.target.wants/etckeeper.timer
+sudo git add .gitignore .etckeeper /etc/cups
 sudo git commit -m "ajustes de configuración inicial etckeeper"
 ```
 
