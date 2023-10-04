@@ -89,14 +89,18 @@ sudo apt-get install build-essential subversion git git-filter-repo vim grip \
 
 # paquetes UI grafica
 sudo apt-get install vim-gtk3 network-manager-openvpn-gnome gparted exfatprogs \
-    speedcrunch gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk
+    speedcrunch gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk \
+    gnome-sound-recorder
 
 # paquetes vía flatpak (sólo para el usuario)
+flatpak remote-add --if-not-exists flathub \
+    https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --assumeyes flathub com.github.tchx84.Flatseal \
     com.bitwarden.desktop org.keepassxc.KeePassXC org.ksnip.ksnip \
     org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
     com.mastermindzh.tidal-hifi com.spotify.Client org.mozilla.Thunderbird \
-    com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre
+    com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre \
+    org.audacityteam.Audacity
 
 ```
 
