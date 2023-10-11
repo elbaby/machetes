@@ -14,7 +14,7 @@ Ahora vamos a hacer una configuración personalizada.
 Para eso, lanzamos el _Profile Manager_ **antes** de arrancarlo por primera vez.
 Desde una terminal (dentro del entorno gráfico), tipear:
 ```
-flatpak run --branch=stable --arch=x86_64 --command=thunderbird --file-forwarding org.mozilla.Thunderbird -ProfileManager
+flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.Thunderbird -ProfileManager
 ```
 Esto va a lanzar el _Profile Manager_.
 
@@ -38,7 +38,7 @@ sed -i.BACKUP -e s/${NOMBREDIR}/baby.profile/g profiles.ini
 ```
 Volvemos a arrancar el Thunderbird
 ```
-flatpak run --branch=stable --arch=x86_64 --command=thunderbird --file-forwarding org.mozilla.Thunderbird
+flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.Thunderbird
 ```
 ![Create Profile Wizard](img/thunderbird-07-create_profile_b-start.png)
 
