@@ -1,6 +1,7 @@
 # Ubiquiti
 
 * [Instalar Ubiquiti UniFi Network app en Debian)](Instalar-NetAppDebian.md)
+* [Link aggregation en switches UniFi (video)](https://youtu.be/3guzA4bKR6k)
 
 
 ___
