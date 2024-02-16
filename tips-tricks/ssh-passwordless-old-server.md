@@ -24,6 +24,17 @@ La otra opción es agregarla en el archivo de configuración personal del client
 PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
+Para más seguridad en general, esto conviene configurarlo _únicamente_ para los
+hosts específicos que lo requieran. Lamentablemente, si al host uno se conecta
+a veces por dirección IP, a veces por nombre corto y a veces por FQDN, es
+necesario poner cada una de estas variantes en la línea `Host` del
+`~/.ssh/config`:
+```
+Host 10.10.20.20 old-server old-server.example.net
+	PubkeyAcceptedKeyTypes=+ssh-rsa
+```
+
+
 ___
 <!-- LICENSE -->
 ___
