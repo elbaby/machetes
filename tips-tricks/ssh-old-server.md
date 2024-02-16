@@ -1,9 +1,12 @@
-# SSH - Negociación de algoritmo de firma mutuo
+# SSH - Diversos problemas al conectarse a equipos viejos
+
+## Pide password al conectarse aun cuando el equipo tiene la clave pública del
+cliente
 
 Los nuevos clientes SSH piden password al conectarse a un server viejo aun
 cuando el servidor tiene la clave pública del cliente.
 
-El error que se ve al mandar la opción `-v` es:
+El error que se ve al usar la opción `-v` de `ssh` es:
 ```
 debug1: send_pubkey_test: no mutual signature algorithm
 ```
@@ -14,13 +17,12 @@ StackExchange](https://askubuntu.com/questions/1404049/ssh-without-password-does
 Para un uso muy eventual, agregar la opción `-o PubkeyAcceptedKeyTypes=+ssh-rsa`
 en la invocación del cliente:
 ```
-ssh -o PubkeyAcceptedKeyTypes=+ssh-rsa user@server
+ssh -o PubkeyAcceptedKeyTypes=+ssh-rsa user@old-server
 ```
 
 La otra opción es agregarla en el archivo de configuración personal del cliente
 `~/.ssh/config`:
 ```
-# https://askubuntu.com/questions/1404049/ssh-without-password-does-not-work-after-upgrading-from-18-04-to-22-04
 PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
@@ -31,9 +33,90 @@ necesario poner cada una de estas variantes en la línea `Host` del
 `~/.ssh/config`:
 ```
 Host 10.10.20.20 old-server old-server.example.net
-	PubkeyAcceptedKeyTypes=+ssh-rsa
+	PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
+## No se conecta y da un error respecto del tipo de clave de host
+
+El error que se ve es similar a este:
+```
+$ ssh user@old-server.example.com
+
+Unable to negotiate with old-server.example.com port 22: no matching host key type found. Their offer: ssh-dss,ssh-rsa
+```
+
+La solución también la encontré en el [AskUbuntu de 
+StackExchange](https://askubuntu.com/questions/836048/ssh-returns-no-matching-host-key-type-found-their-offer-ssh-dss):
+
+```
+ssh -o HostKeyAlgorithms=+ssh-rsa,ssh-dss user@old-server.example.com
+```
+
+O agregando en el `~/.ssh/config`:
+```
+Host 10.10.20.20 old-server old-server.example.net
+	HostKeyAlgorithms +ssh-rsa,ssh-dss
+```
+
+## No se conecta y da un error respecto del método de intercambio de claves
+
+El error que se ve es similar a este:
+```
+$ ssh user@old-server.example.com
+
+Unable to negotiate with old-server.example.com port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1
+```
+
+La solución a esto la saqué por analogía con los casos anteriores:
+
+```
+ssh -o KexAlgorithms=+diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1 user@old-server.example.com
+```
+
+O agregando en el `~/.ssh/config`:
+```
+Host 10.10.20.20 old-server old-server.example.net
+	KexAlgorithms +diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+```
+
+## No se conecta y da un error respecto del cifrado
+
+El error que se ve es similar a este:
+```
+$ ssh user@old-server.example.com
+
+Unable to negotiate with old-server.example.com port 22: no matching cipher found. Their offer: aes128-cbc,3des-cbc,des-cbc
+```
+
+La solución a esto la saqué por analogía con los casos anteriores:
+
+```
+ssh -o Ciphers=+aes256-cbc,aes128-cbc user@old-server.example.com
+```
+
+O agregando en el `~/.ssh/config`:
+```
+Host 10.10.20.20 old-server old-server.example.net
+	Ciphers +aes256-cbc,aes128-cbc
+```
+
+## Configuración completa
+
+Es común que varios de estos problemas aparezcan en los mismos hosts. Lo más
+conveniente es tener una o más secciones que combinen las opciones requeridas
+por cada conjunto de equipos en el `~/.ssh/config`:
+
+```
+Host 10.11.111.33 mikrotik-router mikrotik-router.example.net
+	HostKeyAlgorithms=+ssh-rsa,ssh-dss
+	PubkeyAcceptedKeyTypes=+ssh-rsa
+
+Host 10.11.111.77 old-hp-switch-01 old-hp-switch-01.example.net 10.11.111.78 old-hp-switch-02 old-hp-switch-02.example.net
+	HostKeyAlgorithms=+ssh-rsa,ssh-dss
+	PubkeyAcceptedKeyTypes=+ssh-rsa
+	Ciphers=+aes256-cbc,aes128-cbc
+	KexAlgorithms=+diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+```
 
 ___
 <!-- LICENSE -->
