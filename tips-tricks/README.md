@@ -2,8 +2,8 @@
 
 * [Copiar archivos de un repositorio git a otro manteniendo la
 historia](git-cp-repo2repo.md)
-* [Cliente ssh nuevo no puede negociar con servidor viejo algoritmo de firma
-mutuo para login sin password](ssh-passwordless-old-server.md)
+* [Problemas con configuraciones nuevas de ssh para conectarse a equipos
+viejos](ssh-old-server.md)
 * [ImageMagick no procesa archivos PDF en Linux post 2018](imagemagick-pdf.md)
 
 ___
