@@ -85,7 +85,7 @@ Abrir **Gnome Tweaks** y hacer algunos ajustes:
 # paquetes headless
 sudo apt-get install build-essential subversion git git-filter-repo vim grip \
     p7zip-full p7zip-rar net-tools nmap ucspi-tcp-ipv6 keychain imagemagick \
-    openssh-server openssh-client openvpn
+    openssh-server openssh-client openvpn direnv
 
 # paquetes UI grafica
 sudo apt-get install vim-gtk3 network-manager-openvpn-gnome gparted exfatprogs \
