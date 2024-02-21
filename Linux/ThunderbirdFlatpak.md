@@ -126,7 +126,9 @@ Para finalizar, cerramos el tab de preferencias:
 
 ## Configurar cuenta de correo de GMail
 
-![Account Settings/Email](img/thunderbird-27-accountsettings_email.png)
+![Account Settings/Email](img/thunderbird-29-newaccount.png)
+
+![Account Settings/Email](img/thunderbird-30-newaccount.png)
 
 ![Account Settings/Set Up GMail](img/thunderbird-28-accountsettings_gmail.png)
 
