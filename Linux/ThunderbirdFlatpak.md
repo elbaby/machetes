@@ -23,9 +23,9 @@ Esto va a lanzar el _Profile Manager_.
 
 ![Create Profile Wizard](img/thunderbird-02-create_profile.png)
 
-![Create Profile Wizard](img/thunderbird-07-create_profile.png)
+![Create Profile Wizard](img/thunderbird-03-create_profile.png)
 
-![Create Profile Wizard](img/thunderbird-07-create_profile_a-exit.png)
+![Create Profile Wizard](img/thunderbird-04-exit_profile.png)
 
 ### Renombrar (y eventualmente mover) el directorio de perfil
 
@@ -54,73 +54,75 @@ Volvemos a arrancar el Thunderbird
 ```
 flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.Thunderbird -ProfileManager
 ```
-![Create Profile Wizard](img/thunderbird-07-create_profile_b-start.png)
+![Create Profile Wizard](img/thunderbird-05-profile_restart.png)
 
 
 A continuación, ofrece crear una nueva cuenta, pero cancelamos para configurar
 algunas cosas _antes_ de crear la primera cuenta:
 
-![Account Setup Cancel](img/thunderbird-08-account_setup_cancel.png)
+![Account Setup Cancel](img/thunderbird-06-account_setup_cancel.png)
 
-![Account Setup Cancel](img/thunderbird-08-account_setup_cancel_exit-setup.png)
+![Account Setup Cancel](img/thunderbird-07-account_setup_cancel-exit.png)
 
 ## Configuraciones de correo electrónico
 
 ### Configuraciones Generales
 
-![Settings](img/thunderbird-09-preferences.png)
+![Settings](img/thunderbird-08-settings.png)
 
-![Settings/Language](img/thunderbird-10-preferences_language.png)
+![Settings/Language](img/thunderbird-09-settings_language.png)
 
-![Settings/Language](img/thunderbird-11-preferences_language.png)
+![Settings/Language](img/thunderbird-10-settings_language.png)
 
-![Settings/Language](img/thunderbird-12-preferences_language.png)
+![Settings/Language](img/thunderbird-11-settings_language.png)
 
-![Settings/Language/Restart](img/thunderbird-13-preferences_language-restart.png)
+![Settings/Language/Restart](img/thunderbird-12-settings_language-restart.png)
 
-![Settings/Alerts](img/thunderbird-14-preferences_alerts.png)
+![Settings/Alerts](img/thunderbird-13-settings_alerts.png)
 
-![Settings/Reading & Display](img/thunderbird-15-preferences_reading.png)
+![Settings/Reading & Display](img/thunderbird-14-settings_reading.png)
 
-![Settings/Return Receipts](img/thunderbird-16-preferences_return_receipts.png)
+![Settings/Return Receipts](img/thunderbird-15-settings_return_receipts.png)
 
 Utilizar **maildir** en lugar de **mbox** para las carpetas de mail:
 
-![Settings/maildir](img/thunderbird-17-preferences_maildir.png)
+![Settings/maildir](img/thunderbird-16-settings_maildir.png)
 
 Hacer que las carpetas abran por default con orden cronológico descendente (el
 mail más nuevo arriba):
 
-![Settings/Config Editor/Default Sort Order](img/thunderbird-18-preferences_confedit_default_sort.png)
+![Settings/Config Editor/Default Sort Order](img/thunderbird-17-settings_confedit_default_sort.png)
 
-![Settings/Config Editor/Default Sort Order](img/thunderbird-19-preferences_confedit_default_sort.png)
+![Settings/Config Editor/Default Sort Order](img/thunderbird-18-settings_confedit_default_sort.png)
+
+#### OPCIONAL
 
 Este cambio sólo hay que hacerlo si nos vamos a conectar a un servidor que no
 soporta versiones de TLS nuevas:
 
-![Settings/Config Editor/TLS Minimum Version (optional)](img/thunderbird-20-preferences_confedit_tls_version.png)
+![Settings/Config Editor/TLS Minimum Version (optional)](img/thunderbird-19-settings_confedit_tls_minversion.png)
 
-![Settings/Config Editor/TLS Minimum Version (optional)](img/thunderbird-21-preferences_confedit_tls_version.png)
+![Settings/Config Editor/TLS Minimum Version (optional)](img/thunderbird-20-settings_confedit_tls_minversion.png)
 
 ### Configuraciones para la Redacción de Mensajes
 
-![Settings/Composition](img/thunderbird-22-preferences_composition_a_download_dics.png)
+![Settings/Composition](img/thunderbird-21-settings_dl_more_dicts.png)
 
-![Settings/Composition](img/thunderbird-22-preferences_composition_b_langpac-es-ar_dl.png)
+![Settings/Composition](img/thunderbird-22-settings_dl_langpack-es-ar.png)
 
-![Settings/Composition](img/thunderbird-22-preferences_composition_c_langpac-es-ar_inst.png)
+![Settings/Composition](img/thunderbird-23-settings_inst_langpack-es-ar.png)
 
-![Settings/Composition](img/thunderbird-22-preferences_composition.png)
+![Settings/Composition](img/thunderbird-24-settings_composition.png)
 
-![Settings/Attachments Keywords](img/thunderbird-23-preferences_attach_keywords.png)
+![Settings/Attachments Keywords](img/thunderbird-25-settings_attach_keywords.png)
 
-![Settings/Attachments Keywords](img/thunderbird-24-preferences_attach_keywords.png)
+![Settings/Attachments Keywords](img/thunderbird-26-settings_attach_keywords.png)
 
-![Settings/Attachments Keywords](img/thunderbird-25-preferences_attach_keywords.png)
+![Settings/Attachments Keywords](img/thunderbird-27-settings_attach_keywords.png)
 
 Para finalizar, cerramos el tab de preferencias:
 
-![Settings/Close Tab](img/thunderbird-26-preferences_close.png)
+![Settings/Close Tab](img/thunderbird-28-settings_close.png)
 
 ## Configurar cuenta de correo de GMail
 
