@@ -11,6 +11,7 @@ En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
 algunas cosas que no están en las configuraciones generales (**_Settings_**) de
 gnome shell y la interfaz **Synaptic** de apt y actualizamos todos los paquetes:
 ```
+sudo apt-get update
 sudo apt-get install gnome-tweaks synaptic
 sudo apt-get dist-upgrade
 ```
@@ -82,10 +83,19 @@ Abrir **Gnome Tweaks** y hacer algunos ajustes:
 # repositorio de drivers de System76 (esto ya debería estar)
 #sudo apt-add-repository ppa:system76-dev/stable
 
+# repositorio GitHub CLI
+curl --fail --silent --show-error --location \
+    https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+    sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg >/dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |\
+    sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+sudo apt-get update
+
 # paquetes headless
 sudo apt-get install build-essential subversion git git-filter-repo vim grip \
     p7zip-full p7zip-rar net-tools nmap ucspi-tcp-ipv6 keychain imagemagick \
-    openssh-server openssh-client openvpn direnv
+    openssh-server openssh-client openvpn direnv gh
 
 # paquetes UI grafica
 sudo apt-get install vim-gtk3 network-manager-openvpn-gnome gparted exfatprogs \
