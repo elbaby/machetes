@@ -58,6 +58,12 @@ esto hay que hacer otro cambio en `etckeeper.conf`
 sudo sed --in-place=.orig-1 -e 's/^#AVOID_DAILY_AUTOCOMMITS=1/AVOID_DAILY_AUTOCOMMITS=1/' /etc/etckeeper/etckeeper.conf
 ```
 
+Revisar que el archivo `/etc/etckeeper/etckeeper.conf` esté bien y luego borrar
+los backups que guardamos cuando usamos `sed`:
+```
+sudo rm -fv /etc/etckeeper/etckeeper.conf.orig-[01]
+```
+
 Además, hay que deshabilitar timer de `systemd`:
 ```
 sudo systemctl disable etckeeper.timer
@@ -66,7 +72,7 @@ sudo systemctl disable etckeeper.timer
 Agregar y hacer commit de los cambios que hicimos
 ```
 cd /etc
-sudo git add .etckeeper etckeeper/etckeeper.conf
+sudo git add .etckeeper etckeeper/etckeeper.conf systemd/system/*/etckeeper.timer
 sudo git commit -m "ajustes de configuración inicial etckeeper"
 ```
 
