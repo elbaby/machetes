@@ -12,6 +12,9 @@ baby)](VMUbuntuBaby.md)
 **Let's Encrypt** (letsencrypt)](LetsencryptCertbot.md)
 * [Instalar **VirtualBox** de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
+* [Instalar **Foxit** PDF Reader](Foxit.md)
+* [Instalar y configurar el cliente de mail
+**Thunderbird**](ThunderbirdFlatpak.md)
 * [Instalar el mail server **Postfix** en Ubuntu](Postfix.md)
 * [Instalar **Nextcloud** usando snap](NextcloudSnap.md)
 * [Migrar un repositorio **svn** a **git** en Dreamhost](GitHostingDreamhost.md)
@@ -19,7 +22,6 @@ Debian](OracleVirtualBox.md)
 archivo](EncryptedPartitionInFile.md)
 * [**OfflineIMAP**](OfflineIMAP.md)
 * [Adaptador **USB** - serial port](USBserial.md)
-
 ___
 <!-- LICENSE -->
 ___
