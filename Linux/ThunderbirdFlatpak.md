@@ -126,19 +126,32 @@ Para finalizar, cerramos el tab de preferencias:
 
 ## Configurar cuenta de correo de GMail
 
-![Account Settings/Email](img/thunderbird-29-newaccount.png)
+![New Account](img/thunderbird-29-newaccount.png)
 
-![Account Settings/Email](img/thunderbird-30-newaccount.png)
+![New Account/Existing Email](img/thunderbird-30-newaccount.png)
 
-![Account Settings/Set Up GMail](img/thunderbird-28-accountsettings_gmail.png)
+![New Account/Existing Email](img/thunderbird-31-newaccount.png)
 
-Utilizamos IMAP
+Seleccionar IMAP
 
-![Account Settings/Gmail IMAP](img/thunderbird-29-accountsettings_gmail_imap.png)
+![New Account/Gmail IMAP](img/thunderbird-32-accountsetup_imap.png)
 
-Autenticarse con Google y permitir el acceso
+### Autenticarse con Google (OAuht) y permitir el acceso
 
-![Account Settings/Gmail Allow Google Account Access](img/thunderbird-30-accountsettings_gmail_allow.png)
+![Google Sign in](img/thunderbird-33-google_sign_in_email.png)
+
+![Google Sign in](img/thunderbird-34-google_sign_in_password.png)
+
+A continuación, seleccionar el método de autenticación por 2° factor que
+prefieras:
+
+![Google Sign in](img/thunderbird-35-google_sign_in_2fa.png)
+
+![Google Sign in](img/thunderbird-36-google_sign_in_2fa.png)
+
+Una vez validado el 2° factor aparecerá el pedido de permisos necesarios:
+
+![Account Settings/Gmail Allow Google Account Access](img/thunderbird-36-google_oauth_allow.png)
 
 Conectar libreta de direcciones y calendario de Google:
 
