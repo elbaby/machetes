@@ -153,7 +153,7 @@ Una vez validado el 2° factor aparecerá el pedido de permisos necesarios:
 
 ![Account Setup/Allow Google Account Access](img/thunderbird-37-google_oauth_allow.png)
 
-Conectar libreta de direcciones y calendario de Google:
+### Conectar libreta de direcciones y calendario de Google
 
 ![Account Setup/Google Address Books & Calendars](img/thunderbird-38-google_linked_services.png)
 
@@ -161,13 +161,13 @@ Conectar libreta de direcciones y calendario de Google:
 
 ![Account Setup/Google Address Books & Calendars](img/thunderbird-40-google_linked_services.png)
 
-Configurar las preferencias del Calendario:
+## Configuraciones de calendarios
 
 ![Settings](img/thunderbird-08-settings.png)
 
-![Preferences/Calendar](img/thunderbird-34-preferences_calendar.png)
+![Settings/Calendar](img/thunderbird-41-settings_calendar.png)
 
-![Preferences/Calendar](img/thunderbird-35-preferences_calendar.png)
+![Settings/Calendar](img/thunderbird-42-settings_calendar.png)
 
 
 ___
