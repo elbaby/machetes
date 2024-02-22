@@ -151,7 +151,7 @@ prefieras:
 
 Una vez validado el 2° factor aparecerá el pedido de permisos necesarios:
 
-![Account Settings/Gmail Allow Google Account Access](img/thunderbird-36-google_oauth_allow.png)
+![Account Settings/Gmail Allow Google Account Access](img/thunderbird-37-google_oauth_allow.png)
 
 Conectar libreta de direcciones y calendario de Google:
 
