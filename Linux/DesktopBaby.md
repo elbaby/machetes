@@ -110,7 +110,7 @@ flatpak install --assumeyes flathub com.github.tchx84.Flatseal \
     org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
     com.mastermindzh.tidal-hifi com.spotify.Client org.mozilla.Thunderbird \
     com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre \
-    org.audacityteam.Audacity com.jgraph.drawio.desktop
+    org.audacityteam.Audacity com.jgraph.drawio.desktop org.remmina.Remmina
 # configuración de flatpak
 flatpak --user config --set languages 'en;es'
 # actualizacion de Locales
