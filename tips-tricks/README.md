@@ -1,5 +1,6 @@
 # Tips & Tricks
 
+* [Compartir claves utilizando pwpush](password-pusher.md)
 * [Copiar archivos de un repositorio git a otro manteniendo la
 historia](git-cp-repo2repo.md)
 * [Problemas con configuraciones nuevas de ssh para conectarse a equipos
