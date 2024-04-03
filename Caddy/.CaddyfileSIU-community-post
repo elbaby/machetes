@@ -1,0 +1,1200 @@
+# The Caddyfile is an easy way to configure your Caddy web server.
+#
+# Unless the file starts with a global options block, the first
+# uncommented line is always the address of your site.
+#
+# To use your own domain name (with automatic HTTPS), first make
+# sure your domain's A/AAAA DNS records are properly pointed to
+# this machine's public IP, then replace ":80" below with your
+# domain name.
+{
+	# Global Options
+	# El mail que mandamos al server ACME para registrar
+	# los certificados (notar que esto llega a it@siu.edu.ar)
+	email it+tls-caddy@siu.edu.ar
+
+	# El "hostname" que tomaremos por default si el cliente
+	# no manda un SNI
+	default_sni px00.siu.edu.ar
+}
+
+# snippets
+(REDES_INTERNAS_EXTERNAS) {
+	@redes_internas {
+		# Esto se puede hacer más fino
+		#remote_ip 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8 100.64.0.0/10
+		# desagrego 10.0.0.0/8 para que 10.0.0.0/24 la considere externa
+		remote_ip 172.16.0.0/12 192.168.0.0/16 100.64.0.0/10 10.0.1.0/24 10.0.2.0/23 10.0.4.0/22 10.0.8.0/21 10.0.16.0/20 10.0.32.0/19 10.0.64.0/18 10.0.128.0/17 10.1.0.0/16 10.2.0.0/15 10.4.0.0/14 10.8.0.0/13 10.16.0.0/12 10.32.0.0/11 10.64.0.0/10 10.128.0.0/9
+	}
+	@redes_externas {
+		# Esto se puede hacer más fino
+		#not remote_ip 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8 100.64.0.0/10
+		# desagrego 10.0.0.0/8 para que 10.0.0.0/24 la considere externa
+		not remote_ip 172.16.0.0/12 192.168.0.0/16 100.64.0.0/10 10.0.1.0/24 10.0.2.0/23 10.0.4.0/22 10.0.8.0/21 10.0.16.0/20 10.0.32.0/19 10.0.64.0/18 10.0.128.0/17 10.1.0.0/16 10.2.0.0/15 10.4.0.0/14 10.8.0.0/13 10.16.0.0/12 10.32.0.0/11 10.64.0.0/10 10.128.0.0/9
+	}
+}
+
+(LOG_ANALISIS) {
+	log {
+		output file /var/log/caddy/analisis.log {
+			roll_disabled
+		}
+		format transform `{ts},{request>remote_ip},{request>host},{request>uri},method:{request>method},proto:{request>proto},status:{status},size:{size},referer:{request>headers>Referer},user-agent:{request>headers>User-Agent}` {
+			time_format "rfc3339"
+		}
+	}
+}
+
+(LOG_FLAT) {
+	log {
+		output file /var/log/caddy/caddy-access.log
+		format transform `{request>remote_ip} - {request>host} - [{ts}] - {request>headers>User-Agent} "{request>method} {request>uri} {request>proto}" status:{status} size:{size} referer:{request>headers>Referer}` {
+			time_format "common_log"
+		}
+	}
+}
+
+(LOG_FLAT_NOBLOCK) {
+	log {
+		output file /var/log/caddy/noblock-caddy-access.log
+		format transform `{request>remote_ip} - {request>host} - [{ts}] - {request>headers>User-Agent} "{request>method} {request>uri} {request>proto}" status:{status} size:{size} referer:{request>headers>Referer}` {
+			time_format "common_log"
+		}
+	}
+}
+
+#:80 {
+# Set this path to your site's directory.
+#root * /usr/share/caddy
+
+# Enable the static file server.
+#file_server
+
+# Another common task is to set up a reverse proxy:
+# reverse_proxy localhost:8080
+
+# Or serve a PHP site through php-fpm:
+# php_fastcgi localhost:9000
+#}
+
+# BABY 2021-08-10
+# Docs:
+#   https://caddyserver.com/docs/caddyfile
+#   https://caddyserver.com/docs/quick-starts/caddyfile
+#   https://caddyserver.com/docs/caddyfile/concepts
+
+#############################################
+# Ejemplo proxy a un puerto distinto del 80 #
+#############################################
+#catalogueitor.siu.edu.ar
+#{
+#reverse_proxy carola.siu.edu.ar:8000
+#}
+
+################################################################################
+# Ejemplo proxy solo desde red interna / red externa redirecciona a página SIU #
+################################################################################
+#unacosasecreta.siu.edu.ar
+#{
+#	@redes_internas {
+#		# Esto se puede hacer más fino
+#		remote_ip 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8
+#	}
+#	@redes_externas {
+#		# Esto se puede hacer más fino
+#		not remote_ip 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8
+#	}
+#
+#	reverse_proxy @redes_internas servidor-interno.siu.edu.ar
+#	redir @redes_externas https://www.siu.edu.ar/
+#}
+
+# Alternativa usando import
+#unacosasecreta.siu.edu.ar
+#{
+#	import REDES_INTERNAS_EXTERNAS
+#	reverse_proxy @redes_internas servidor-interno.siu.edu.ar
+#	redir @redes_externas https://www.siu.edu.ar/
+#}
+
+
+###########################
+# LISTADO DE PORTS USADOS #
+###########################
+# 80
+# 443
+
+##################################################
+# Si cae por IP redirecciona a la página del SIU #
+##################################################
+px00.siu.edu.ar,
+200.123.128.68:80,
+200.123.128.68,
+172.27.100.240:80,
+172.27.100.240 {
+	redir https://www.siu.edu.ar/
+	import LOG_ANALISIS
+}
+
+###################
+## REDIRECCIONES ##
+###################
+
+siu.edu.ar {
+	redir https://www.siu.edu.ar{uri}
+	import LOG_ANALISIS
+}
+
+#cin.edu.ar
+#{
+#	redir	https://www.cin.edu.ar{uri}
+#	import LOG_ANALISIS
+#}
+
+infosiu.siu.edu.ar,
+info.siu.edu.ar {
+	redir https://www.siu.edu.ar/infosiu permanent
+	import LOG_ANALISIS
+}
+
+inscripciones.siu.edu.ar {
+	redir https://www.siu.edu.ar/eventos permanent
+	import LOG_ANALISIS
+}
+
+estudiarenargentina.siu.edu.ar,
+studyinargentina.siu.edu.ar {
+	redir https://estudia-en-argentina.com.ar permanent
+	import LOG_ANALISIS
+}
+
+###################
+## REVERSE PROXY ##
+###################
+
+#kolla.siu.edu.ar,
+encuestas.siu.edu.ar,
+kollacin.siu.edu.ar,
+kollaspu.siu.edu.ar {
+	reverse_proxy ep-wb-002.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+www.siu.edu.ar,
+joomlahuarpe.siu.edu.ar,
+portal.comunidad.siu.edu.ar {
+	reverse_proxy ep-wb-003.siu.edu.ar
+	import LOG_ANALISIS
+}
+firmadigital.siu.edu.ar {
+	import REDES_INTERNAS_EXTERNAS
+	reverse_proxy @redes_internas ep-wb-003.siu.edu.ar
+	redir @redes_externas https://www.siu.edu.ar/
+	import LOG_ANALISIS
+}
+
+#www.cin.edu.ar,
+#cin.edu.ar
+#{
+#	reverse_proxy ep-wb-015.siu.edu.ar
+#	import LOG_ANALISIS
+#}
+
+
+#encuestas.siu.edu.ar 2021-10-25: pasó a ep-wb-002
+#{
+#	reverse_proxy kolla-server.siu.edu.ar
+#}
+
+#colab.siu.edu.ar
+#{
+#	reverse_proxy ep-colab-001.siu.edu.ar
+#	#header Destination https:// http://
+#	header Location https:// http://
+#	import LOG_ANALISIS
+#}
+
+# Demo Guarani (cada cosa escucha en otro port)
+# https://gitlab.siu.edu.ar/it/tickets/-/issues/315
+guarani.siu.edu.ar {
+	#	reverse_proxy daldoelectico.siu.edu.ar:7217
+	reverse_proxy ep-wb-003.siu.edu.ar
+	import LOG_ANALISIS
+}
+gestion.guarani.siu.edu.ar {
+	reverse_proxy daldoelectico.siu.edu.ar:7271
+	import LOG_ANALISIS
+}
+autogestion.guarani.siu.edu.ar {
+	reverse_proxy daldoelectico.siu.edu.ar:7272
+	import LOG_ANALISIS
+}
+preinscripcion.guarani.siu.edu.ar {
+	reverse_proxy daldoelectico.siu.edu.ar:7273
+	import LOG_ANALISIS
+}
+api-app.guarani.siu.edu.ar {
+	reverse_proxy daldoelectico.siu.edu.ar:7274
+	import LOG_ANALISIS
+}
+toba-usuarios.guarani.siu.edu.ar {
+	#rewrite / /toba_usuarios/03201
+	#root * /toba_usuarios/03201
+	#reverse_proxy daldoelectico.siu.edu.ar:7271
+	redir https://gestion.guarani.siu.edu.ar/toba_usuarios/03201{uri}
+	import LOG_ANALISIS
+}
+demo.guarani.siu.edu.ar {
+	reverse_proxy daldoelectico.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+infraestructura.siu.edu.ar,
+querandies.siu.edu.ar {
+	# 2021-10-19 (antes estaba en arturito) https://gitlab.siu.edu.ar/it/tickets/-/issues/199
+	reverse_proxy ep-wb-006.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+pedidosciie.siu.edu.ar {
+	# 2022-03-17 (nuevo pedidosciie)
+	reverse_proxy ep-wb-001.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+cpres.siu.edu.ar {
+	# 2021-10-19 (antes estaba en arturito) https://gitlab.siu.edu.ar/it/tickets/-/issues/199
+	reverse_proxy ep-wb-008.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+ppua.siu.edu.ar,
+ppuaadmin.siu.edu.ar {
+	# 2021-10-19 (antes estaba en arturito) https://gitlab.siu.edu.ar/it/tickets/-/issues/199
+	reverse_proxy ep-wb-009.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+cafp.siu.edu.ar,
+proyectos.marca.siu.edu.ar,
+sicerconsulta.siu.edu.ar {
+	# ep-wb-013 (antes en lechuga)
+	reverse_proxy ep-wb-013.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+###############################
+# Migración agnito 2021-08-25 #
+###############################
+
+bibliotecadigital.cin.edu.ar {
+	reverse_proxy agnito.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+################################
+# Migración lechuga 2021-08-25 #
+################################
+
+informacion.cin.edu.ar,
+informacion.siu.edu.ar,
+acompaniarsinide.siu.edu.ar,
+spupedidos.siu.edu.ar {
+	# lechuga (toba_pedidos_2_3 / toba_pedidos_2_3_paramostrar)
+	reverse_proxy lechuga.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+#bdu.siu.edu.ar
+#bdu-test.siu.edu.ar
+#{
+#	# lechuga (bdu)
+#	reverse_proxy lechuga.siu.edu.ar
+#}
+
+conveniosfrance.siu.edu.ar,
+cargaconveniosfrance.siu.edu.ar {
+	# lechuga (toba_conveniosfrance_2_6.conf)
+	reverse_proxy lechuga.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+guaranivirtual.siu.edu.ar {
+	# lechuga (guaranivirtual.conf) ERR (no es posible conectarse a la base)
+	reverse_proxy lechuga.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+#guiadecarreras.siu.edu.ar, (paso a ep-dk-005 - araucano)
+#ofertasgrado.siu.edu.ar 2022-05-16 (se apagó el DNS el 2021-12-16 y nadie se quejó)
+#{
+#	# lechuga (guiadecarrera.conf)
+#	reverse_proxy lechuga.siu.edu.ar
+#}
+
+#incentivos.siu.edu.ar  (muerto 16-11-22 PAco)
+#{
+# lechuga (toba_incentivos_23)
+#	reverse_proxy lechuga.siu.edu.ar
+#	import LOG_ANALISIS
+#}
+
+moodlevinculacion.siu.edu.ar {
+	# lechuga (moodle-vinculacion.conf)
+	reverse_proxy lechuga.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+normativa.cin.edu.ar,
+# fuerzo a que NO use https (ni genere el certificado)
+# porque el nombre sólo funciona en la red interna
+http://normativa.siu.edu.ar {
+	# lechuga (notascin.conf) movido a ep-wb-012
+	reverse_proxy ep-wb-012.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+posgradosasociados.siu.edu.ar,
+postgradosasociados.siu.edu.ar {
+	# lechuga (programafs)
+	reverse_proxy lechuga.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+#################################
+# Migración arturito 2021-08-25 #
+#################################
+
+# ARTURITO NO EXISTE MAS 2022-05-16
+
+#aspirantes.siu.edu.ar,
+#ona.siu.edu.ar
+#{
+#	# arturito (toba_pmsiu)
+#	reverse_proxy arturito.siu.edu.ar
+#}
+#
+#araucanoprueba.siu.edu.ar,
+#onaprueba.siu.edu.ar
+#{
+#	# arturito (toba_pmsiuprueba)
+#	reverse_proxy arturito.siu.edu.ar
+#}
+#
+#gwap.siu.edu.ar,
+#gwapd.siu.edu.ar,
+#preinscripcionunrn.siu.edu.ar,
+#wsguarani.siu.edu.ar
+#{
+#	# arturito (guarani)
+#	reverse_proxy arturito.siu.edu.ar
+#}
+#
+#isw.siu.edu.ar
+#{
+#	# arturito (isw)
+#	reverse_proxy arturito.siu.edu.ar
+#}
+#
+#web.siu.edu.ar
+#{
+#	# arturito (000-default + toba_mapuche_online)
+#	reverse_proxy arturito.siu.edu.ar
+#}
+
+# pasó a px01 (con el resto de los wichis)
+#wichi-curso.siu.edu.ar
+#{
+#	reverse_proxy	ep-dw-001.siu.edu.ar
+#}
+
+
+########################################
+# Ordenamiento emperador 2023-07-18/21 #
+########################################
+
+###################
+## REDIRECCIONES ##
+###################
+
+# emperador registro_dngu.conf
+graduadosuniversitarios.siu.edu.ar {
+	redir https://registrograduados.siu.edu.ar{uri}
+	import LOG_ANALISIS
+}
+
+# emperador sipes.conf
+titulosoficiales.siu.edu.ar {
+	redir https://sipes.siu.edu.ar/buscar_titulos.php
+	import LOG_ANALISIS
+}
+
+# emperador sipes.conf
+sied.siu.edu.ar {
+	redir https://sipes.siu.edu.ar/consulta_sied.php
+	import LOG_ANALISIS
+}
+
+# emperador sipes.conf
+sirvat.siu.edu.ar {
+	redir https://sipes.siu.edu.ar{uri}
+	import LOG_ANALISIS
+}
+
+###################
+## REVERSE PROXY ##
+###################
+
+# emperador VMs sueltas
+bancodeevaluadores.cin.edu.ar,
+calchaqui.siu.edu.ar,
+conveniospu.siu.edu.ar,
+cytuniversidades.siu.edu.ar,
+demogestor.siu.edu.ar,
+generoydiversidad.siu.edu.ar,
+marcademo.siu.edu.ar,
+nomina.siu.edu.ar,
+ofertasuperior.siu.edu.ar,
+precalchaqui.siu.edu.ar,
+registrograduados.siu.edu.ar,
+rtfsimulador.siu.edu.ar,
+sipes.siu.edu.ar,
+snraregistro.siu.edu.ar,
+spusceu.siu.edu.ar
+#cooperativismo.siu.edu.ar,
+#estadisticasuniversitarias.me.gov.ar,
+#estadisticasuniversitarias.me.gob.ar,
+#universidadyeconomiasocial.siu.edu.ar
+{
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador marca.conf
+marca.siu.edu.ar {
+	redir /proyectos https://proyectos.marca.siu.edu.ar{uri}
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+############################
+# emperador - disenio.conf #
+############################
+
+# emperador disenio.conf
+gestorinformes.siu.edu.ar,
+mapadeproyectoscsu.siu.edu.ar,
+mapavoluntariado.siu.edu.ar,
+desarrollouniv.siu.edu.ar {
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+voluntariado.siu.edu.ar {
+	redir / https://voluntariado.siu.edu.ar/aplicacion.php?cod_convocatoria=8
+	redir /inscripcion2015 https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT04
+	redir /2021 https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02MA==
+	redir /sigamosestudiando https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02Mw==
+	redir /2022 https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02OQ==
+	redir /se22 https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Ng==
+	redir /2023 https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT04MA==
+	redir /se23 https://voluntariado.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT04Mg==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+protocolos2019.siu.edu.ar {
+	redir / https://protocolos2019.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01MA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+abrealas.siu.edu.ar {
+	redir /2017 https://abrealas.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zNA==
+	redir /2019 https://abrealas.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01Nw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+genero.siu.edu.ar {
+	redir /2021 https://genero.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02NA==
+	redir /2022 https://genero.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03NA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+unagranlibertadmas.siu.edu.ar {
+	redir /artesescenicas https://unagranlibertadmas.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00MA==
+	redir /fotografias https://unagranlibertadmas.siu.edu.ar/aplicacion.php?cod_convocatoria=41
+	redir /musica https://unagranlibertadmas.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00MQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+nochedelareforma.siu.edu.ar {
+	redir / https://nochedelareforma.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00Ng==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+forocultural.siu.edu.ar {
+	redir /ponencias https://forocultural.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00Nw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+disenoydesarrollo.siu.edu.ar,
+disenioydesarrollo.siu.edu.ar,
+xn--diseoydesarrollo-9tb.siu.edu.ar {
+	redir /2016 https://disenioydesarrollo.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yMg==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+universocial.siu.edu.ar {
+	redir / https://usc.siu.edu.ar/aplicacion.php?cod_convocatoria=56
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+redesemprendedoras.siu.edu.ar {
+	redir /2019 https://redesemprendedoras.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01NQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+universidadydesarrollo.siu.edu.ar {
+	redir /2017 https://universidadydesarrollo.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yOA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+sinergia.siu.edu.ar {
+	redir /2017 https://sinergia.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+111mil.siu.edu.ar {
+	redir / https://111mil.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNw==
+	redir /2017 https://111mil.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+usc.siu.edu.ar {
+	redir / https://usc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00NQ==
+	redir /2019 https://usc.siu.edu.ar/aplicacion.php?cod_convocatoria=51
+	redir /2019_2 https://usc.siu.edu.ar/aplicacion.php?cod_convocatoria=58
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+compromisosocialuniv.siu.edu.ar {
+	redir / https://compromisosocialuniv.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMA==
+	redir /2016 https://compromisosocialuniv.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+practicaseducativas.siu.edu.ar {
+	redir /2017 https://practicaseducativas.siu.edu.ar/aplicacion.php?cod_convocatoria=26
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+fortalecimientoext.siu.edu.ar {
+	redir / https://fortalecimientoext.siu.edu.ar/aplicacion.php?cod_convocatoria=23
+	redir /2016 https://fortalecimientoext.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yMw==
+	redir /2018 https://fortalecimientoext.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zOQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+fortalecimientoosc.siu.edu.ar {
+	#	redir /2017		https://fortalecimientoosc.siu.edu.ar/aplicacion.php?cod_convocatoria=31
+	redir /2017 https://fortalecimientoosc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+fortalecimientovt.siu.edu.ar {
+	redir / https://fortalecimientovt.siu.edu.ar/aplicacion.php?cod_convocatoria=25
+	#	redir /2016		https://fortalecimientovt.siu.edu.ar/aplicacion.php?cod_convocatoria=25
+	redir /2016 https://fortalecimientovt.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNQ==
+	redir /2018 https://fortalecimientovt.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00NA==
+	redir /2022 https://fortalecimientovt.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03MA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+csu.siu.edu.ar {
+	redir / https://csu.siu.edu.ar/aplicacion.php?cod_convocatoria=26
+	#	redir /2017		https://csu.siu.edu.ar/aplicacion.php?cod_convocatoria=26
+	redir /2017 https://csu.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNg==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+csuencarceles.siu.edu.ar {
+	#	redir /2017		https://csuencarceles.siu.edu.ar/aplicacion.php?cod_convocatoria=29
+	redir /2017 https://csuencarceles.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yOQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+csucontextosvulnerables.siu.edu.ar,
+csucontextosdeprivacion.siu.edu.ar {
+	redir / https://csucontextosvulnerables.siu.edu.ar/aplicacion.php?cod_convocatoria=11
+	redir /2016 https://csucontextosvulnerables.siu.edu.ar/aplicacion.php?cod_convocatoria=11
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+innovacionsocial.siu.edu.ar {
+	redir /2017 https://innovacionsocial.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+agregandovalor.siu.edu.ar {
+	redir / https://agregandovalor.siu.edu.ar/aplicacion.php?cod_convocatoria=12
+	#	redir /2016		https://agregandovalor.siu.edu.ar/aplicacion.php?cod_convocatoria=12
+	redir /2016 https://agregandovalor.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMg==
+	#	redir /2017		https://agregandovalor.siu.edu.ar/aplicacion.php?cod_convocatoria=38
+	redir /2017 https://agregandovalor.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zOA==
+	#	redir /2018		https://agregandovalor.siu.edu.ar/aplicacion.php?cod_convocatoria=42
+	redir /2018 https://agregandovalor.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00Mg==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+emprendedorismo.siu.edu.ar {
+	redir /2016 https://emprendedorismo.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMw==
+	redir /2019 https://emprendedorismo.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01Mw==
+	redir /privadas2019 https://emprendedorismo.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01NA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+culturaysociedad.siu.edu.ar {
+	redir / https://culturaysociedad.siu.edu.ar/aplicacion.php?cod_convocatoria=14
+	redir /2016 https://culturaysociedad.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xNA==
+	redir /2017 https://culturaysociedad.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zNQ==
+	redir /2018 https://culturaysociedad.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00Mw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+proav.siu.edu.ar {
+	redir / https://proav.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNA==
+	redir /2016 https://proav.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+extension.siu.edu.ar {
+	redir / https://extension.siu.edu.ar/aplicacion.php?cod_convocatoria=61
+	redir /2021 https://extension.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02MQ==
+	redir /2022 https://extension.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03MQ==
+	redir /2023 https://extension.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT04Mw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+sigamosestudiando.siu.edu.ar {
+	redir /2021 https://sigamosestudiando.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02Mg==
+	redir /2022 https://sigamosestudiando.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Mw==
+	redir /2023 https://sigamosestudiando.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT04NA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+cienciaytecnologia.siu.edu.ar {
+	redir /2022 https://cienciaytecnologia.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02Nw==
+	redir /2023 https://cienciaytecnologia.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03OA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+contextoencierro.siu.edu.ar {
+	redir / https://contextoencierro.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Nw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador disenio.conf
+doblecarrera.siu.edu.ar {
+	#        redir /2023             https://desarrollouniv.siu.edu.ar/aplicacion.php?cod_convocatoria=79
+	redir /2023 https://desarrollouniv.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03OQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+###############################
+# emperador - diseniocin.conf #
+###############################
+
+# emperador diseniocin.conf
+evc.siu.edu.ar {
+	redir / https://evc.siu.edu.ar/administracion.php
+	redir /convocatoria201* https://evc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMA==
+	redir /convocatoria2020 https://evc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMQ==
+	redir /convocatoria2021 https://evc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMg==
+	redir /convocatoria2022 https://evc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador diseniocin.conf
+mundou.siu.edu.ar {
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador diseniocin.conf
+perhid-redes.siu.edu.ar {
+	redir /creacion2015 https://perhid-redes.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0x
+	redir /consolidacion2015 https://perhid-redes.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0y
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador diseniocin.conf
+perhid-becas.cin.edu.ar,
+perhid-becas.siu.edu.ar {
+	redir /2017 https://perhid-becas.cin.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador diseniocin.conf
+proyectocin.siu.edu.ar {
+	redir /pdts2017 https://proyectocin.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00
+	redir /2019 https://proyectocin.siu.edu.ar/aplicacion.php?cod_convocatoria=8
+	redir /informe2019 https://proyectocin.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT05
+	redir /informes2019 https://proyectocin.siu.edu.ar/aplicacion.php?cod_convocatoria=9
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+########################
+# emperador - ies.conf #
+########################
+
+# emperador ies.conf
+ies.siu.edu.ar,
+arfagri.siu.edu.ar,
+cuaa-dahz.siu.edu.ar {
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+piesci.siu.edu.ar {
+	redir /2015 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=3
+	redir /arfitec2016 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=5
+	redir /cafp6c https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=10
+	redir /capg10c https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=11
+	redir /maga2017 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMw==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=13
+	redir /cafp5c https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xNA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=14
+	redir /capg9c https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xNQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=15
+	redir /redesneies2 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xNw==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=17
+	redir /innovart2017 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xOQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=19
+	redir /fil_frankfurt2017 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yMQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=21
+	redir /fil_guadalajara2017 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yMg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=22
+	redir /eaie2017 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=24
+	redir /arfagri2017 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=26
+	redir /arfitec2015 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNw==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=27
+	redir /estudiossectorialesneies https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yOA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=28
+	redir /nafsa2018 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yOQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=29
+	redir /eaie2018 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=31
+	redir /marca11 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=32
+	redir /innovart2019 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMw==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=33
+	redir /nafsa2019 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zNA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=34
+	redir /arfitec2019 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zNQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=35
+	redir /proyectos2019 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=38
+	redir /fortalecimientoori https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zOQ==
+	#https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=39
+	redir /idear2021 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=43
+	redir /premiomarcasegib https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00NA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=44
+	redir /semilla2020 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=45
+	redir /renovacionidear2021 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=46
+	redir /internacionalizacionintegral https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00OQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=49
+	redir /marca12 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01MQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=51
+	redir /fortalecimiento2021 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01Mg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=52
+	redir /plandetrabajoinstitucional https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01Mw==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=53
+	redir /IIpremiomarcasegib https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02MA==
+	#https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=60
+	redir /iipremiomarcasegib https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02MA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=60
+	redir /semilla2023 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=61
+	redir /redesneies3 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02Mg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=62
+	redir /arfagri2023 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02NA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=64
+	redir /fortalecimiento2023 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02Nw==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=67
+	redir /innovart2023 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02OA==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=68
+	redir /arfitec2023 https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02OQ==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=69
+	redir /IIIpremiomarcasegib https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Mg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=72
+	redir /iiipremiomarcasegib https://piesci.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Mg==
+	# https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=72
+	redir /renovacioncb2021 https://piesci.siu.edu.ar/aplicacion.php?cod_convocatoria=77
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+idear.siu.edu.ar {
+	redir / https://idear.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02
+	# https://idear.siu.edu.ar/aplicacion.php?cod_convocatoria=6
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+idear2014.siu.edu.ar {
+	redir / https://idear2014.siu.edu.ar/aplicacion.php?cod_convocatoria=18
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+idear2017.siu.edu.ar {
+	redir / https://idear2017.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xMg==
+	# https://idear2017.siu.edu.ar/aplicacion.php?cod_convocatoria=12
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+calidaduniversitaria.siu.edu.ar {
+	redir /desarrollocurricular https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yMw==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=23
+	redir /Desarrollocurricular https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yMw==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=23
+	redir /pdi https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0yNQ==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=25
+	redir /pdi2 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0zMA==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=30
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+semilla2017.siu.edu.ar {
+	redir / https://semilla2017.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT0xNg==
+	# https://semilla2017.siu.edu.ar/aplicacion.php?cod_convocatoria=16
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf  APAGADO 2024-03-04 - issue #787
+#gestor.uni.ecosoc.siu.edu.ar
+#{
+#	redir /			https://gestor.uni.ecosoc.siu.edu.ar/aplicacion.php?cod_convocatoria=8
+#	redir /convocatoria2016	https://gestor.uni.ecosoc.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT05
+## https://gestor.uni.ecosoc.siu.edu.ar/aplicacion.php?cod_convocatoria=9
+#	redir /mapa		https://gestor.uni.ecosoc.siu.edu.ar/mapa_cooperativismo/mapa.php
+#
+#	reverse_proxy emperador.siu.edu.ar
+#	import LOG_ANALISIS
+#}
+
+# emperador ies.conf
+planves.siu.edu.ar {
+	redir / https://planves.siu.edu.ar/aplicacion.php?cod_convocatoria=48
+	redir /2020 https://planves.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00Mg==
+	# https://planves.siu.edu.ar/aplicacion.php?cod_convocatoria=42
+	redir /2021 https://planves.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT00OA==
+	# https://planves.siu.edu.ar/aplicacion.php?cod_convocatoria=48
+	redir /2022 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01Nw==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=57
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03MA==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=70
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+promce.siu.edu.ar {
+	redir /2022 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01NA==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=54
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+proun.siu.edu.ar {
+	redir /2022 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01NQ==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=55
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02Ng==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=66
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+prombiogen.siu.edu.ar {
+	redir /2022 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01OQ==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=59
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+simulacionodonto.siu.edu.ar {
+	redir /2022 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01OA==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=58
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+odsuniversidades.siu.edu.ar {
+	redir /2022 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT01Ng==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=56
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+formarte.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT02NQ==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=65
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+doctorados.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03MQ==
+	# https://calidaduniversitaria.siu.edu.ar/aplicacion.php?cod_convocatoria=71
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+laboratoriosremotos.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Mw==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+esps.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03NQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+pueep.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03NA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+simulacionclinica.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03Ng==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador ies.conf
+siac.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03OA==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# emperador nuevo
+sacau.siu.edu.ar {
+	redir /2023 https://calidaduniversitaria.siu.edu.ar/aplicacion.php?Y29kX2NvbnZvY2F0b3JpYT03OQ==
+
+	reverse_proxy emperador.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+#################
+# FIN emperador #
+#################
+
+
+# nextcloud cin 2023-02-23
+# temporal por 6 meses (apagar para 2023-09?) https://gitlab.siu.edu.ar/it/tickets/-/issues/454
+nube.cin.edu.ar {
+	reverse_proxy ep-wb-016.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# rocketchat interno
+chat.siu.edu.ar {
+	import REDES_INTERNAS_EXTERNAS
+	reverse_proxy @redes_internas rocket.siu.edu.ar
+	redir @redes_externas https://www.siu.edu.ar/
+	import LOG_ANALISIS
+}
+
+# kiwi interno (en k8s)
+kiwi.siu.edu.ar {
+	import REDES_INTERNAS_EXTERNAS
+	reverse_proxy @redes_internas https://kiwi.k8s.siu.edu.ar {
+		transport http {
+			# tiene certificado self-signed
+			tls_insecure_skip_verify
+		}
+	}
+
+	# si viene de afuera, redireccionamos a la home del SIU
+	redir @redes_externas https://www.siu.edu.ar/
+	import LOG_ANALISIS
+}
+
+# Esto lo tenemos sólo para generar los certificados y copiarlos manualmente al servidor interno correspondiente
+eei-desarrollo.siu.edu.ar {
+	#import REDES_INTERNAS_EXTERNAS
+	#reverse_proxy @redes_internas ed-eei-001.siu.edu.ar
+	#redir @redes_externas https://www.siu.edu.ar/
+	redir https://www.siu.edu.ar/
+	import LOG_ANALISIS
+}
+
+# Esto lo tenemos sólo para generar los certificados y copiarlos manualmente al servidor interno correspondiente
+ed-wb-002-forodocker.siu.edu.ar {
+	#import REDES_INTERNAS_EXTERNAS
+	#reverse_proxy @redes_internas ed-wb-002-forodocker.siu.edu.ar
+	#redir @redes_externas https://www.siu.edu.ar/
+	redir https://www.siu.edu.ar/
+	import LOG_ANALISIS
+}
+# test calchaqui
+calchaquitest.siu.edu.ar {
+	reverse_proxy ep-wb-017.siu.edu.ar
+	import LOG_ANALISIS
+}
+
+# Esto debería durar sólo 1 mes. No más allá de 2023-07
+# https://gitlab.siu.edu.ar/it/tickets/-/issues/558
+# Baja 2023-06-05 https://gitlab.siu.edu.ar/it/tickets/-/issues/568
+#forolaudato.cin.edu.ar
+#{
+#reverse_proxy ep-forocin-001.siu.edu.ar
+#import LOG_ANALISIS
+#}
