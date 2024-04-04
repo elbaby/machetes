@@ -51,11 +51,17 @@ versión hay que hacer lo siguiente:
 # Hacer una copia de backup (del viejo) binario en /usr/bin/caddy.backup
 sudo cp -v /usr/bin/caddy.custom /usr/bin/caddy.backup
 
+# Detener el caddy que está ejecutando (porque sino, no se puede sobreescribir el binario)
+sudo systemctl stop caddy.service
+
 # Volver a hacer la copia (del nuevo) binario en /usr/bin/caddy.custom
 sudo cp -v /usr/bin/caddy.default /usr/bin/caddy.custom
 
 # Actualizar el nuevo `caddy.custom` con los módulos deseados:
 sudo /usr/bin/caddy.custom add-package github.com/caddyserver/transform-encoder
+
+# Reiniciar el caddy
+sudo systemctl start caddy.service
 
 # Si todo anduvo bien, borrar el backup:
 sudo rm -v /usr/bin/caddy.backup
