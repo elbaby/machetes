@@ -29,10 +29,10 @@ e instalar el servidor caddy
 
 ```
 # Actualizar base de datos de paquetes
-sudo apt update
+sudo apt-get update
 
-# Instalar Caddy
-sudo apt install caddy
+# Instalar Caddy (y las libnss3-tools)
+sudo apt-get install caddy libnss3-tools
 
 # Copiar el sitio estático que sirve por default en /var/www/caddy
 sudo mkdir -pv /var/www
