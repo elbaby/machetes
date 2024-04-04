@@ -48,11 +48,17 @@ en `/usr/bin/caddy.default` y no el que se modificó en `/usr/bin/caddy.custom`.
 Si se actualizó el Caddy y se desea agregar los módulos y utilzar la nueva
 versión hay que hacer lo siguiente:
 ```
+# Hacer una copia de backup (del viejo) binario en /usr/bin/caddy.backup
+sudo cp -v /usr/bin/caddy.custom /usr/bin/caddy.backup
+
 # Volver a hacer la copia (del nuevo) binario en /usr/bin/caddy.custom
-sudo cp /usr/bin/caddy.default /usr/bin/caddy.custom
+sudo cp -v /usr/bin/caddy.default /usr/bin/caddy.custom
 
 # Actualizar el nuevo `caddy.custom` con los módulos deseados:
 sudo /usr/bin/caddy.custom add-package github.com/caddyserver/transform-encoder
+
+# Si todo anduvo bien, borrar el backup:
+sudo rm -v /usr/bin/caddy.backup
 ```
 ___
 <!-- LICENSE -->
