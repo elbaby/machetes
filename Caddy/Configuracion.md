@@ -185,6 +185,21 @@ servicio.example.net
 }
 ```
 
+# Formato del Caddyfile
+
+Para asegurarnos el formato del Caddyfile, podemos usar el comando `fmt` de
+`caddy`:
+```
+caddy fmt /etc/caddy/Caddyfile
+```
+analizará el Caddyfile y lo sacará por `STDOUT` reformateado (si hay errores,
+se verán en `STDERR`).
+
+O también, para reescribirlo directamente, se puede usar:
+```
+sudo caddy fmt --overwrite /etc/caddy/Caddyfile
+```
+
 
 # Aplicar cambios
 
