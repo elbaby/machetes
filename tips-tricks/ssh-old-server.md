@@ -100,6 +100,48 @@ Host 10.10.20.20 old-server old-server.example.net
 	Ciphers +aes256-cbc,aes128-cbc
 ```
 
+## No se conecta y da un error en `libcrypto`
+
+El error que se ve es similar a este:
+```
+$ ssh user@old-server.example.com
+
+ssh_dispatch_run_fatal: Connection to UNKNOWN port 65535: error in libcrypto
+```
+(esto me ocurrió conectándome desde un RedHat 9 a un RedHat6)
+
+La solución la encontré en el [Serverfault de 
+StackExchange](https://serverfault.com/questions/1125843/error-in-libcrypto-connecting-rhel-9-server-to-centos-6-via-sftp-ssh)
+combinando las dos primeras respuestas:
+
+Por un lado, en el `~/.ssh/config` hay que agregar lo siguiente:
+```
+Host 10.10.20.20 old-server old-server.example.net
+	KexAlgorithms=+diffie-hellman-group14-sha1
+	MACs=+hmac-sha1
+	HostKeyAlgorithms=+ssh-rsa
+	PubkeyAcceptedKeyTypes=+ssh-rsa
+	PubkeyAcceptedAlgorithms=+ssh-rsa
+```
+
+_Además_ hay que armar una configuración de OpenSSL que permita parámetros
+inseguros _sin cambiar_ la configuración general de OpenSSL.
+
+Una forma simple de hacerlo es armar un archivo `~/.ssh/opensslinsecure.cnf`
+que incluya la configuración estándar más los parámetros inseguros:
+```
+.include /etc/ssl/openssl.cnf
+[openssl_init]
+alg_section = evp_properties
+[evp_properties]
+rh-allow-sha1-signatures = yes
+```
+
+Ahora, para invocar ssh utilizando la configuración insegura hay que usar:
+```
+OPENSSL_CONF=${HOME}/.ssh/opensslinsecure.cnf ssh user@old-server.example.com
+```
+
 ## Configuración completa
 
 Es común que varios de estos problemas aparezcan en los mismos hosts. Lo más
@@ -116,6 +158,13 @@ Host 10.11.111.77 old-hp-switch-01 old-hp-switch-01.example.net 10.11.111.78 old
 	PubkeyAcceptedKeyTypes=+ssh-rsa
 	Ciphers=+aes256-cbc,aes128-cbc
 	KexAlgorithms=+diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+
+Host 10.11.111.6 oldhat6 oldhat6.example.net
+	KexAlgorithms=+diffie-hellman-group14-sha1
+	MACs=+hmac-sha1
+	HostKeyAlgorithms=+ssh-rsa
+	PubkeyAcceptedKeyTypes=+ssh-rsa
+	PubkeyAcceptedAlgorithms=+ssh-rsa
 ```
 
 ___
