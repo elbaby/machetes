@@ -98,9 +98,9 @@ sudo apt-get install build-essential subversion git git-filter-repo vim grip \
     openssh-server openssh-client openvpn direnv gh
 
 # paquetes UI grafica
-sudo apt-get install vim-gtk3 network-manager-openvpn-gnome gparted exfatprogs \
-    speedcrunch gimp-help-en gimp-help-es gimp-data-extras libwmf0.2-7-gtk \
-    gnome-sound-recorder
+sudo apt-get install gparted exfatprogs exfat-fuse libwmf0.2-7-gtk \
+    network-manager-openvpn-gnome speedcrunch vim-gtk3 \
+    gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder
 
 # paquetes vía flatpak (sólo para el usuario)
 flatpak remote-add --if-not-exists flathub \
