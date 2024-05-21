@@ -103,9 +103,9 @@ sudo apt-get install gparted exfatprogs exfat-fuse libwmf0.2-7-gtk \
     gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder
 
 # paquetes vía flatpak (sólo para el usuario)
-flatpak remote-add --if-not-exists flathub \
+flatpak remote-add --user --if-not-exists flathub \
     https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --assumeyes flathub com.github.tchx84.Flatseal \
+flatpak install --user --assumeyes flathub com.github.tchx84.Flatseal \
     com.bitwarden.desktop org.keepassxc.KeePassXC org.ksnip.ksnip \
     org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
     com.mastermindzh.tidal-hifi com.spotify.Client org.mozilla.Thunderbird \
@@ -233,7 +233,7 @@ En Pop OS! 22.04 se puede instalar con apt o vía `flatpak`.
 Si no lo instalamos antes con apt, usar flatpak:
 ```
 # instalar paquete flatpak 
-flatpak install flathub org.ksnip.ksnip
+flatpak install --user flathub org.ksnip.ksnip
 ```
 Carpeta para capturas
 ```
