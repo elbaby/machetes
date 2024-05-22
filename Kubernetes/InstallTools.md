@@ -48,9 +48,9 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v${KUBEVERSION}/deb/Release.key | \
  --output /etc/apt/keyrings/kubernetesV${KUBEVERSION}-apt-keyring.gpg
 
 # Repositorio firmado
-echo 'deb [arch="$(dpkg --print-architecture)"\
+echo "deb [arch="$(dpkg --print-architecture)"\
  signed-by=/etc/apt/keyrings/kubernetesV${KUBEVERSION}-apt-keyring.gpg]\
- https://pkgs.k8s.io/core:/stable:/v${KUBEVERSION}/deb/ /' | \
+ https://pkgs.k8s.io/core:/stable:/v${KUBEVERSION}/deb/ /" | \
     sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
 
 # Instalar kubectl
