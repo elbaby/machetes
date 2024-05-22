@@ -59,7 +59,55 @@ sudo apt-get install kubectl
 
 ```
 
+## Instalar múltiples versiones de kubectl
 
+[`kubectl` no puede tener más de un 1 _minor_ número de versión de diferencia
+con el cluster](https://kubernetes.io/releases/version-skew-policy/#kubectl).
+
+Por ejemplo, `kubectl` 1.29.x puede administrar un cluster 1.28.x, 1.29.x o
+1.30.x, pero no un cluster 1.26.x o 1.27.x
+
+Si tenés que administrar diferentes clusters y al menos un par tienen una
+diferencia de versión _minor_ mayor a 2, no podés usar el mismo `kubectl`.
+
+[Acá](https://faun.pub/using-different-kubectl-versions-with-multiple-kubernetes-clusters-a3ad8707b87b)
+encontré cómo instalar diferentes versiones usando **[asdf](../Linux/asdf.md)**.
+
+Instalar primero [asdf](../Linux/asdf.md).
+
+Para instalar, por ejemplo, las versiones 1.30 y 1.27 (que nos permitirían
+administrar clusters desde versión 1.26.x hasta 1.31.x), hay que configurar las
+versiones completas (incluido el _patchlevel_) que se quieren usar (ver listado
+[acá](https://kubernetes.io/releases/).
+```
+kubectlVersion1=1.30.1
+kubectlVersion2=1.27.14
+asdf install kubectl ${kubectlVersion1}
+asdf install kubectl ${kubectlVersion2}
+```
+
+Para ver las versiones que tenemos instaladas:
+```
+$ asdf list kubectl
+  1.27.14
+  1.30.1
+```
+
+Para elegir una versión para usar:
+```
+$ asdf global kubectl 1.27.14
+
+$ kubectl version --client --short
+Client Version: v1.27.14
+Kustomize Version: v5.0.1
+
+$ asdf global kubectl 1.30.1
+
+$ kubectl version --client
+Client Version: v1.30.1
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+
+```
 
 ___
 <!-- LICENSE -->
