@@ -10,6 +10,7 @@ baby)](VMUbuntuBaby.md)
 /etc](Etckeeper.md)
 * [Instalación y uso de **certbot** para obtener certificados digitales X.509 de
 **Let's Encrypt** (letsencrypt)](LetsencryptCertbot.md)
+* [Instalar el manejador de versiones de herramientas CLI **asdf**](asdf.md)
 * [Instalar **VirtualBox** de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
 * [Instalar **Foxit** PDF Reader](Foxit.md)
