@@ -16,6 +16,8 @@ Debian](OracleVirtualBox.md)
 * [Instalar **Foxit** PDF Reader](Foxit.md)
 * [Instalar y configurar el cliente de mail
 **Thunderbird**](ThunderbirdFlatpak.md)
+* [Hacer un backup de los perfiles de **Thunderbird** sin los mensajes cacheados
+de servidores IMAP](ThunderbirdBackupProfile.md)
 * [Instalar el mail server **Postfix** en Ubuntu](Postfix.md)
 * [Instalar **Nextcloud** usando snap](NextcloudSnap.md)
 * [Migrar un repositorio **svn** a **git** en Dreamhost](GitHostingDreamhost.md)
