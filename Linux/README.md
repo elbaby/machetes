@@ -17,7 +17,10 @@ Debian](OracleVirtualBox.md)
 * [Instalar y configurar el cliente de mail
 **Thunderbird**](ThunderbirdFlatpak.md)
 * [Hacer un backup de los perfiles de **Thunderbird** sin los mensajes cacheados
-de servidores IMAP](ThunderbirdBackupProfile.md)
+de servidores IMAP](ThunderbirdBackupProfile.md) (hice también una [versión en
+inglés](ThunderbirdBackupProfile-en.md))
+  *  [Make a Thunderbird profiles' backup excluding cached messages from
+  IMAP servers](ThunderbirdBackupProfile-en.md)
 * [Instalar el mail server **Postfix** en Ubuntu](Postfix.md)
 * [Instalar **Nextcloud** usando snap](NextcloudSnap.md)
 * [Migrar un repositorio **svn** a **git** en Dreamhost](GitHostingDreamhost.md)
