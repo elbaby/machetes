@@ -172,7 +172,7 @@ correspondiente:
 ```
 mkdir -pv ~/Documents/ZZ-temp ~/Pictures/Screenshots
 cat >> ~/.config/gtk-3.0/bookmarks <<EOF
-file:///home/baby/Documents/Cuentas Cuentas
+file:///home/baby/Documents/Cuentas.git Cuentas
 file:///home/baby/Pictures/Screenshots Screenshots
 file:///tmp /tmp
 file:///home/baby/Documents/ZZ-temp ZZ-temp
