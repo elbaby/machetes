@@ -249,7 +249,7 @@ del menú _Options_ &rarr; _Settings_):
 
 **Capture save location and filename:**
 ```
-home/baby/Pictures/Screenshots/$Y$M$D-$T.png
+/home/baby/Pictures/Screenshots/$Y$M$D-$T.png
 ```
 
 ![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
