@@ -5,7 +5,10 @@
 
 * Bajamos e instalamos con las [instrucciones oficiales](
 https://support.system76.com/articles/install-pop/)
-  * Usamos "_Full Disk Encryption_" con una clave distinta a la de login
+  * Elegir "_Full Disk Encryption_" 
+  * **Apagar** la opción "_Encryption password is the same as user account
+password_"
+  * Tipear la clave de encripción del disco y apretar el botón "**_Encrypt_**"
 
 En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
 algunas cosas que no están en las configuraciones generales (**_Settings_**) de
@@ -22,21 +25,31 @@ sudo apt-get dist-upgrade
 **Device Name** con el nombre que le queremos poner al equipo (hostname)
 
 ![About](img/pop-settings-about.png)
+
+
 * En **Settings** &rarr; **Region and Language** terminamos de instalar el
 _Language Support_:
 
 ![Language Support](img/pop-settings-language_support.png)
+
+<!-- no va más
 * En **Settings** &rarr; **Desktop** &rarr; **Desktop Options** poner **Date &
 Time and Notifications Position** en **_Right_**
 
 ![Destkop/Options](img/pop-settings-desktop-options.png)
+-->
+
 * En **Settings** &rarr; **Desktop** &rarr; **Background** elegir la imagen de
 fondo
 
 ![Desktop/Background](img/pop-settings-desktop-background.png)
+
+<!-- no va más
 * En **Settings** &rarr; **Desktop** &rarr; **Appearance** elegir **_Light_**
 
 ![Desktop/Appearence](img/pop-settings-desktop-appearance.png)
+-->
+
 * En **Settings** &rarr; **Desktop** &rarr; **Dock** configurar las siguientes
 opciones:
 
@@ -71,11 +84,17 @@ Text_**
 
 
 ## _Tweaks_ de gnome shell
-Abrir **Gnome Tweaks** y hacer algunos ajustes:
+Abrir **Gnome Tweaks** para hacer ajustes que no están accesibles desde la
+configuración estándar.
+
+* En **Gnome Tweaks** &rarr; **Top Bar** &rarr; **Clock** encender **_Weekday_**
+y **_Seconds_**
 
 ![Top Bar](img/tweaks-top_bar.png)
 
+<!-- no va más
 ![Window Titlebars](img/tweaks-window_titlebars.png)
+-->
 
 
 ## Instalación paquetes básicos
@@ -226,50 +245,10 @@ Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede
 usar esta extensión porque se pisan
 
 
-## `ksnip` para capturar pantallas (screenshots) 
-La página oficial es la de [github](https://github.com/ksnip/ksnip).
-En Pop OS! 22.04 se puede instalar con apt o vía `flatpak`.
-
-Si no lo instalamos antes con apt, usar flatpak:
-```
-# instalar paquete flatpak 
-flatpak install --user flathub org.ksnip.ksnip
-```
-Carpeta para capturas
-```
-# crear una carpeta (dentro de ~/Pictures) para guardar las capturas
-mkdir -pv ~/Pictures/Screenshots
-```
-Abrir la interfaz y cambiar algunas configuraciones (tocando `Alt+F7` o a través
-del menú _Options_ &rarr; _Settings_):
-
-![Application Settings](img/ksnip-settings-application.png)
-
-![Saver Settings](img/ksnip-settings-application-saver.png)
-
-**Capture save location and filename:**
-```
-/home/baby/Pictures/Screenshots/$Y$M$D-$T.png
-```
-
-![Tray Icon Settings](img/ksnip-settings-application-tray_icon.png)
-
-
-En la ventana principal también conviene agregar un _delay_ para la captura:
-
-![Screenshot Capture Delay](img/ksnip-editor-capture_delay.png)
-
-Finalmente, configurarlo en las **Startup applications** para que arranque
-automáticamente al iniciar la sesión:
-
-![Launch Startup Applications](img/ksnip-startup_apps-launch.png)
-
-![Add ksnip launcher in Startup Applications](img/ksnip-startup_apps-config.png)
-
 ## Algunas cosas más
 
-* [Instalar y configurar etckeeper para trackear cambios en 
-/etc](Etckeeper.md)
+* [Instalar y configurar ksnip para capturar y editar screenshots](Ksnip.md)
+* [Instalar y configurar etckeeper para trackear cambios en /etc](Etckeeper.md)
 * [Habilitar procesamiento de archivos PDF en 
 ImageMagick](../tips-tricks/imagemagick-pdf.md)
 

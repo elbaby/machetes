@@ -13,6 +13,8 @@ baby)](VMUbuntuBaby.md)
 * [Instalar el manejador de versiones de herramientas CLI **asdf**](asdf.md)
 * [Instalar **VirtualBox** de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
+* [Instalar y configurar **ksnip** para capturar y editar
+_screenshots_](Ksnip.md)
 * [Instalar **Foxit** PDF Reader](Foxit.md)
 * [Instalar y configurar el cliente de mail
 **Thunderbird**](ThunderbirdFlatpak.md)
