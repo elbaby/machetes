@@ -93,11 +93,12 @@ cups/subscriptions.conf
 cups/subscriptions.conf.O
 cups/printers.conf
 cups/printers.conf.O
+cups/ppd/*
 EOF
 
 # quitar los archivos del repositorio sin borrarlos
 cd /etc
-sudo git rm --ignore-unmatch --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O
+sudo git rm --ignore-unmatch --cached /etc/cups/subscriptions.conf /etc/cups/subscriptions.conf.O /etc/cups/printers.conf /etc/cups/printers.conf.O /etc/cups/ppd/*
 ```
 
 Agregar y hacer commit de los cambios que hicimos
