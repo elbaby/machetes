@@ -256,6 +256,9 @@ ImageMagick](../tips-tricks/imagemagick-pdf.md)
 
 [Configurar Thunderbird](ThunderbirdFlatpak.md)
 
+También se puede [recuperar la configuración de un backup de los
+perfiles](ThunderbirdBackupProfile.md)
+
 ## Foxit PDF Reader
 
 [Instalar Foxit PDF Reader](Foxit.md)
