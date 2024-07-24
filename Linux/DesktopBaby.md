@@ -10,14 +10,32 @@ https://support.system76.com/articles/install-pop/)
 password_"
   * Tipear la clave de encripción del disco y apretar el botón "**_Encrypt_**"
 
-En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
-algunas cosas que no están en las configuraciones generales (**_Settings_**) de
-gnome shell y la interfaz **Synaptic** de apt y actualizamos todos los paquetes:
-```
-sudo apt-get update
-sudo apt-get install gnome-tweaks synaptic
-sudo apt-get dist-upgrade
-```
+* En la ventana de bienvenida del instalador, seleccionar la opción "_Dock
+doesn't extend to edges_" y apretar el botón "**_Next_**"
+
+![Dock configuration](img/pop-setup-dock.png)
+
+* En la ventana de configuración del Top Bar del instalador, en la opción "_Date
+& Time and Notifications Position_" seleccionar "_Right_" y apretar el botón
+"**_Next_**"
+
+![Top Bar configuration](img/pop-setup-top-bar.png)
+
+* En la ventana de configuración del aspecto (_Appearance_) del instalador,
+seleccionar "_Light_" y apretar el botón "**_Next_**"
+
+![Appearance configuration](img/pop-setup-appearance.png)
+
+* En la ventana de configuración del huso horario (_Time Zone_) del instalador,
+comenzar a escribir y seleccionar "_Buenos Aires, Argentina_" y apretar el botón
+"**_Next_**"
+
+![Time Zone configuration](img/pop-setup-timezone.png)
+
+* En la ventana de finalización del instalador, apretar el botón "**_Start Using
+Pop!_OS_**"
+
+![Setup Complete](img/pop-setup-complete.png)
 
 ## _Settings_ de gnome shell
 
@@ -27,63 +45,72 @@ sudo apt-get dist-upgrade
 ![About](img/pop-settings-about.png)
 
 
-* En **Settings** &rarr; **Region and Language** terminamos de instalar el
-_Language Support_:
+* En **Settings** &rarr; **Region and Language** apretar el botón **_Manage
+Installed Languages_** y terminar de instalar el _Language Support_:
 
 ![Language Support](img/pop-settings-language_support.png)
 
-<!-- no va más
-* En **Settings** &rarr; **Desktop** &rarr; **Desktop Options** poner **Date &
-Time and Notifications Position** en **_Right_**
+* En la misma ventana, seleccionar **Regional Formats**, elegir el formato para
+usar para números, fechas y monedas y apretar el botón **_Apply system-wide_**.
 
-![Destkop/Options](img/pop-settings-desktop-options.png)
--->
+![Regional Formats](img/pop-settings-regional_formats.png)
 
 * En **Settings** &rarr; **Desktop** &rarr; **Background** elegir la imagen de
 fondo
 
 ![Desktop/Background](img/pop-settings-desktop-background.png)
 
-<!-- no va más
-* En **Settings** &rarr; **Desktop** &rarr; **Appearance** elegir **_Light_**
-
-![Desktop/Appearence](img/pop-settings-desktop-appearance.png)
--->
-
 * En **Settings** &rarr; **Desktop** &rarr; **Dock** configurar las siguientes
 opciones:
+  * En **Dock Options** en la opción **Icon Click Action** seleccionar
+"**_Launch, Minimize, or Preview Windows_**"
+  * En **Dock Visibility** seleccionar **_Intelligently hide_**
+  * En **Dock Size** seleccionar **_Small (36px)_**
 
-![Desktop/Dock](img/pop-settings-desktop-dock_1.png)
+![Desktop/Dock](img/pop-settings-desktop-dock.png)
 
-![Desktop/Dock](img/pop-settings-desktop-dock_2.png)
 * En **Settings** &rarr; **Desktop** &rarr; **Workspaces** en **Multi-monitor
 Behavior** elegir **_Workspaces on Primary Display Only_**
 
 ![Desktop/Workspaces](img/pop-settings-desktop-workspaces.png)
+
 * En **Settings** &rarr; **Privacy** &rarr; **Screen** poner **Blank Screen
-Delay** en **_10 minutes_** y **Automatic Screen Lock Delay** en **_30
+Delay** en **_12 minutes_** y **Automatic Screen Lock Delay** en **_30
 seconds_**
 
 ![Privacy/Screen](img/pop-settings-privacy-screen.png)
+
 * En **Settings** &rarr; **Sound** en **System Volume** encender 
 **_Over-Amplification_**
 
 ![Sound](img/pop-settings-sound.png)
-* En **Settings** &rarr; **Power** en **Automatic Suspend** encender **On
-Battery Power** y poner el **Delay** en **_20 minutes_** y en **Suspend & Power 
-Button** encender **_Show Battery Percentage_**
+
+* En **Settings** &rarr; **Power** &rarr; **Power Saving Options** en
+**Automatic Suspend** apagar **_Plugged In_** y en **Suspend & Power Button**
+encender **_Show Battery Percentage_**
 
 ![Power](img/pop-settings-power.png)
+
 * En **Settings** &rarr; **Accessibility** &rarr; **Seeing** encender **_Large
 Text_**
 
 ![Accessibility](img/pop-settings-accessibility.png)
+
 * En **Settings** &rarr; **Date & Time** poner **Time Format** en **_24-hour_**
 
 ![Date & Time](img/pop-settings-date_time.png)
 
 
 ## _Tweaks_ de gnome shell
+
+En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
+algunas cosas que no están en las configuraciones generales (**_Settings_**) de
+gnome shell:
+
+```
+sudo apt-get install gnome-tweaks
+```
+
 Abrir **Gnome Tweaks** para hacer ajustes que no están accesibles desde la
 configuración estándar.
 
@@ -92,12 +119,8 @@ y **_Seconds_**
 
 ![Top Bar](img/tweaks-top_bar.png)
 
-<!-- no va más
-![Window Titlebars](img/tweaks-window_titlebars.png)
--->
-
-
 ## Instalación paquetes básicos
+
 ```
 # repositorio de drivers de System76 (esto ya debería estar)
 #sudo apt-add-repository ppa:system76-dev/stable
@@ -109,12 +132,15 @@ curl --fail --silent --show-error --location \
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |\
     sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
+# actualización de repositorios y de todo lo que ya está instalado
 sudo apt-get update
+sudo apt-get dist-upgrade
 
 # paquetes headless
-sudo apt-get install build-essential subversion git git-filter-repo vim grip \
-    p7zip-full p7zip-rar net-tools nmap ucspi-tcp-ipv6 keychain imagemagick \
-    tcptraceroute openssh-server openssh-client openvpn tofrodos direnv gh
+sudo apt-get install synaptic build-essential vim keychain tofrodos \
+    net-tools tcptraceroute openssh-server openssh-client openvpn nmap \
+    ucspi-tcp-ipv6 p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
+    direnv imagemagick
 
 # paquetes UI grafica
 sudo apt-get install gparted exfatprogs exfat-fuse libwmf0.2-7-gtk \
@@ -184,7 +210,9 @@ cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 # Copiamos archivos del cliente subversion 
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
+
 ## _Bookmarks_ para gnome shell
+
 Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
 que sea, pero es más simple clavarlo directamente en el archivo de configuración
 correspondiente:
@@ -244,6 +272,18 @@ lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
 Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede 
 usar esta extensión porque se pisan
 
+## Aplicaciones en el _Dock_
+
+Estas son las aplicaciones que dejo configuradas en el _Dock_:
+
+![Dock icons](img/pop-dock-icons.png)
+
+## Configuración de KeePassXC
+
+Abrir KeePassXC y cambiar algunas configuraciones (tocando `Alt+,` o a través
+del menú _Tools_ &rarr; _Settings_):
+
+![Basic Settings](img/keepassxc-application-basic-settings.png)
 
 ## Algunas cosas más
 
