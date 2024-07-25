@@ -290,7 +290,7 @@ Seleccionar el perfil default llamado **_Pop_** e ir a **Colors**:
 ![Profile Colors](img/gnome-terminal-profile-colors.png)
 
 Apagar la opción **_Use transparency from system theme_**, encender la opción
-**_Uset transparent background_** y ajustar el _slider_ con la transparencia
+**_Use transparent background_** y ajustar el _slider_ con la transparencia
 deseada (usualmente alrededor de un 15% es razonable):
 
 ![Terminal transparent
