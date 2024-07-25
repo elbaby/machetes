@@ -278,6 +278,24 @@ Estas son las aplicaciones que dejo configuradas en el _Dock_:
 
 ![Dock icons](img/pop-dock-icons.png)
 
+## Configuración de Gnome Terminal
+
+Abrir Gnome Terminal, seleccionar el "botón de hamburguesa" (**≡**) y
+seleccionar _Preferences_:
+
+![Terminal Preferences](img/gnome-terminal-preferences.png)
+
+Seleccionar el perfil default llamado **_Pop_** e ir a **Colors**:
+
+![Profile Colors](img/gnome-terminal-profile-colors.png)
+
+Apagar la opción **_Use transparency from system theme_**, encender la opción
+**_Uset transparent background_** y ajustar el _slider_ con la transparencia
+deseada (usualmente alrededor de un 15% es razonable):
+
+![Terminal transparent
+background](img/gnome-terminal-transparent-background.png)
+
 ## Configuración de KeePassXC
 
 Abrir KeePassXC y cambiar algunas configuraciones (tocando `Alt+,` o a través
