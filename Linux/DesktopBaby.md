@@ -305,22 +305,19 @@ del menú _Tools_ &rarr; _Settings_):
 
 ## Algunas cosas más
 
-* [Instalar y configurar ksnip para capturar y editar screenshots](Ksnip.md)
-* [Instalar y configurar etckeeper para trackear cambios en /etc](Etckeeper.md)
+* [Instalar y configurar **ksnip** para capturar y editar screenshots](Ksnip.md)
+* [Instalar y configurar **etckeeper** para trackear cambios en /etc](Etckeeper.md)
 * [Instalar el navegador **Google Chrome**](GoogleChrome.md)
-* [Habilitar procesamiento de archivos PDF en 
-ImageMagick](../tips-tricks/imagemagick-pdf.md)
+* [Habilitar procesamiento de archivos **PDF** en 
+**ImageMagick**](../tips-tricks/imagemagick-pdf.md)
+* [Instalar **Foxit PDF Reader**](Foxit.md)
 
 ## Cliente de mail Mozilla Thunderbird
 
-[Configurar Thunderbird](ThunderbirdFlatpak.md)
+[Configurar **Thunderbird**](ThunderbirdFlatpak.md)
 
 También se puede [recuperar la configuración de un backup de los
 perfiles](ThunderbirdBackupProfile.md)
-
-## Foxit PDF Reader
-
-[Instalar Foxit PDF Reader](Foxit.md)
 
 ___
 <!-- LICENSE -->
