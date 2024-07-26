@@ -64,7 +64,9 @@ fondo
 opciones:
   * En **Dock Options** en la opción **Icon Click Action** seleccionar
 "**_Launch, Minimize, or Preview Windows_**"
-  * En **Dock Visibility** seleccionar **_Intelligently hide_**
+  * En **Dock Visibility** 
+    * seleccionar **_Intelligently hide_**
+    * en la opción **Show Dock on Display** seleccionar "**_All Displays_**"
   * En **Dock Size** seleccionar **_Small (36px)_**
 
 ![Desktop/Dock](img/pop-settings-desktop-dock.png)
