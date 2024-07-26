@@ -147,7 +147,8 @@ sudo apt-get install synaptic build-essential vim keychain tofrodos \
 # paquetes UI grafica
 sudo apt-get install gparted exfatprogs exfat-fuse libwmf0.2-7-gtk \
     network-manager-openvpn-gnome speedcrunch vim-gtk3 \
-    gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder
+    gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder \
+    pavucontrol
 
 # paquetes vía flatpak (sólo para el usuario)
 flatpak remote-add --user --if-not-exists flathub \
@@ -157,7 +158,8 @@ flatpak install --user --assumeyes flathub com.github.tchx84.Flatseal \
     org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
     com.mastermindzh.tidal-hifi com.spotify.Client org.mozilla.Thunderbird \
     com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre \
-    org.audacityteam.Audacity com.jgraph.drawio.desktop org.remmina.Remmina
+    org.audacityteam.Audacity com.jgraph.drawio.desktop org.remmina.Remmina \
+    org.pipewire.Helvum
 # configuración de flatpak
 flatpak --user config --set languages 'en;es'
 # actualizacion de Locales
