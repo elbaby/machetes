@@ -156,10 +156,12 @@ flatpak remote-add --user --if-not-exists flathub \
 flatpak install --user --assumeyes flathub com.github.tchx84.Flatseal \
     com.bitwarden.desktop org.keepassxc.KeePassXC org.ksnip.ksnip \
     org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
-    com.mastermindzh.tidal-hifi com.spotify.Client org.mozilla.Thunderbird \
-    com.stremio.Stremio org.kde.kpat com.calibre_ebook.calibre \
-    org.audacityteam.Audacity com.jgraph.drawio.desktop org.remmina.Remmina \
-    org.pipewire.Helvum
+    com.mastermindzh.tidal-hifi com.spotify.Client org.pipewire.Helvum \
+    org.audacityteam.Audacity com.stremio.Stremio com.calibre_ebook.calibre \
+    org.mozilla.Thunderbird com.jgraph.drawio.desktop org.remmina.Remmina \
+    org.kde.kpat 
+
+
 # configuración de flatpak
 flatpak --user config --set languages 'en;es'
 # actualizacion de Locales
