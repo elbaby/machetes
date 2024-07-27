@@ -211,6 +211,9 @@ chmod -v 644 ~/.ssh/authorized_keys
 mkdir -pv ~/.gnupg
 # Copiamos archivos del cliente gpg 
 cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
+# Cambiamos los permisos de los directorios y archivos en ~/.gnupg
+find ~/.gnupg -type d -exec chmod 700 {} \;
+find ~/.gnupg -type f -exec chmod 600 {} \;
 
 # El directorio ~/.subversion se creó durante el svn checkout
 # Copiamos archivos del cliente subversion 
