@@ -140,7 +140,7 @@ sudo apt-get dist-upgrade
 
 # paquetes headless
 sudo apt-get install synaptic build-essential vim keychain tofrodos \
-    net-tools tcptraceroute openssh-server openssh-client openvpn nmap \
+    net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     ucspi-tcp-ipv6 p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
     direnv imagemagick
 
