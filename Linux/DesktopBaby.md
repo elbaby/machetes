@@ -320,6 +320,8 @@ del menú _Tools_ &rarr; _Settings_):
 * [Habilitar procesamiento de archivos **PDF** en 
 **ImageMagick**](../tips-tricks/imagemagick-pdf.md)
 * [Instalar **Foxit PDF Reader**](Foxit.md)
+* [Instalar la extensión **Video DownloadHelper** en los
+navegadores y la _CoApp_](VideoDownloadHelper.md)
 
 ## Cliente de mail Mozilla Thunderbird
 
