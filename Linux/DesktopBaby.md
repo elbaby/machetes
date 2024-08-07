@@ -142,7 +142,7 @@ sudo apt-get dist-upgrade
 sudo apt-get install synaptic build-essential vim keychain tofrodos \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     ucspi-tcp-ipv6 p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
-    direnv imagemagick
+    direnv imagemagick pdfarranger
 
 # paquetes UI grafica
 sudo apt-get install gparted exfatprogs exfat-fuse libwmf0.2-7-gtk \
