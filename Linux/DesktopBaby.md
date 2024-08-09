@@ -139,15 +139,15 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 
 # paquetes headless
-sudo apt-get install synaptic build-essential vim keychain tofrodos \
+sudo apt-get install build-essential vim keychain tofrodos \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     ucspi-tcp-ipv6 bind9-dnsutils \
     p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
-    direnv imagemagick pdfarranger
+    direnv imagemagick
 
 # paquetes UI grafica
-sudo apt-get install gparted exfatprogs exfat-fuse libwmf0.2-7-gtk \
-    network-manager-openvpn-gnome speedcrunch vim-gtk3 \
+sudo apt-get install gparted exfatprogs exfat-fuse synaptic libwmf-0.2-7-gtk \
+    network-manager-openvpn-gnome speedcrunch vim-gtk3 pdfarranger \
     gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder \
     pavucontrol
 
