@@ -317,6 +317,7 @@ del menú _Tools_ &rarr; _Settings_):
 
 * [Instalar y configurar **ksnip** para capturar y editar screenshots](Ksnip.md)
 * [Instalar y configurar **etckeeper** para trackear cambios en /etc](Etckeeper.md)
+* [Instalar el cliente **NordVPN**](NordVPN.md)
 * [Instalar el navegador **Google Chrome**](GoogleChrome.md)
 * [Habilitar procesamiento de archivos **PDF** en 
 **ImageMagick**](../tips-tricks/imagemagick-pdf.md)

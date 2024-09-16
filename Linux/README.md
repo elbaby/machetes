@@ -16,6 +16,7 @@ Debian](OracleVirtualBox.md)
 * [Instalar y configurar **ksnip** para capturar y editar
 _screenshots_](Ksnip.md)
 * [Instalar el navegador **Google Chrome**](GoogleChrome.md)
+* [Instalar el cliente **NordVPN**](NordVPN.md)
 * [Instalar **Foxit** PDF Reader](Foxit.md)
 * [Instalar y configurar el cliente de mail
 **Thunderbird**](ThunderbirdFlatpak.md)
