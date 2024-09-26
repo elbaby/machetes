@@ -141,7 +141,7 @@ sudo apt-get dist-upgrade
 # paquetes headless
 sudo apt-get install build-essential vim keychain tofrodos plocate \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
-    ucspi-tcp-ipv6 bind9-dnsutils ipcalc \
+    ucspi-tcp-ipv6 bind9-dnsutils ipcalc tidy libxml2-utils \
     p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
     direnv imagemagick
 
