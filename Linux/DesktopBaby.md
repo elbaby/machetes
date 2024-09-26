@@ -110,7 +110,7 @@ algunas cosas que no están en las configuraciones generales (**_Settings_**) de
 gnome shell:
 
 ```
-sudo apt-get install gnome-tweaks
+sudo apt install gnome-tweaks
 ```
 
 Abrir **Gnome Tweaks** para hacer ajustes que no están accesibles desde la
@@ -135,18 +135,18 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
     sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 # actualización de repositorios y de todo lo que ya está instalado
-sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt update
+sudo apt full-upgrade
 
 # paquetes headless
-sudo apt-get install build-essential vim keychain tofrodos plocate \
+sudo apt install build-essential vim keychain tofrodos plocate \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     ucspi-tcp-ipv6 bind9-dnsutils ipcalc tidy libxml2-utils \
     p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
     direnv imagemagick
 
 # paquetes UI grafica
-sudo apt-get install gparted exfatprogs exfat-fuse synaptic libwmf-0.2-7-gtk \
+sudo apt install gparted exfatprogs exfat-fuse synaptic libwmf-0.2-7-gtk \
     network-manager-openvpn-gnome speedcrunch vim-gtk3 pdfarranger \
     gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder \
     pavucontrol

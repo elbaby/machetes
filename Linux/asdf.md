@@ -14,7 +14,7 @@ instalación](https://asdf-vm.com/guide/getting-started.html):
 asdfVersion=v0.14.0
 
 # Prerrequisitos
-sudo apt-get install curl git
+sudo apt install curl git
 
 # Instalar asdf (es simplemente clonar el branch desde github)
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch ${asdfVersion}

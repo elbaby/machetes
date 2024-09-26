@@ -17,7 +17,7 @@ fail2ban.org](http://www.fail2ban.org/wiki/index.php/Main_Page).
 En Debian y Ubuntu hay versiones razonablemente actuales en los repositorios, lo
 más conveniente es instalar ese paquete:
 ```
-sudo apt-get install fail2ban
+sudo apt install fail2ban
 ```
 Luego hay que habilitar el servicio e iniciarlo por primera vez:
 ```

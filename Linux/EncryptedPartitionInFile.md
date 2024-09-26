@@ -5,7 +5,7 @@ Referencias:
 
 * Instalar prerrequisitos
 ```
-sudo apt-get install cryptsetup
+sudo apt install cryptsetup
 ```
 
 

@@ -56,8 +56,8 @@ sudo locale-gen
 sudo timedatectl set-timezone America/Argentina/Buenos_Aires
 
 # Es un buen momento para actualizar los paquetes
-sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt update
+sudo apt full-upgrade
 
 # Finalmente, rebootear para que los logs empiecen a generarse con la hora local
 sudo reboot
@@ -65,7 +65,7 @@ sudo reboot
 
 ## Instalación paquetes básicos
 ```
-sudo apt-get install build-essential subversion git git-filter-repo vim grip \
+sudo apt install build-essential subversion git git-filter-repo vim grip \
     p7zip-full p7zip-rar net-tools nmap ucspi-tcp-ipv6 keychain imagemagick \
     openssh-server openssh-client openvpn
 ```

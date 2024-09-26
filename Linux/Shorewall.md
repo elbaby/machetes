@@ -25,8 +25,8 @@ en buster y bullseye (5.2.3) es razonable.
  
 La instalación es simplemente:
 ```
-sudo apt-get udpate
-sudo apt-get install shorewall shorewall6
+sudo apt udpate
+sudo apt install shorewall shorewall6
 ```
 Con esto instalamos el firewall para IPv4 (shorewall) y para IPv6 (shorewall6).
 

@@ -40,7 +40,7 @@ sudo rm -rf /opt/eff.org
 ### El paquete .deb `certbot` instalado con APT
 
 ```
-sudo apt-get purge certbot
+sudo apt purge certbot
 ```
 
 ## Prerrequisitos
@@ -50,8 +50,8 @@ En Ubuntu, `snapd` suele estar instalado, en Debian, en general, no.
 ### Instalar `snapd` y el snap `core`
 
 ```
-sudo apt-get update
-sudo apt-get install snapd
+sudo apt update
+sudo apt install snapd
 sudo snap install core
 sudo snap refresh core
 ```

@@ -37,11 +37,11 @@ Chrome](https://dl.google.com/linux/chrome/deb/) en
 `/etc/apt/sources.list.d/google-chrome.list` indicándole que valide las firmas
 con la clave pública guardada en `/etc/apt/keyrings/google.gpg`
 * Crear el archivo `/etc/default/google-chrome` con configuraciones para que
-_no_ pise la configuración del repositorio cuando se ejecute un `dist-upgrade`
+_no_ pise la configuración del repositorio cuando se ejecute un `full-upgrade`
 * Poner en `/etc/apt/trusted.gpg.d/google-chrome.gpg` un link simbólico a
 `/dev/null` para que cada vez que los scripts de instalación de Google intenten
 poner allí nuevamente la clave pública, en lugar de hacerlo, la borre.
-* Ejecutar un `apt-get update` para actualizar la información de los
+* Ejecutar un `apt update` para actualizar la información de los
 repositorios
 * Instalar el paquete `google-chrome-stable`
 

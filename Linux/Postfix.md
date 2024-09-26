@@ -30,7 +30,7 @@ directories](https://www.postfix.org/QSHAPE_README.html#queues)
 2023-07-17: Esto está probado con Ubuntu 22.04
 
 ```
-sudo apt-get install postfix postfix-pcre
+sudo apt install postfix postfix-pcre
 ```
 Respuestas y configuraciones al instalador:
 
