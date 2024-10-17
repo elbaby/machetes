@@ -1,5 +1,23 @@
 # WinBox en Linux
 
+## Usando flatpak (incluye wine dentro de la instalación)
+
+Si no está [flatpak](https://flatpak.org/) instalado, lo instalamos así:
+```
+sudo apt install flatpak
+```
+
+Ahora instalar el WinBox (que ya incluye el Wine):
+
+```
+flatpak remote-add --user --if-not-exists flathub \
+    https://flathub.org/repo/flathub.flatpakrepo
+flatpak install --user --assumeyes  install com.mikrotik.WinBox
+```
+
+
+## Usando Wine Instalado en el Sistema Operativo
+
 Referencias: https://youtu.be/2jjtK5Me29I
 
 * Instalar [Wine](https://www.winehq.org/):
