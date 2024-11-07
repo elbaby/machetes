@@ -50,7 +50,7 @@ sudo apt update
 
 Instalar Bellsoft Java 8 y UniFi Network
 ```
-sudo apt-get install bellsoft-java8 unifi
+sudo apt install bellsoft-java8 unifi
 ```
 
 Configurar el `$JAVA_HOME` en UniFi para que encuentre el Java 8 de Bellsoft:

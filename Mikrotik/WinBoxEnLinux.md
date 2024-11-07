@@ -22,7 +22,7 @@ Referencias: https://youtu.be/2jjtK5Me29I
 
 * Instalar [Wine](https://www.winehq.org/):
 ```
-sudo apt-get install wine
+sudo apt install wine
 ```
 
 * Bajar [WinBox](https://mikrotik.com/download) 

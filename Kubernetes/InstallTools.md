@@ -2,7 +2,7 @@
 
 ```
 # Instalar prerrequisitos:
-sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo apt install -y apt-transport-https ca-certificates curl
 
 # Crear directorio para keyrings (si no existe)
 sudo install -v -m 0755 -d /etc/apt/keyrings
@@ -14,7 +14,7 @@ sudo install -v -m 0755 -d /etc/apt/keyrings
 # Desinstalar paquetes no oficiales
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker \
            containerd runc; do
-    sudo apt-get remove $pkg
+    sudo apt remove $pkg
 done
 
 # Clave pública con la que están firmados los paquetes del repositorio
@@ -30,9 +30,9 @@ echo "deb [arch="$(dpkg --print-architecture)"\
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Actualizar repositorios
-sudo apt-get update
+sudo apt update
 # Instalar los paquetes de Docker
-sudo apt-get install docker-ce docker-ce-cli containerd.io \
+sudo apt install docker-ce docker-ce-cli containerd.io \
     docker-buildx-plugin docker-compose-plugin
 ```
 
@@ -54,8 +54,8 @@ echo "deb [arch="$(dpkg --print-architecture)"\
     sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
 
 # Instalar kubectl
-sudo apt-get update
-sudo apt-get install kubectl
+sudo apt update
+sudo apt install kubectl
 
 ```
 
