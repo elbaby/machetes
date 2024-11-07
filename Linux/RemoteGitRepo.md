@@ -16,7 +16,7 @@ USER_HOME=$( getent passwd "${REMOTE_ACCESS_USER}" | cut -d: -f6 )
 
 # Crear el repositorio
 sudo -u ${REMOTE_ACCESS_USER} mkdir -pv ${REPOSITORY_BASE}
-sudo -u ${REMOTE_ACCESS_USER} git init ${REPOSITORY_BASE}/${REPO_NAME}.git
+sudo -u ${REMOTE_ACCESS_USER} git init --bare ${REPOSITORY_BASE}/${REPO_NAME}.git
 ```
 
 
