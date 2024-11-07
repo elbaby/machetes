@@ -11,6 +11,7 @@ baby)](VMUbuntuBaby.md)
 * [Instalación y uso de **certbot** para obtener certificados digitales X.509 de
 **Let's Encrypt** (letsencrypt)](LetsencryptCertbot.md)
 * [Instalar el manejador de versiones de herramientas CLI **asdf**](asdf.md)
+* [Crear un repositorio git para acceso remoto en un server](RemoteGitRepo.md)
 * [Instalar **VirtualBox** de los repositorios de Oracle en Ubuntu o
 Debian](OracleVirtualBox.md)
 * [Instalar y configurar **ksnip** para capturar y editar
