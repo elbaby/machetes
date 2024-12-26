@@ -19,6 +19,7 @@ _screenshots_](Ksnip.md)
 * [Instalar el navegador **Google Chrome**](GoogleChrome.md)
 * [Instalar el cliente **NordVPN**](NordVPN.md)
 * [Instalar **Foxit** PDF Reader](Foxit.md)
+* [Instalar **TeamViewer**](TeamViewer.md)
 * [Instalar **AnyDesk**](AnyDesk.md)
 * [Instalar y configurar el cliente de mail
 **Thunderbird**](ThunderbirdFlatpak.md)
