@@ -12,11 +12,11 @@ hosteado en un equipo que borré :-(
 **_acordarme_** de que para navegar esto localmente tengo que usar 
 **[grip](https://github.com/joeyespo/grip)**
 * Cosas de [Linux](Linux) que olvido con demasiada frecuencia
+* Instalación y configuración de [Ubiquiti UniFi Networki](UniFi)
 * Instalación, configuración y uso de [rclone](rclone)
 * Instalación y configuración de [PowerDNS](PowerDNS)
 * Instalación y configuración de [Caddy](Caddy)
-* Algunas (muy pocas) cosas que aprendí a hacer con [Mikrotik](Mikrotik) y con
-[Ubiquiti](Ubiquiti)
+* Algunas (muy pocas) cosas que aprendí a hacer con [Mikrotik](Mikrotik)
 * [Truquitos y consejos](tips-tricks) varios
 
 
