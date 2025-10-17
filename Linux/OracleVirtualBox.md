@@ -12,12 +12,7 @@ en un keyring en `/etc/apt/keyrings` y lo referenciamos específicamente en la
 descripción del repositorio:
 
 ```
-# Generar archivo temporal, bajar primera clave y guardarla allí y luego bajar la segunda clave y agregarla allí mismo
-FILE=`mktemp --tmpdir=/tmp oracle-vbox.XXXXXXXX` && curl --no-progress-meter https://www.virtualbox.org/download/oracle_vbox_2016.asc > ${FILE} && curl --no-progress-meter https://www.virtualbox.org/download/oracle_vbox.asc >> ${FILE}
-# Cambiar el keyring temporal a formato binario y copiarlo en /etc/apt/keyrings
-gpg --dearmor < ${FILE} | sudo tee /etc/apt/keyrings/oracle-vbox-archive-keyring.gpg > /dev/null
-# Borrar el archivo temporal
-rm ${FILE}
+curl --no-progress-meter https://www.virtualbox.org/download/oracle_vbox_2016.asc | gpg --dearmor | sudo tee /etc/apt/keyrings/oracle-vbox-archive-keyring.gpg > /dev/null
 ```
 
 Armamos la descripción del repositorio con el nuevo [DEB822 Source
@@ -38,7 +33,7 @@ EOF
 Actualizamos los repositorios e instalamos la versión 6.1:
 ```
 sudo apt update
-sudo apt install virtualbox-6.1
+sudo apt install virtualbox-7.2
 ```
 
 ___
