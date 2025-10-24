@@ -7,10 +7,8 @@ direcciones IP utilizando el firewall del equipo (usualmente `iptables`).
 fail2ban **no es** un IDS, un IPS ni un WAF. Es una herramienta simple y básica
 que sólo recorre logs y bloquea direcciones con reglas predefinidas.
 
-La documentación está parcialmente en una [wiki en el proyecto de
-github](https://github.com/fail2ban/fail2ban/wiki) y en parte en una [wiki que
-parece no estar actualizada hace muchos años en
-fail2ban.org](http://www.fail2ban.org/wiki/index.php/Main_Page).
+La documentación está en la [wiki en el proyecto de
+github](https://github.com/fail2ban/fail2ban/wiki).
 
 ## Instalación
 
@@ -24,6 +22,21 @@ Luego hay que habilitar el servicio e iniciarlo por primera vez:
 sudo systemctl enable fail2ban.service
 sudo systemctl start fail2ban.service
 ```
+### nftables
+
+En los kernels modernos, Netfilter utiliza el _framework_
+[nftables](https://es.wikipedia.org/wiki/Nftables) que es más eficiente que el
+viejo [xtables](https://es.wikipedia.org/wiki/Iptables).
+
+El comando `iptables` que puede estar disponible es en realidad un link al
+comando `iptables-nft`.
+
+Para poder ver las tablas completas de nftables conviene instalar el paquete
+`nftables` que contiene el comando `nft`.
+```
+sudo apt install nftables
+```
+
 
 ## Configuración
 
@@ -59,10 +72,35 @@ _bannear_ un host. **`3`** me parece un buen valor.
 * `findtime`: el tiempo durante el cual se miden los "maxretries". Esto es, un
 host se _bannea_ si se producen _maxretry_ errores en _findtime_ o menos tiempo.
 * `banaction` y `banaction_allports` son los comandos que se usan para _bannear_
-direcciones. Si se está usando
+direcciones. Al menos hasta la versión 1.0.2, el default viene configurado
+para usar `iptables`. Conviene modificarlo para que utilize `nft`:
+```
+[DEFAULT]
+banaction = nftables-multiport
+banaction_allports = nftables-allports
+```
+(OBSOLETO: Si se está usando
 [Shorewall](https://github.com/elbaby/machetes/blob/master/Linux/Shorewall.md#soporte-en-fail2ban)
 en lugar de `iptables` _standalone_, en estos campos hay que especificar
-`shorewall`.
+`shorewall`).
+
+La configuración básica podría ser la siguiente:
+```
+[DEFAULT]
+banaction = nftables-multiport
+banaction_allports = nftables-allports
+# no bloquear conexiones locales y de redes privadas (suponiendo que confiamos
+# en las redes privadas locales)
+ignoreip = 127.0.0.1/8 ::1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 100.64.0.0/10
+bantime  = 180d
+findtime = 5m
+maxretry = 3
+
+[sshd]
+# En general los ataques ssh pueden intentar atacar otros puertos,
+# por lo que bloqueamos todos los puertos desde esas IPs
+action = nftables-allports
+```
 
 Luego de modificar la configuración, hay que recargar el servidor para que la
 tome:
@@ -122,6 +160,105 @@ Para ver los filtros específicos, hay que revisar los archivos
 `apache-badbots.conf`, `apache-fakegooglebot.conf`, `apache-nohome.conf` y
 `apache-shellshock.conf` en `/etc/fail2ban/filter.d`.
 
+## Uso
+
+## Ver listado de todas las jails
+```
+sudo fail2ban-client status
+```
+Ejemplo de la salida:
+```
+Status
+|- Number of jail:	9
+`- Jail list:	apache-auth, apache-badbots, apache-botsearch, apache-nohome, apache-noscript, apache-overflows, apache-shellshock, sshd, wordpress
+```
+
+### Ver estado de un jail en particular (e.g: sshd)
+```
+sudo fail2ban-client status
+```
+Ejemplo de la salida:
+```
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed:	1
+|  |- Total failed:	2
+|  `- File list:	/var/log/auth.log
+`- Actions
+   |- Currently banned:	7
+   |- Total banned:	3456
+   `- Banned IP list:	1.194.218.133 1.214.197.163 1.238.106.229 1.55.33.86 1.71.9.130 1.82.220.20 1.9.107.43
+```
+
+### Ver todas las direcciones banneadas en todas las jaulas
+```
+sudo fail2ban-client banned
+```
+Ejemplo de la salida (es una sola línea):
+```
+[{'sshd': ['1.194.218.133', '1.214.197.163', '1.238.106.229', '1.55.33.86', '1.71.9.130', '1.82.220.20', '1.9.107.43']}, {'apache-auth': []}, {'apache-badbots': []}, {'apache-noscript': []}, {'apache-overflows': []}, {'apache-nohome': []}, {'apache-botsearch': []}, {'apache-shellshock': []}, {'wordpress': []}]
+```
+
+### Bannear una IP manualmente para una jaula
+```
+sudo fail2ban-client set sshd banip 1.2.3.4
+```
+Ejemplo de la salida (la cantidad de IPs nuevas banneadas):
+```
+1
+```
+
+### Desbannear una IP manualmente para una jaula
+```
+sudo fail2ban-client set sshd unbanip 1.2.3.4
+```
+Ejemplo de la salida (la cantidad de IPs desbanneadas):
+```
+1
+```
+
+### Ver todos los comandos disponibles
+```
+sudo fail2ban-client --help
+```
+Ejemplo de la salida:
+```
+Usage: fail2ban-client [OPTIONS] <COMMAND>
+
+Fail2Ban v1.0.2 reads log file that contains password failure report
+and bans the corresponding IP addresses using firewall rules.
+
+Options:
+    -c, --conf <DIR>        configuration directory
+    -s, --socket <FILE>     socket path
+    -p, --pidfile <FILE>    pidfile path
+    --pname <NAME>          name of the process (main thread) to identify instance (default fail2ban-server)
+    --loglevel <LEVEL>      logging level
+    --logtarget <TARGET>    logging target, use file-name or stdout, stderr, syslog or sysout.
+    --syslogsocket auto|<FILE>
+    -d                      dump configuration. For debugging
+    --dp, --dump-pretty     dump the configuration using more human readable representation
+    -t, --test              test configuration (can be also specified with start parameters)
+    -i                      interactive mode
+    -v                      increase verbosity
+    -q                      decrease verbosity
+    -x                      force execution of the server (remove socket file)
+    -b                      start server in background (default)
+    -f                      start server in foreground
+    --async                 start server in async mode (for internal usage only, don't read configuration)
+    --timeout               timeout to wait for the server (for internal usage only, don't read configuration)
+    --str2sec <STRING>      convert time abbreviation format to seconds
+    -h, --help              display this help message
+    -V, --version           print the version (-V returns machine-readable short format)
+
+Command:
+                                             BASIC
+    start                                    starts the server and the jails
+    restart                                  restarts the server
+    restart [--unban] [--if-exists] <JAIL>   restarts the jail <JAIL> (alias
+                                             for 'reload --restart ... <JAIL>')
+    reload [--restart] [--unban] [--all]     reloads the configuration without
+                                             restarting of the server, the
 ___
 <!-- LICENSE -->
 ___
