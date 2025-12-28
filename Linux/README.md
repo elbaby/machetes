@@ -1,7 +1,7 @@
 # Linux
 
-* [Configurar un **desktop** (o notebook) con Linux (al gusto del
-baby)](DesktopBaby.md)
+* [Configurar un **desktop** (o notebook) con Pop! OS Linux (al gusto del
+baby)](DesktopBaby_PopOS-22.04.md)
 * [Configurar una **VM Linode** recién creada con Ubuntu (al gusto del
 baby)](VMUbuntuBaby.md)
 * [Instalar y configurar el firewall **Shorewall**](Shorewall.md)
