@@ -143,7 +143,7 @@ sudo apt install build-essential vim keychain tofrodos plocate \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     ucspi-tcp-ipv6 bind9-dnsutils ipcalc tidy libxml2-utils \
     p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
-    direnv imagemagick
+    neofetch direnv imagemagick
 
 # paquetes UI grafica
 sudo apt install gparted exfatprogs exfat-fuse synaptic libwmf-0.2-7-gtk \
