@@ -60,10 +60,10 @@ saltear apretando **Skip**:
 
 ## Instalación de Debian
 
-Luego, elegir del dock el ícono de **Install Debian** (si no aparece el dock,
+Luego, elegir del dash el ícono de **Install Debian** (si no aparece el dash,
 apretar la tecla _Super_ (o _Windows_) para que aparezca:
 
-![Install Debian](img/db13-dock-install-debian.png)
+![Install Debian](img/db13-dash-install-debian.png)
 
 ### Ubicación / zona horaria
 
