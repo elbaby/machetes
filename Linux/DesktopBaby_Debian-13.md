@@ -183,7 +183,7 @@ En **System** &rarr; **Date & Time**:
 
 * Encender **Automatic Time Zone**
 * Poner en **Time Format**: **24-hour** (para que funcione hay que habilitar la
-[_Geolocalización_](#geolocalizacion) más abajo)
+[_Geolocalización_](#geolocalización) más abajo)
 * En **Clock & Calendar**:
   * Encender **Week Day**
   * Encender **Seconds**
