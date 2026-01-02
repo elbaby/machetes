@@ -181,9 +181,9 @@ En **System** &rarr; **Date & Time**:
 
 ![system settings](img/db13-settings-system-datetime.png)
 
-* Encender **Automatic Time Zone**
-* Poner en **Time Format**: **24-hour** (para que funcione hay que habilitar la
+* Encender **Automatic Time Zone** (para que funcione hay que habilitar la
 [_Geolocalización_](#geolocalización) más abajo)
+* Poner en **Time Format**: **24-hour**
 * En **Clock & Calendar**:
   * Encender **Week Day**
   * Encender **Seconds**
