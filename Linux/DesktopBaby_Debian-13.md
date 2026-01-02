@@ -261,10 +261,10 @@ Para administrar las extensiones hay que instalar el GNOME Extension Manager:
 
 ![search extension manager](img/db13-software-extensionmanager.png)
 
-![install extension manager](img/db13-software-extensionmanager-manager.png)
+![install extension manager](img/db13-software-extensionmanager-install.png)
 
 ![install extension manager -
-authenticate](img/db13-software-extensionmanager-manager-auth.png)
+authenticate](img/db13-software-extensionmanager-install-auth.png)
 
 Una vez instalado, lo lanzamos y elegimos **Browse**:
 
