@@ -203,7 +203,7 @@ Encender **Secure Shell** para acceso remoto:
 Esto pide autenticación para habilitar el acceso remoto via ssh (es la clave del
 usuario que está ejecutando):
 
-![enable ssh - authenticate](img/db13-system-ssh-enable.png)
+![enable ssh - authenticate](img/db13-system-ssh-enable-auth.png)
 
 Y queda habilitado el acceso remoto con ssh:
 
