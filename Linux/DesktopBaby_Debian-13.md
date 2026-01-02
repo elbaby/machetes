@@ -244,94 +244,86 @@ minimizar en las ventanas
 
 ![windows settings](img/db13-tweaks-windows.png)
 
+## Extensiones de GNOME 3
+
+La mayoría de las configuraciones que se podían hacer antes en Gnome Shell ahora
+está en diversas extensiones que se instalan y configuran individualmente.
+
+La página oficial de las extensiones es https://extensions.gnome.org/
+
+Debian 13 (Trixie) viene con GNOME 48 y no trae ninguna extensión preinstalada.
+
+### GNOME Extension Manager
+
+Para administrar las extensiones hay que instalar el GNOME Extension Manager:
+
+![gnome software](img/db13-gnome-software.png)
+
+![search extension manager](img/db13-software-extensionmanager.png)
+
+![install extension manager](img/db13-software-extensionmanager-manager.png)
+
+![install extension manager -
+authenticate](img/db13-software-extensionmanager-manager-auth.png)
+
+Una vez instalado, lo lanzamos y elegimos **Browse**:
+
+![extension manager](img/db13-extension-manager.png)
+
+![browse extension manager](img/db13-extension-manager-browse.png)
+
+También se pueden gestionar las extensiones instaladas en
+https://extensions.gnome.org/local/
+
+Para que eso funcione hay que instalar [esta extensión (del navegador)
+](https://addons.mozilla.org/firefox/addon/gnome-shell-integration/) en Firefox
+o [esta extensión (del navegador)
+](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep)
+en Google Chrome o Chromium.
+
+Las extensiones de GNOME que instalamos son las siguientes:
+* [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) o
+[Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) -
+todavía tengo que decidir cuál prefiero para tener los íconos de las
+aplicaciones a mano.
+* [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
+estado de las teclas `NumLock` y `CapsLock` en el panel
+* [Sound Input & Output Device Chooser
+](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) 
+muestra el listado de dispositivos de salida y entrada de sonido en el menú de
+status debajo del control de volumen
+* [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
+permite gestionar estas extensiones de Gnome desde el panel
+* [Tray Icons: Reloaded
+](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
+mostrar los íconos de la bandeja en el panel
+* [Caffeine](https://extensions.gnome.org/extension/517/caffeine/) permite
+deshabilitar el _screen saver_ y la suspensión automática
+* [Removable Drive
+Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/) para
+montar y desmontar dispositivos removibles desde el menú de status
+
+Otras que se pueden instalar:
+
+* [Places Status
+Indicator](https://extensions.gnome.org/extension/8/places-status-indicator/)
+menú para navegar por las ubicaciones estándar de GNOME
+* [AppIndicator and KStatusNotifierItem
+Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+agrega soporte de _tray icons legacy_
+* [Desktop Icons NG (DING)
+](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/) agrega
+íconos al escritorio
+* [User Themes](https://extensions.gnome.org/extension/19/user-themes/) permite
+cargar _themes_ del usuario desde `~/.themes/gnome-shell`
+* [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
+lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
+Gnome o MS Windows)
+
 
 
 <!--
 
-
-## _Settings_ de gnome shell
-
-* Entramos (en la UI gráfica) en **Settings** &rarr; **About** y configuramos el
-**Device Name** con el nombre que le queremos poner al equipo (hostname)
-
-![About](img/pop-settings-about.png)
-
-
-* En **Settings** &rarr; **Region and Language** apretar el botón **_Manage
-Installed Languages_** y terminar de instalar el _Language Support_:
-
-![Language Support](img/pop-settings-language_support.png)
-
-* En la misma ventana, seleccionar **Regional Formats**, elegir el formato para
-usar para números, fechas y monedas y apretar el botón **_Apply system-wide_**.
-
-![Regional Formats](img/pop-settings-regional_formats.png)
-
-* En **Settings** &rarr; **Desktop** &rarr; **Background** elegir la imagen de
-fondo
-
-![Desktop/Background](img/pop-settings-desktop-background.png)
-
-* En **Settings** &rarr; **Desktop** &rarr; **Dock** configurar las siguientes
-opciones:
-  * En **Dock Options** en la opción **Icon Click Action** seleccionar
-"**_Launch, Minimize, or Preview Windows_**"
-  * En **Dock Visibility** 
-    * seleccionar **_Intelligently hide_**
-    * en la opción **Show Dock on Display** seleccionar "**_All Displays_**"
-  * En **Dock Size** seleccionar **_Small (36px)_**
-
-![Desktop/Dock](img/pop-settings-desktop-dock.png)
-
-* En **Settings** &rarr; **Desktop** &rarr; **Workspaces** en **Multi-monitor
-Behavior** elegir **_Workspaces on Primary Display Only_**
-
-![Desktop/Workspaces](img/pop-settings-desktop-workspaces.png)
-
-* En **Settings** &rarr; **Privacy** &rarr; **Screen** poner **Blank Screen
-Delay** en **_12 minutes_** y **Automatic Screen Lock Delay** en **_30
-seconds_**
-
-![Privacy/Screen](img/pop-settings-privacy-screen.png)
-
-* En **Settings** &rarr; **Sound** en **System Volume** encender 
-**_Over-Amplification_**
-
-![Sound](img/pop-settings-sound.png)
-
-* En **Settings** &rarr; **Power** &rarr; **Power Saving Options** en
-**Automatic Suspend** apagar **_Plugged In_** y en **Suspend & Power Button**
-encender **_Show Battery Percentage_**
-
-![Power](img/pop-settings-power.png)
-
-* En **Settings** &rarr; **Accessibility** &rarr; **Seeing** encender **_Large
-Text_**
-
-![Accessibility](img/pop-settings-accessibility.png)
-
-* En **Settings** &rarr; **Date & Time** poner **Time Format** en **_24-hour_**
-
-![Date & Time](img/pop-settings-date_time.png)
-
-
-## _Tweaks_ de gnome shell
-
-En una ventana de terminal, instalamos **Gnome Tweaks** que permite configurar
-algunas cosas que no están en las configuraciones generales (**_Settings_**) de
-gnome shell:
-
-```
-sudo apt install gnome-tweaks
-```
-
-Abrir **Gnome Tweaks** para hacer ajustes que no están accesibles desde la
-configuración estándar.
-
-* En **Gnome Tweaks** &rarr; **Top Bar** &rarr; **Clock** encender **_Weekday_**
-y **_Seconds_**
-
-![Top Bar](img/tweaks-top_bar.png)
 
 ## Instalación paquetes básicos
 
