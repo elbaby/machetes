@@ -159,39 +159,95 @@ que ingresa este usuario, mostrará el tour de bienvenida:
 
 ![Welcome tour](img/db13-welcome.png)
 
+## Configuración básica GNOME
 
+Ingresar a **Settings**:
 
+![GNOME settings](img/db13-gnome-settings.png)
+
+### Nombre del equipo
+
+Ir a **System** (al final) &rarr; **About**:
+
+![system settings](img/db13-settings-system-about.png)
+
+Acá se puede cambiar el nombre del dispositivo (_hostname_, _device name_):
+
+![hostname](img/db13-settings-system-hostname.png)
+
+### Fecha y hora
+
+En **System** &rarr; **Date & Time**:
+
+![system settings](img/db13-settings-system-datetime.png)
+
+* Encender **Automatic Time Zone**
+* Poner en **Time Format**: **24-hour** (para que funcione hay que habilitar la
+[_Geolocalización_](#geolocalizacion) más abajo)
+* En **Clock & Calendar**:
+  * Encender **Week Day**
+  * Encender **Seconds**
+
+![date and time settings](img/db13-settings-datetime.png)
+
+### Secure Shell
+
+En **System** &rarr; **Secure Shell**:
+
+![system settings](img/db13-settings-system-ssh.png)
+
+Encender **Secure Shell** para acceso remoto:
+
+![enable ssh](img/db13-system-ssh-enable.png)
+
+Esto pide autenticación para habilitar el acceso remoto via ssh (es la clave del
+usuario que está ejecutando):
+
+![enable ssh - authenticate](img/db13-system-ssh-enable.png)
+
+Y queda habilitado el acceso remoto con ssh:
+
+![enable ssh](img/db13-system-ssh-enabled.png)
+
+### Bloqueo de pantalla automático
+
+En **Privacy & Security** &rarr; **Screen Lock**:
+
+![privacy and security settings](img/db13-settings-privacy-screenlock.png)
+
+* En **Blank Screen Delay** poner **12 minutes**
+* En **Automatick Screen Lock Delay** poner **30 seconds**
+
+![screen lock delays](img/db13-settings-screenlock.png)
+
+### Geolocalización
+
+En **Privacy & Security** &rarr; **Location**:
+
+![privacy and security settings](img/db13-settings-privacy-location.png)
+
+Encender **Automatic Device Location** (esto es necesario para que funcione
+[_Automatic Time Zone_ más arriba](#fecha-y-hora):
+
+![location](img/db13-settings-location.png)
+
+## GNOME Tweaks
+
+Ingresar a **Tweaks**:
+
+![Tweaks](img/db13-gnome-tweaks.png)
+
+### Ventanas
+
+Ir a **Windows** y seleccionar **Minimize** para habilitar el botón para
+minimizar en las ventanas
+
+![windows settings](img/db13-tweaks-windows.png)
 
 
 
 <!--
 
-* En la ventana de bienvenida del instalador, seleccionar la opción "_Dock
-doesn't extend to edges_" y apretar el botón "**_Next_**"
-
-![Dock configuration](img/pop-setup-dock.png)
-
-* En la ventana de configuración del Top Bar del instalador, en la opción "_Date
-& Time and Notifications Position_" seleccionar "_Right_" y apretar el botón
-"**_Next_**"
-
-![Top Bar configuration](img/pop-setup-top-bar.png)
-
-* En la ventana de configuración del aspecto (_Appearance_) del instalador,
-seleccionar "_Light_" y apretar el botón "**_Next_**"
-
-![Appearance configuration](img/pop-setup-appearance.png)
-
-* En la ventana de configuración del huso horario (_Time Zone_) del instalador,
-comenzar a escribir y seleccionar "_Buenos Aires, Argentina_" y apretar el botón
-"**_Next_**"
-
-![Time Zone configuration](img/pop-setup-timezone.png)
-
-* En la ventana de finalización del instalador, apretar el botón "**_Start Using
-Pop!_OS_**"
-
-![Setup Complete](img/pop-setup-complete.png)
 
 ## _Settings_ de gnome shell
 
