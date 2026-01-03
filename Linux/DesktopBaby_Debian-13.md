@@ -272,6 +272,8 @@ Una vez instalado, lo lanzamos y elegimos **Browse**:
 
 ![browse extension manager](img/db13-extension-manager-browse.png)
 
+### GNOME Extensions en el navegador
+
 También se pueden gestionar las extensiones instaladas en
 https://extensions.gnome.org/local/
 
@@ -281,6 +283,8 @@ o [esta extensión (del navegador)
 ](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep)
 en Google Chrome o Chromium.
 
+### Selección de extensiones
+
 Las extensiones de GNOME que instalamos son las siguientes:
 * [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) o
 [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) -
@@ -288,29 +292,28 @@ todavía tengo que decidir cuál prefiero para tener los íconos de las
 aplicaciones a mano.
 * [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
 estado de las teclas `NumLock` y `CapsLock` en el panel
-* [Sound Input & Output Device Chooser
-](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) 
-muestra el listado de dispositivos de salida y entrada de sonido en el menú de
-status debajo del control de volumen
 * [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
 permite gestionar estas extensiones de Gnome desde el panel
 * [Tray Icons: Reloaded
 ](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
 mostrar los íconos de la bandeja en el panel
+* [AppIndicator and KStatusNotifierItem
+Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+agrega soporte de _tray icons legacy_
 * [Caffeine](https://extensions.gnome.org/extension/517/caffeine/) permite
 deshabilitar el _screen saver_ y la suspensión automática
 * [Removable Drive
 Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/) para
 montar y desmontar dispositivos removibles desde el menú de status
+* [Uptime
+Indicator](https://extensions.gnome.org/extension/508/uptime-indicator/) muestra
+el _uptime_ en el panel. Si se hace click, muestra fecha y hora de booteo
 
 Otras que se pueden instalar:
 
 * [Places Status
 Indicator](https://extensions.gnome.org/extension/8/places-status-indicator/)
 menú para navegar por las ubicaciones estándar de GNOME
-* [AppIndicator and KStatusNotifierItem
-Support](https://extensions.gnome.org/extension/615/appindicator-support/)
-agrega soporte de _tray icons legacy_
 * [Desktop Icons NG (DING)
 ](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/) agrega
 íconos al escritorio
@@ -319,6 +322,40 @@ cargar _themes_ del usuario desde `~/.themes/gnome-shell`
 * [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
 lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
 Gnome o MS Windows)
+
+#### Configurar extensión Dash to Panel
+
+Volvemos a abrir el Extension Manager
+
+![extension manager](img/db13-extension-manager.png)
+
+y seleccionamos el "engranaje" (preferencias) correspondiente a la extensión
+**Dash to Panel**:
+
+![extension manager - dash to panel
+preferences](img/db13-extmngr-dash2panel-prefs.png)
+
+En la sección **Position** ponemos:
+* Panel thickness: **32**
+* Panel length: **Dynamic**
+* Anchor: **Center**
+* Encender la opción **Panel Intellihide**
+
+![dash to panel - position](img/db13-dash2panel-position.png)
+
+luego apretar el engranaje con las opciones de _intellihide_ y allí, en _Only
+hide the ponel from windows_ seleccionar **Overlapping** y en _The panel hides
+from_ seleccionar **Focused windows**:
+
+![intellihide options](img/db13-dash2panel-intellihide-options.png)
+
+En la sección **Fine-Tune** en **Gnome functionality** encender la opción
+**Keep original gnome-shell top panel**:
+
+![dash to panel - fine-tune](img/db13-dash2panel-fine-tune.png)
+
+
+
 
 
 
