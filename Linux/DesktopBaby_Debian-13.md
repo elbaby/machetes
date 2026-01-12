@@ -216,9 +216,18 @@ En **Privacy & Security** &rarr; **Screen Lock**:
 ![privacy and security settings](img/db13-settings-privacy-screenlock.png)
 
 * En **Blank Screen Delay** poner **12 minutes**
-* En **Automatick Screen Lock Delay** poner **30 seconds**
+* En **Automatic Screen Lock Delay** poner **30 seconds**
 
 ![screen lock delays](img/db13-settings-screenlock.png)
+
+### Administración de energía
+
+En **Power**:
+
+![power](img/db13-settings-power.png)
+
+* En **Power Mode** elegir **Performance**
+* En **Power Saving** &rarr; _apagar_ **Automatic Suspend**
 
 ### Geolocalización
 
