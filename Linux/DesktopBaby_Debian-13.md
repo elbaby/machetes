@@ -363,6 +363,97 @@ En la sección **Fine-Tune** en **Gnome functionality** encender la opción
 
 ![dash to panel - fine-tune](img/db13-dash2panel-fine-tune.png)
 
+# Instalaciones adicionales
+
+## Debian sources
+
+En Debian 13 empieza a utilizarse oficialmente el formato
+[**DEB822**](https://repolib.readthedocs.io/en/latest/deb822-format.html#deb822-style-format)
+para configurar los repositorios de donde se instalan paquetes con APT en
+detrimento del viejo [formato `sources.list` de una
+línea](https://repolib.readthedocs.io/en/latest/deb822-format.html#one-line-style-format).
+
+No encotré una documentación "oficial" del formato más allá de la [página `man
+deb822(5)`](https://manpages.debian.org/trixie/dpkg-dev/deb822.5.en.html), pero
+hay una explicación razonable
+[acá](https://gist.github.com/Mealman1551/f75223b3cade0a218d51c06f6cb08f40).
+
+Sin embargo, la instalación inicial de Debian 13 deja los repositorios básicos
+configurados en `/etc/apt/sources.list` con el formato viejo.
+
+Con el siguiente comando, actualizamos la configuración para que use DEB822:
+```
+sudo apt modernize-sources
+```
+
+Esto crea un nuevo archivo **`/etc/apt/sources.list.d/debian.sources`** con la
+configuración migrada y deja la vieja configuración desactivada en
+`/etc/apt/sources.list.bak`
+
+Se supone que en futuras versiones (¿post 2029?) el formato de una línea que
+ahora está "_deprecado_" dejará de funcionar del todo.
+
+Más aún, también está _deprecado_ el uso de firmas de paquetes en
+`/etc/apt/trusted.gpg.d` y se recomienda que _cada_ definición de repositorio
+tenga la opción **`Signed-By:`** en forma explícita.
+
+### Agregar repositorio _contrib_ (y opcionalmente _non-free_).
+
+Debian 13 por _default_ habilita los repositorios _main_ y _non-free-firmware_.
+
+Para agregar solamente los repositorios _contrib_ (para usar paquetes libres
+pero que pueden depender de drivers no libres (que están en _non-free-firmware_)
+hacer lo siguiente:
+```
+sudo sed --in-place=.bak \
+  --expression="s/^Components: .*$/^Components: main contrib non-free-firmware/" \
+    /etc/apt/sources.list.d/debian.sources
+```
+
+Si además se quieren agregregar los repositorios _non-free_ que tienen paquetes
+que no son software libre según la definición de las
+[DFSG](https://wiki.debian.org/DebianFreeSoftwareGuidelines), usamos este
+comando en lugar del anterior:
+```
+sudo sed --in-place=.bak \
+  --expression="s/^Components: .*$/^Components: main contrib non-free non-free-firmware/" \
+    /etc/apt/sources.list.d/debian.sources
+```
+
+## Paquetes _headless_
+
+Estos paquetes sólo requieren de una terminal para funcionar:
+```
+sudo apt install build-essential vim keychain tofrodos plocate \
+    net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
+    ucspi-tcp-ipv6 bind9-dnsutils ipcalc ipcalc-ng tidy libxml2-utils \
+    p7zip-full p7zip-rar git git-filter-repo git-svn gh grip subversion \
+    fastfetch direnv imagemagick
+```
+
+### `snapd` y `flatpak`
+
+Si bien preferimos instalar paquetes `.deb` usando APT, algunas aplicaciones
+sólo vienen empaquetadas en formato snap o flatpak, o, por algún motivo, podemos
+querer instalar un _bundle_ y no las dependencias de algún paquete específico
+que esté disponible en estos formatos.
+
+Instalamos y hacemos la configuración básica de ambos:
+```
+# Instalar snapd
+sudo apt install snapd
+# Instalar y actualizar el paquete core
+sudo snap install core
+sudo snap refresh core
+
+# Instalar flatpak
+sudo apt install flatpak
+# Configurar (sólo para el usuario actual)
+flatpak remote-add --user --if-not-exists flathub \
+    https://flathub.org/repo/flathub.flatpakrepo
+flatpak --user config --set languages 'en;es'
+flatpak update --subpath=en,es org.gnome.Platform.Locale
+```
 
 
 
