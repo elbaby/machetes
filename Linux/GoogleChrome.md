@@ -24,7 +24,7 @@ Para instalar Google Chrome, simplemente hay que bajar el script y ejecutarlo:
 
 ```
 curl --silent --show-error --location \
-    https://gist.github.com/elbaby/fa18ad2fe34cfa212dd5c0303d980fe0/raw/99844bb8126aee074cde8a47fabebc89f0b09bc3/install-chrome.sh \
+    https://gist.github.com/elbaby/fa18ad2fe34cfa212dd5c0303d980fe0/raw/3ca1323079818234df8db24c765890e39646949a/install-chrome.sh \
     sudo bash
 ```
 
@@ -34,7 +34,7 @@ Google](https://dl.google.com/linux/linux_signing_key.pub) y ponerla en
 `/etc/apt/keyrings`
 * Agregar a la configuración el [repositorio de Google
 Chrome](https://dl.google.com/linux/chrome/deb/) en
-`/etc/apt/sources.list.d/google-chrome.list` indicándole que valide las firmas
+`/etc/apt/sources.list.d/google-chrome.sources` indicándole que valide las firmas
 con la clave pública guardada en `/etc/apt/keyrings/google.gpg`
 * Crear el archivo `/etc/default/google-chrome` con configuraciones para que
 _no_ pise la configuración del repositorio cuando se ejecute un `full-upgrade`
