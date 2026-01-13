@@ -314,8 +314,9 @@ sudo sed --in-place=.bak \
 Estos paquetes sólo requieren de una terminal para funcionar:
 ```
 sudo apt install --assume-yes build-essential vim lastlog2 tofrodos plocate \
+    gpart gdisk exfatprogs exfat-fuse mtools dosfstools fuse-posixovl fusefat \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
-    ucspi-tcp-ipv6 bind9-dnsutils ipcalc ipcalc-ng tidy libxml2-utils \
+    curl ucspi-tcp-ipv6 bind9-dnsutils ipcalc ipcalc-ng tidy libxml2-utils \
     p7zip-full p7zip-rar git git-filter-repo git-svn gh grip subversion \
     keychain fastfetch direnv imagemagick
 ```
@@ -350,7 +351,7 @@ Estos paquetes se utilizan desde la UI (en principio GNOME):
 
 ```
 # debs
-sudo apt install --assusme-yes gparted exfatprogs exfat-fuse synaptic \
+sudo apt install --assusme-yes gparted synaptic \
     libwmf-0.2-7-gtk gnome-software-plugin-snap gnome-software-plugin-flatpak \
     network-manager-openvpn-gnome vim-gtk3 keepassxc-minimal ksnip pdfarranger \
     thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
