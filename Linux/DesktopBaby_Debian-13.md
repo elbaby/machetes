@@ -462,9 +462,9 @@ Estos paquetes se utilizan desde la UI (en principio GNOME):
 # debs
 sudo apt install --assusme-yes gparted exfatprogs exfat-fuse synaptic \
     libwmf-0.2-7-gtk gnome-software-plugin-snap gnome-software-plugin-flatpak \
-	network-manager-openvpn-gnome vim-gtk3 keepassxc-minimal ksnip pdfarranger \
-	thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
-	remmina remmina-plugin-secret remmina-plugin-www kpat \
+    network-manager-openvpn-gnome vim-gtk3 keepassxc-minimal ksnip pdfarranger \
+    thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
+    remmina remmina-plugin-secret remmina-plugin-www kpat \
     gimp-help-en gimp-help-es gimp-data-extras pavucontrol helvum audacity
 
 # snaps
@@ -473,62 +473,12 @@ sudo snap install spotify drawio
 # flatpaks
 flatpak install --user --assumeyes flathub com.github.tchx84.Flatseal \
     org.speedcrunch.SpeedCrunch com.bitwarden.desktop us.zoom.Zoom \
-	com.rtosta.zapzap org.telegram.desktop im.riot.Riot org.signal.Signal \
+    com.rtosta.zapzap org.telegram.desktop im.riot.Riot org.signal.Signal \
     com.stremio.Stremio com.calibre_ebook.calibre
 ```
+# Configuraciones adicionales
 
-
-
-<!--
-
-
-## Instalación paquetes básicos
-
-```
-# repositorio de drivers de System76 (esto ya debería estar)
-#sudo apt-add-repository ppa:system76-dev/stable
-
-# repositorio GitHub CLI
-curl --fail --silent --show-error --location \
-    https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
-    sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |\
-    sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-
-# actualización de repositorios y de todo lo que ya está instalado
-sudo apt update
-sudo apt full-upgrade
-
-# paquetes headless
-sudo apt install build-essential vim keychain tofrodos plocate \
-    net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
-    ucspi-tcp-ipv6 bind9-dnsutils ipcalc tidy libxml2-utils \
-    p7zip-full p7zip-rar git git-filter-repo gh grip subversion \
-    neofetch direnv imagemagick
-
-# paquetes UI grafica
-sudo apt install gparted exfatprogs exfat-fuse synaptic libwmf-0.2-7-gtk \
-    network-manager-openvpn-gnome speedcrunch vim-gtk3 pdfarranger \
-    gimp-help-en gimp-help-es gimp-data-extras gnome-sound-recorder \
-    pavucontrol
-
-# paquetes vía flatpak (sólo para el usuario)
-flatpak remote-add --user --if-not-exists flathub \
-    https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --user --assumeyes flathub com.github.tchx84.Flatseal \
-    com.bitwarden.desktop org.keepassxc.KeePassXC org.ksnip.ksnip \
-    org.telegram.desktop im.riot.Riot org.signal.Signal us.zoom.Zoom \
-    com.mastermindzh.tidal-hifi com.spotify.Client org.pipewire.Helvum \
-    org.audacityteam.Audacity com.stremio.Stremio com.calibre_ebook.calibre \
-    org.mozilla.Thunderbird com.jgraph.drawio.desktop org.kde.kpat \
-    org.remmina.Remmina com.mikrotik.WinBox
-
-
-# configuración de flatpak
-flatpak --user config --set languages 'en;es'
-# actualizacion de Locales
-flatpak update --subpath=en,es org.gnome.Platform.Locale
-```
+## Configuraciones globales
 
 * Configurar `vim` como el editor preferido del sistema:
 ```
@@ -536,6 +486,8 @@ sudo update-alternatives --set editor /usr/bin/vim.basic
 ```
 
 ## Entorno `/home/baby`:
+
+(esto sigue estando en subversion... hay que mejorarlo y migrarlo a git)
 ```
 # backup de los archivos que vienen "de fábrica" (para que no falle el checkout)
 mkdir -pv ~/.00-ENV-BACKUP
@@ -582,7 +534,7 @@ find ~/.gnupg -type f -exec chmod 600 {} \;
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
 
-## _Bookmarks_ para gnome shell
+## _Bookmarks_ para GNOME shell
 
 Esto en general se configura desde _Files_ o el navegador de carpetas y archivos
 que sea, pero es más simple clavarlo directamente en el archivo de configuración
@@ -597,51 +549,9 @@ file:///home/baby/Documents/ZZ-temp ZZ-temp
 EOF
 ```
 
-## Extensiones de Gnome
 
-La mayoría de las configuraciones que se podían hacer antes en Gnome Shell ahora
-está en diversas extensiones que se instalan y configuran individualmente.
 
-La página oficial de las extensiones es https://extensions.gnome.org/
-
-Pop OS ya viene con algunas instaladas. Para activar y configurar las
-extensiones instaladas hay que ir a https://extensions.gnome.org/local/
-
-Para que eso funcione hay que instalar [esta extensión (del navegador)
-](https://addons.mozilla.org/firefox/addon/gnome-shell-integration/) en Firefox
-o [esta extensión
-](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep)
-en Google Chrome o Chromium.
-
-En [esta página de soporte de System76 (Pop OS!)
-](https://support.system76.com/articles/customize-gnome/) hay recomendaciones de
-varias extensiones.
-
-Las que instalamos son las siguientes:
-
-* [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
-estado de las teclas `NumLock` y `CapsLock` en el panel
-* [Sound Input & Output Device Chooser
-](https://extensions.gnome.org/extension/906/sound-output-device-chooser/)
-muestra el listado de dispositivos de salida y entrada de sonido en el menú de
-status debajo del control de volumen
-* [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
-permite gestionar estas extensiones de Gnome desde el panel
-* [Tray Icons: Reloaded
-](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a
-mostrar los íconos de la bandeja en el panel
-
-Otras que se pueden instalar:
-
-* [Desktop Icons NG (DING)
-](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/) agrega
-íconos al escritorio
-* [User Themes](https://extensions.gnome.org/extension/19/user-themes/) permite
-cargar _themes_ del usuario desde `~/.themes/gnome-shell`
-* [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
-lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
-Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede
-usar esta extensión porque se pisan
+<!--
 
 ## Aplicaciones en el _Dock_
 
