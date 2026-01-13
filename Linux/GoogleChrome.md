@@ -24,7 +24,7 @@ Para instalar Google Chrome, simplemente hay que bajar el script y ejecutarlo:
 
 ```
 curl --silent --show-error --location \
-    https://gist.github.com/elbaby/fa18ad2fe34cfa212dd5c0303d980fe0/raw \
+    https://gist.github.com/elbaby/fa18ad2fe34cfa212dd5c0303d980fe0/raw | \
     sudo bash
 ```
 
