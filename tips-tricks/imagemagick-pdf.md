@@ -1,4 +1,4 @@
-# Soporte para archivos PDF en ImageMagik en Linux nuevos
+# Soporte para archivos PDF en ImageMagik-6 en Linux nuevos
 
 A partir de 2018, por problemas de seguridad, el procesamiento de archivos .PDF
 está bloqueado por política en muchas distros. Para habilitarlo hay que editar
@@ -14,6 +14,9 @@ y cambiar el `none` por **`read|write`**:
 [Esta es
 una](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion)
 de muchas fuentes.
+
+Aparentemente, esto no ocurre con ImageMagick-7 ya que, al menos en Debian 13
+(Trixie) los archivos .PDF se procesan sin problemas.
 
 ___
 <!-- LICENSE -->
