@@ -18,7 +18,6 @@ versión con una interfaz de texto solo: standard).
 13.2.0](https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.2.0-amd64-gnome.iso)
 
 ## Copiar la imagen a un dispositivo USB
-* Para copiar la imagen bajada a un pendrive seguimos [las instrucciones
 oficiales](https://www.debian.org/releases/stable/amd64/ch04s03.es.html)
 
 ![Instrucciones USB drive](img/db13-instrucciones-usbdrive.png)
@@ -132,7 +131,7 @@ botón **Done**:
 ## Primer inicio
 
 Al reiniciar, lo primero que muestra es una pantalla de texto simple y queda a
-la espera de que se tipee la _passphrase_ con la que se encriptaron los 
+la espera de que se tipee la _passphrase_ con la que se encriptaron los
 filesystems. Al tipearla no hay echo en la pantalla (presionar `<Enter>` al
 finalizar):
 
@@ -304,7 +303,7 @@ estado de las teclas `NumLock` y `CapsLock` en el panel
 * [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
 permite gestionar estas extensiones de Gnome desde el panel
 * [Tray Icons: Reloaded
-](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
+](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a
 mostrar los íconos de la bandeja en el panel
 * [AppIndicator and KStatusNotifierItem
 Support](https://extensions.gnome.org/extension/615/appindicator-support/)
@@ -424,11 +423,11 @@ sudo sed --in-place=.bak \
 
 Estos paquetes sólo requieren de una terminal para funcionar:
 ```
-sudo apt install build-essential vim keychain tofrodos plocate \
+sudo apt install --assume-yes build-essential vim lastlog2 tofrodos plocate \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     ucspi-tcp-ipv6 bind9-dnsutils ipcalc ipcalc-ng tidy libxml2-utils \
     p7zip-full p7zip-rar git git-filter-repo git-svn gh grip subversion \
-    fastfetch direnv imagemagick
+    keychain fastfetch direnv imagemagick
 ```
 
 ### `snapd` y `flatpak`
@@ -441,13 +440,13 @@ que esté disponible en estos formatos.
 Instalamos y hacemos la configuración básica de ambos:
 ```
 # Instalar snapd
-sudo apt install snapd
+sudo apt install --assume-yes snapd
 # Instalar y actualizar el paquete core
 sudo snap install core
 sudo snap refresh core
 
 # Instalar flatpak
-sudo apt install flatpak
+sudo apt install --assume-yes flatpak
 # Configurar (sólo para el usuario actual)
 flatpak remote-add --user --if-not-exists flathub \
     https://flathub.org/repo/flathub.flatpakrepo
@@ -455,7 +454,28 @@ flatpak --user config --set languages 'en;es'
 flatpak update --subpath=en,es org.gnome.Platform.Locale
 ```
 
+## Paquetes para la UI gráfica
 
+Estos paquetes se utilizan desde la UI (en principio GNOME):
+
+```
+# debs
+sudo apt install --assusme-yes gparted exfatprogs exfat-fuse synaptic \
+    libwmf-0.2-7-gtk gnome-software-plugin-snap gnome-software-plugin-flatpak \
+	network-manager-openvpn-gnome vim-gtk3 keepassxc-minimal ksnip pdfarranger \
+	thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
+	remmina remmina-plugin-secret remmina-plugin-www kpat \
+    gimp-help-en gimp-help-es gimp-data-extras pavucontrol helvum audacity
+
+# snaps
+sudo snap install spotify drawio
+
+# flatpaks
+flatpak install --user --assumeyes flathub com.github.tchx84.Flatseal \
+    org.speedcrunch.SpeedCrunch com.bitwarden.desktop us.zoom.Zoom \
+	com.rtosta.zapzap org.telegram.desktop im.riot.Riot org.signal.Signal \
+    com.stremio.Stremio com.calibre_ebook.calibre
+```
 
 
 
@@ -534,7 +554,7 @@ make .bash_${LOGNAME}
 
 # Creamos el directorio ~/.ssh si no existe
 mkdir -pv ~/.ssh
-# Copiamos archivos del cliente ssh 
+# Copiamos archivos del cliente ssh
 cp -v ~/MOVEME_2_.ssh/* ~/.ssh
 # Esto ya debería estar así, pero por si acaso:
 chmod -v 700 ~/.ssh
@@ -546,19 +566,19 @@ for key in ed25519 ecdsa rsa ; do
 done
 chmod -v 644 ~/.ssh/authorized_keys
 
-# Si el equipo es seguro, hay que agregarle los ~/.ssh/id_${key} desde 
+# Si el equipo es seguro, hay que agregarle los ~/.ssh/id_${key} desde
 # otro equipo
 
 # Creamos el directorio ~/.gnupg si no existe
 mkdir -pv ~/.gnupg
-# Copiamos archivos del cliente gpg 
+# Copiamos archivos del cliente gpg
 cp -v ~/MOVEME_2_.gnupg/* ~/.gnupg
 # Cambiamos los permisos de los directorios y archivos en ~/.gnupg
 find ~/.gnupg -type d -exec chmod 700 {} \;
 find ~/.gnupg -type f -exec chmod 600 {} \;
 
 # El directorio ~/.subversion se creó durante el svn checkout
-# Copiamos archivos del cliente subversion 
+# Copiamos archivos del cliente subversion
 cp -v ~/MOVEME_2_.subversion/* ~/.subversion
 ```
 
@@ -602,13 +622,13 @@ Las que instalamos son las siguientes:
 * [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) muestra el
 estado de las teclas `NumLock` y `CapsLock` en el panel
 * [Sound Input & Output Device Chooser
-](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) 
+](https://extensions.gnome.org/extension/906/sound-output-device-chooser/)
 muestra el listado de dispositivos de salida y entrada de sonido en el menú de
 status debajo del control de volumen
 * [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
 permite gestionar estas extensiones de Gnome desde el panel
 * [Tray Icons: Reloaded
-](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a 
+](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a
 mostrar los íconos de la bandeja en el panel
 
 Otras que se pueden instalar:
@@ -620,7 +640,7 @@ Otras que se pueden instalar:
 cargar _themes_ del usuario desde `~/.themes/gnome-shell`
 * [Window List](https://extensions.gnome.org/extension/602/window-list/) es una
 lista de ventanas abiertas en la parte inferior de la pantalla (como en el viejo
-Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede 
+Gnome o MS Windows) - **OJO** si usamos el **Cosmic Dock** abajo, no se puede
 usar esta extensión porque se pisan
 
 ## Aplicaciones en el _Dock_
@@ -660,7 +680,7 @@ del menú _Tools_ &rarr; _Settings_):
 * [Instalar y configurar **etckeeper** para trackear cambios en /etc](Etckeeper.md)
 * [Instalar el cliente **NordVPN**](NordVPN.md)
 * [Instalar el navegador **Google Chrome**](GoogleChrome.md)
-* [Habilitar procesamiento de archivos **PDF** en 
+* [Habilitar procesamiento de archivos **PDF** en
 **ImageMagick**](../tips-tricks/imagemagick-pdf.md)
 * [Instalar **Foxit PDF Reader**](Foxit.md)
 * [Instalar la extensión **Video DownloadHelper** en los
@@ -684,7 +704,7 @@ Este documento está licenciado en los términos de una <a rel="licencia"
 href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
 Licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons</a>.
 <br /><br />
-This document is licensed under a <a rel="license" 
+This document is licensed under a <a rel="license"
 href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
 Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-<!-- END --> 
+<!-- END -->
