@@ -1,4 +1,4 @@
-# `Renombrar los screenshots de GNOME 3
+# Renombrar los screenshots de GNOME 3
 
 Las versiones nuevas de [GNOME Shell](https://www.gnome.org/) (a partir de la
 42) tienen la utilidad de captura de pantalla integrada (ya no se hace más con
