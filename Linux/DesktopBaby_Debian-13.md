@@ -565,6 +565,56 @@ Estas son las aplicaciones que dejo configuradas en el _Panel_:
 
 ![Panel icons](img/db13-panel-icons.png)
 
+## Configuración de ptyxis en reemplazo de GNOME Terminal
+
+En lugar del [GNOME terminal](https://gitlab.gnome.org/GNOME/gnome-terminal) que
+viene incluido en GNOME, vamos a usar
+[ptyxis](https://gitlab.gnome.org/chergert/ptyxis) que es más eficiente y
+bonito.
+
+Ya debería estar instalado [más arriba](#paquetes-para-la-ui-gráfica), pero
+si no alcanza con:
+```bash
+sudo apt install ptyxis
+```
+
+Abrir ptyxis, seleccionar el "botón de hamburguesa" (**≡**), seleccionar el 
+ícono de modo oscuro y luego seleccionar **Preferences**:
+
+![ptyxis preferences](img/ptyxis-preferences.png)
+
+En la sección **Appearance** seleccionar la paleta deseada y, opcionalmente,
+encender la opción **Use Bright Colours for Bold**:
+
+![ptyxis preferences appearance](img/ptyxis-prefs-appearance.png)
+
+En la sección **Behaviour** apagar las opciones **Restore Session** y **Restore
+Window Size** y luego hacer _scroll_ hasta el fin de la ventana y apretar el 
+botón **Set as Default Terminal**:
+
+![ptyxis preferences behaviour](img/ptyxis-prefs-behaviour1.png)
+![ptyxis preferences behaviour](img/ptyxis-prefs-behaviour2.png)
+
+### Transparencia
+
+Esta opción no aparece automáticamente. La primera vez hay que configurarla a
+mano en la base de configuración `dconf` de GNOME:
+
+```bash
+# obtener el UUID de del perfil por defecto:
+PTYXISUUID=`dconf read /org/gnome/Ptyxis/default-profile-uuid|sed -e "s/'//g"`
+
+# setear a mano la opacidad en 0.75 (1=opaco 0=transparente)
+dconf write /org/gnome/Ptyxis/Profiles/${PTYXISUUID}/opacity 0.75
+```
+
+Una vez configurada, esta opción va a aparecer en la sección **Appearance** (si
+bien se llama **Transparency** en realidad lo que se configura ahí es el
+porcentaje de _opacidad_):
+
+![ptyxis preferences appearance
+(transparency)](img/ptyxis-prefs-appear-transp.png)
+
 ## Configuración de KeePassXC
 
 Abrir KeePassXC y cambiar algunas configuraciones (tocando `Alt+,` o a través
@@ -581,42 +631,6 @@ del menú _Tools_ &rarr; _Settings_):
 
 
 <!--
-
-## Aplicaciones en el _Dock_
-
-Estas son las aplicaciones que dejo configuradas en el _Dock_:
-
-![Dock icons](img/pop-dock-icons.png)
-
-## Configuración de Gnome Terminal
-
-Abrir Gnome Terminal, seleccionar el "botón de hamburguesa" (**≡**) y
-seleccionar _Preferences_:
-
-![Terminal Preferences](img/gnome-terminal-preferences.png)
-
-Seleccionar el perfil default llamado **_Pop_** e ir a **Colors**:
-
-![Profile Colors](img/gnome-terminal-profile-colors.png)
-
-Apagar la opción **_Use transparency from system theme_**, encender la opción
-**_Use transparent background_** y ajustar el _slider_ con la transparencia
-deseada (usualmente alrededor de un 15% es razonable):
-
-![Terminal transparent
-background](img/gnome-terminal-transparent-background.png)
-
-## Algunas cosas más
-
-* [Instalar y configurar **ksnip** para capturar y editar screenshots](Ksnip.md)
-* [Instalar y configurar **etckeeper** para trackear cambios en /etc](Etckeeper.md)
-* [Instalar el cliente **NordVPN**](NordVPN.md)
-* [Instalar el navegador **Google Chrome**](GoogleChrome.md)
-* [Habilitar procesamiento de archivos **PDF** en
-**ImageMagick**](../tips-tricks/imagemagick-pdf.md)
-* [Instalar **Foxit PDF Reader**](Foxit.md)
-* [Instalar la extensión **Video DownloadHelper** en los
-navegadores y la _CoApp_](VideoDownloadHelper.md)
 
 ## Cliente de mail Mozilla Thunderbird
 
