@@ -18,6 +18,7 @@ versión con una interfaz de texto solo: standard).
 13.2.0](https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-13.2.0-amd64-gnome.iso)
 
 ## Copiar la imagen a un dispositivo USB
+* Preparamos el dispositivo USB siguiendo las [instrucciones
 oficiales](https://www.debian.org/releases/stable/amd64/ch04s03.es.html)
 
 ![Instrucciones USB drive](img/db13-instrucciones-usbdrive.png)
