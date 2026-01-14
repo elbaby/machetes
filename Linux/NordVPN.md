@@ -20,7 +20,7 @@ curl --fail --silent --show-error --location https://repo.nordvpn.com/gpg/nordvp
     | sudo tee /etc/apt/keyrings/nordvpn.gpg > /dev/null
 
 # configurar el repositorio para que valide con la clave pública que bajamos
-cat <<EOF | sudo tee /etc/apt/sources.list.d/google-chrome.sources >/dev/null
+cat <<EOF | sudo tee /etc/apt/sources.list.d/nordvpn.sources >/dev/null
 # NordVPN
 Types: deb
 URIs: https://repo.nordvpn.com//deb/nordvpn/debian
