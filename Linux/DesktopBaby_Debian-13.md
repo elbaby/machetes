@@ -565,6 +565,13 @@ Estas son las aplicaciones que dejo configuradas en el _Panel_:
 
 ![Panel icons](img/db13-panel-icons.png)
 
+## Configuración de KeePassXC
+
+Abrir KeePassXC y cambiar algunas configuraciones (tocando `Alt+,` o a través
+del menú _Tools_ &rarr; _Settings_):
+
+![Basic Settings](img/keepassxc-application-basic-settings.png)
+
 # Algunas cosas más
 
 * [Instalar y configurar **etckeeper** para trackear cambios en
@@ -598,13 +605,6 @@ deseada (usualmente alrededor de un 15% es razonable):
 
 ![Terminal transparent
 background](img/gnome-terminal-transparent-background.png)
-
-## Configuración de KeePassXC
-
-Abrir KeePassXC y cambiar algunas configuraciones (tocando `Alt+,` o a través
-del menú _Tools_ &rarr; _Settings_):
-
-![Basic Settings](img/keepassxc-application-basic-settings.png)
 
 ## Algunas cosas más
 
