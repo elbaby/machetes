@@ -20,8 +20,15 @@ curl --fail --silent --show-error --location https://repo.nordvpn.com/gpg/nordvp
     | sudo tee /etc/apt/keyrings/nordvpn.gpg > /dev/null
 
 # configurar el repositorio para que valide con la clave pública que bajamos
-echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/nordvpn.gpg] https://repo.nordvpn.com//deb/nordvpn/debian stable main" \
-    | sudo tee /etc/apt/sources.list.d/nordvpn.list >/dev/null
+cat <<EOF | sudo tee /etc/apt/sources.list.d/google-chrome.sources >/dev/null
+# NordVPN
+Types: deb
+URIs: https://repo.nordvpn.com//deb/nordvpn/debian
+Suites: stable
+Components: main
+Architectures: amd64
+Signed-By: /etc/apt/keyrings/nordvpn.gpg
+EOF
 
 # instalar el cliente nordvp
 sudo apt install nordvp
@@ -41,7 +48,7 @@ nordvpn login
 Esto nos da un URL para loguearnos via web.
 
 Si el equipo no tiene GUI, seguir [estas
-instrucciones](https://support.nordvpn.com/hc/en-us/articlesa/20226600447633-How-to-log-in-to-NordVPN-on-Linux-devices-without-a-GUI).
+instrucciones](https://support.nordvpn.com/hc/en-us/articles/20286980309265-How-to-log-in-to-NordVPN-without-a-GUI-using-a-token).
 
 Más información sobre los comandos
 [acá](https://support.nordvpn.com/hc/en-us/articles/20196094470929-Installing-NordVPN-on-Linux-distributions#h_01HGZ1TXZPXTNBHJBZYBQCPWCY)
