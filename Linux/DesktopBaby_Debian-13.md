@@ -353,7 +353,7 @@ Estos paquetes se utilizan desde la UI (en principio GNOME):
 # debs
 sudo apt install --assusme-yes gparted synaptic \
     libwmf-0.2-7-gtk gnome-software-plugin-snap gnome-software-plugin-flatpak \
-    network-manager-openvpn-gnome vim-gtk3 keepassxc-minimal ksnip pdfarranger \
+    network-manager-openvpn-gnome vim-gtk3 keepassxc-minimal pdfarranger \
     thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
     remmina remmina-plugin-secret remmina-plugin-www kpat \
     gimp-help-en gimp-help-es gimp-data-extras pavucontrol helvum audacity
@@ -559,6 +559,12 @@ En la sección **Fine-Tune** en **Gnome functionality** encender la opción
 
 ![dash to panel - fine-tune](img/db13-dash2panel-fine-tune.png)
 
+# Algunas cosas más
+
+* [Instalar y configurar **etckeeper** para trackear cambios en
+/etc](Etckeeper.md)
+* [Instalar el cliente **NordVPN**](NordVPN.md)
+* [Instalar el navegador **Google Chrome**](GoogleChrome.md)
 
 
 <!--
