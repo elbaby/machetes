@@ -29,15 +29,15 @@ mkdir -pv ~/bin
 cat > ~/bin/rename-screenshots.sh <<EOF
 #!/bin/sh
 
-WATCHDIR="$HOME/Pictures/Screenshots"
+WATCHDIR="\${HOME}/Pictures/Screenshots"
 
-inotifywait -m -e close_write --format "%f" "$WATCHDIR" | while read FILE; do
+inotifywait -m -e close_write --format "%f" "\${WATCHDIR}" | while read FILE; do
     # Match GNOME's default filename pattern
     # Screenshot From YYYY-MM-DD HH-SS-SS.png
-    if echo "$FILE" | grep -Eq '^Screenshot From [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}-[0-9]{2}-[0-9]{2}\.png$'; then
+    if echo "\${FILE}" | grep -Eq '^Screenshot From [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}-[0-9]{2}-[0-9]{2}\.png$'; then
         # Extract timestamp
-        TS=$(echo "$FILE" | sed -E 's/Screenshot From ([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2})-([0-9]{2})-([0-9]{2})\.png/\1\2\3-\4\5\6/')
-        mv -- "$WATCHDIR/$FILE" "$WATCHDIR/$TS.png"
+        TS=\$(echo "\${FILE}" | sed -E 's/Screenshot From ([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2})-([0-9]{2})-([0-9]{2})\.png/\1\2\3-\4\5\6/')
+        mv -- "\${WATCHDIR}/\${FILE}" "\${WATCHDIR}/\${TS}.png"
     fi
 done
 EOF
