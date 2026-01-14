@@ -1,5 +1,7 @@
 # Linux
 
+* [Configurar un **desktop** (o notebook) con Debian Linux 13 Trixie (al gusto
+del baby)](DesktopBaby_Debian-13.md)
 * [Configurar un **desktop** (o notebook) con Pop! OS Linux (al gusto del
 baby)](DesktopBaby_PopOS-22.04.md)
 * [Configurar una **VM Linode** recién creada con Ubuntu (al gusto del
