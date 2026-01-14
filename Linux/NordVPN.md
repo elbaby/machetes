@@ -34,7 +34,7 @@ EOF
 sudo apt update
 
 # instalar el cliente nordvp
-sudo apt install nordvp
+sudo apt install nordvpn
 
 # Crear el grupo nordvpn
 sudo groupadd nordvpn
