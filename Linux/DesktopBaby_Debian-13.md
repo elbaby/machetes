@@ -559,6 +559,12 @@ En la sección **Fine-Tune** en **Gnome functionality** encender la opción
 
 ![dash to panel - fine-tune](img/db13-dash2panel-fine-tune.png)
 
+## Aplicaciones en el _Panel_
+
+Estas son las aplicaciones que dejo configuradas en el _Panel_:
+
+![Panel icons](img/db13-panel-icons.png)
+
 # Algunas cosas más
 
 * [Instalar y configurar **etckeeper** para trackear cambios en
