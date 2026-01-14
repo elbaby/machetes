@@ -440,6 +440,15 @@ file:///home/baby/Documents/ZZ-temp ZZ-temp
 EOF
 ```
 
+## Renombrar automáticamente los _screenshots_ que toma GNOME shell
+
+En GNOME shell las capturas de pantalla (_screenshots_) se guardan en el
+directorio `~/Pictures/Screenshots` con el formato `Screenshot From YYYY-MM-DD
+hh-mm-ss.png` y esto no es configurable.
+
+Para renombrar los archivos automáticamente, seguir [estas
+instrucciones](GnomeScreenshotRename.md).
+
 ## Extensiones de GNOME 3
 
 La mayoría de las configuraciones que se podían hacer antes en Gnome Shell ahora
