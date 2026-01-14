@@ -1,7 +1,7 @@
 # Instalación de Linux (Debian 13 - Trixie)
 
 ## Obtener la imagen
-* Bajamos usando las [instrucciones oficiales]( https://www.debian.org/distrib/)
+* Bajamos usando las [instrucciones oficiales](https://www.debian.org/distrib/)
   * Se puede bajar la [versión
 netinst](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd) que es la
 más pequeña pero requiere conexión a internet durante la instalación
