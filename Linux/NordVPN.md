@@ -30,6 +30,9 @@ Architectures: amd64
 Signed-By: /etc/apt/keyrings/nordvpn.gpg
 EOF
 
+# actualizar repositorios
+sudo apt update
+
 # instalar el cliente nordvp
 sudo apt install nordvp
 
