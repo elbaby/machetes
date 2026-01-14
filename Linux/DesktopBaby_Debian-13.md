@@ -581,19 +581,19 @@ sudo apt install ptyxis
 Abrir ptyxis, seleccionar el "botón de hamburguesa" (**≡**), seleccionar el 
 ícono de modo oscuro y luego seleccionar **Preferences**:
 
-![ptyxis preferences](img/ptyxis-preferences.png)
+![ptyxis preferences](img/db13-ptyxis-preferences.png)
 
 En la sección **Appearance** seleccionar la paleta deseada y, opcionalmente,
 encender la opción **Use Bright Colours for Bold**:
 
-![ptyxis preferences appearance](img/ptyxis-prefs-appearance.png)
+![ptyxis preferences appearance](img/db13-ptyxis-prefs-appearance.png)
 
 En la sección **Behaviour** apagar las opciones **Restore Session** y **Restore
 Window Size** y luego hacer _scroll_ hasta el fin de la ventana y apretar el 
 botón **Set as Default Terminal**:
 
-![ptyxis preferences behaviour](img/ptyxis-prefs-behaviour1.png)
-![ptyxis preferences behaviour](img/ptyxis-prefs-behaviour2.png)
+![ptyxis preferences behaviour](img/db13-ptyxis-prefs-behaviour1.png)
+![ptyxis preferences behaviour](img/db13-ptyxis-prefs-behaviour2.png)
 
 ### Transparencia
 
@@ -613,7 +613,7 @@ bien se llama **Transparency** en realidad lo que se configura ahí es el
 porcentaje de _opacidad_):
 
 ![ptyxis preferences appearance
-(transparency)](img/ptyxis-prefs-appear-transp.png)
+(transparency)](img/db13-ptyxis-prefs-appear-transp.png)
 
 ## Configuración de KeePassXC
 
