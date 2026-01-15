@@ -500,6 +500,10 @@ aplicaciones a mano.
 estado de las teclas `NumLock` y `CapsLock` en el panel
 * [Extension List](https://extensions.gnome.org/extension/3088/extension-list/)
 permite gestionar estas extensiones de Gnome desde el panel
+* [Night Theme
+Switcher](https://extensions.gnome.org/extension/2236/night-theme-switcher/)
+permite cambiar el tema (light/dark) según la hora del día (por _default_ toma
+la hora de salida y puesta del sol).
 * [Tray Icons: Reloaded
 ](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) vuelve a
 mostrar los íconos de la bandeja en el panel
