@@ -354,8 +354,8 @@ Estos paquetes se utilizan desde la UI (en principio GNOME):
 # debs
 sudo apt install --assusme-yes gparted synaptic \
     libwmf-0.2-7-gtk gnome-software-plugin-snap gnome-software-plugin-flatpak \
-    network-manager-openvpn-gnome vim-gtk3 ptyxis keepassxc-minimal \
-    thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
+    dconf-editor network-manager-openvpn-gnome vim-gtk3 ptyxis \
+    keepassxc-minimal thunderbird thunderbird-l10n-en-gb thunderbird-l10n-es-ar \
     remmina remmina-plugin-secret remmina-plugin-www kpat pdfarranger \
     gimp-help-en gimp-help-es gimp-data-extras pavucontrol helvum audacity
 
