@@ -319,7 +319,7 @@ sudo apt install --assume-yes build-essential vim lastlog2 tofrodos plocate \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
     curl ucspi-tcp-ipv6 bind9-dnsutils ipcalc ipcalc-ng tidy libxml2-utils \
     p7zip-full p7zip-rar git git-filter-repo git-svn gh grip subversion \
-    keychain fastfetch direnv imagemagick
+    ansible keychain fastfetch direnv imagemagick
 ```
 
 ### `snapd` y `flatpak`
