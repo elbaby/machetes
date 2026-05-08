@@ -7,14 +7,18 @@ En realidad, también se puede usar para sincronizar dos cuentas IMAP remotas.
 El repositorio fuente está [en github
 ](https://github.com/OfflineIMAP/offlineimap/blob/master/offlineimap.conf).
 
-## (no more) imapsync
+## no more? [imapsync](Imapsync.md)
 Anteriormente yo usaba [imapsync](https://imapsync.lamiral.info/), pero ahora,
 si bien los fuentes siguen manteniéndose [en github
 ](https://github.com/imapsync/imapsync), y hay [algunas instrucciones para
 instalar desde los mismos](https://tecadmin.net/use-imapsync-on-ubuntu/) (que 
-yo no conseguí hacer funcionar), el paquete instalable [se vende por €60
-](https://imapsync.lamiral.info/#buy_all). Lo que sí ofrece el autor es un
-[servicio gratuito de sincronización via web](https://imapsync.lamiral.info/X/).
+yo no conseguí hacer funcionar), el paquete instalable [se vende por €72 (o €144
+con soporte)](https://imapsync.lamiral.info/#buy_all). Lo que sí ofrece el autor 
+es un [servicio gratuito de sincronización via
+web](https://imapsync.lamiral.info/X/).
+
+El autor de imapsync también mantiene [un listado de herramientas similares a
+imapsync](https://imapsync.lamiral.info/S/external.shtml).
 
 ## Instalación
 
@@ -43,7 +47,6 @@ offlineimap
 ```
 
 Y pedirá las claves para conectarse al servidor.
-
 
 ___
 <!-- LICENSE -->
