@@ -16,7 +16,7 @@ Acabo de ver [_nuevas_ instrucciones para instalar imapsync en Debian y
 Ubuntu](https://help.clouding.io/hc/es/articles/4408860226834-C%C3%B3mo-instalar-y-usar-imapsync-Debian-Ubuntu)
 que voy a tratar de hacer funcionar en Debian 12 (bookworm).
 
-## Instalacón
+## Instalación
 
 * Instalar pre-requisitos (paquetes `.deb` y paquetes directamente bajados de
 [CPAN](https://www.cpan.org/))
@@ -58,6 +58,19 @@ sudo PREFIX=${PREFIX} make install
 ```bash
 imapsync --testslive
 ```
+Esta verificación es equivalente a ejecutar el script
+[imapsync_example.sh](https://github.com/imapsync/imapsync/blob/master/examples/imapsync_example.sh)
+en la carpeta
+[examples](https://github.com/imapsync/imapsync/tree/master/examples):
+```bash
+sh examples/imapsync_example.sh
+```
+
+## Uso
+
+Por ahora dejo el link al [tutorial de imapsync para
+unix](https://imapsync.lamiral.info/doc/TUTORIAL_Unix.html) y las [mejores
+prácticas](https://imapsync.lamiral.info/doc/GOOD_PRACTICES.html).
 
 
 
