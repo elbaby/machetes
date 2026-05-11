@@ -5,6 +5,7 @@
   * [Tables](https://docs.github.com/en/github/writing-on-github/organizing-information-with-tables)
   * [Code](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks)
   * [Internal (github) autolinks](https://docs.github.com/en/github/writing-on-github/autolinked-references-and-urls)
+  * [Emojis](https://gitlab.com/-/snippets/2526872)
 * [GitHub Flavored Markdown Spec](https://github.github.com/gfm/)
 
 # Información general de markdown
