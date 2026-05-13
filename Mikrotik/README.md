@@ -9,6 +9,11 @@ webfig)](dynDNS.md)
 * [Usar WinBox en Linux](WinBoxEnLinux.md)
 * [Configurar un MikroTik como WiFi Repeater/Range Extender
 (video)](https://youtu.be/LNiNd4-a3xs)
+* [Nombres de productos de Mikrotik (lógica de _product
+naming_)](https://help.mikrotik.com/docs/spaces/ROS/pages/17498146/Product+Naming)
+* [Facilidades de los chips de switches Mikrotik (_switch chip
+features_)](https://help.mikrotik.com/docs/spaces/ROS/pages/15302988/Switch+Chip+Features)
+* [Algunos modelos](ModelosBaby.md)
 
 
 ___
