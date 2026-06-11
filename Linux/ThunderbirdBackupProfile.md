@@ -44,7 +44,7 @@ DIRECTORIO_PROFILES=".thunderbird"
 
 # el directorio desde donde cuelga la carpeta con los perfiles de Thunderbird
 # (normalmente es el home linux del usuario o, si fue instalado con flatpak
-# es ${HOME}/.var/app/org.mozilla.Thunderbird)
+# es ${HOME}/.var/app/org.mozilla.thunderbird_esr)
 DIRECTORIO_BASE=${HOME}
 
 # el nombre que se le dará al backup (a gusto del consumidor)
@@ -86,7 +86,7 @@ DIRECTORIO_PROFILES=".thunderbird"
 
 # el directorio desde donde cuelga la carpeta con los perfiles de Thunderbird
 # (normalmente es el home linux del usuario o, si fue instalado con flatpak
-# es ${HOME}/.var/app/org.mozilla.Thunderbird)
+# es ${HOME}/.var/app/org.mozilla.thunderbird_esr)
 DIRECTORIO_BASE=${HOME}
 
 # el nombre que se le dará al backup (a gusto del consumidor)
