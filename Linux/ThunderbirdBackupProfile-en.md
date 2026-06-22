@@ -46,7 +46,7 @@ PROFILES_DIR=".thunderbird"
 
 # The folder holding the abovementioned Thunderbird profiles' folder
 # (usually the user's home or, if Thunderbird was installed with flatpak
-# it's ${HOME}/.var/app/org.mozilla.Thunderbird)
+# it's ${HOME}/.var/app/org.mozilla.thunderbird_esr)
 BASE_DIR=${HOME}
 
 # The name of the backup file to create
@@ -87,7 +87,7 @@ PROFILES_DIR=".thunderbird"
 
 # The folder holding the abovementioned Thunderbird profiles' folder
 # (usually the user's home or, if Thunderbird was installed with flatpak
-# it's ${HOME}/.var/app/org.mozilla.Thunderbird)
+# it's ${HOME}/.var/app/org.mozilla.thunderbird_esr)
 BASE_DIR=${HOME}
 
 # The name of the backup file to create

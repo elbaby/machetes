@@ -4,7 +4,7 @@
 
 Instalar el thunderbird en modo usuario
 ```
-flatpak install org.mozilla.Thunderbird
+flatpak install org.mozilla.thunderbird_esr
 ```
 Ahora vamos a hacer una configuración personalizada.
 
@@ -13,7 +13,7 @@ Ahora vamos a hacer una configuración personalizada.
 Para eso, lanzamos el _Profile Manager_ **antes** de arrancarlo por primera vez.
 Desde una terminal (dentro del entorno gráfico), tipear:
 ```
-flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.Thunderbird -ProfileManager
+flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.thunderbird_esr -ProfileManager
 ```
 Esto va a lanzar el _Profile Manager_.
 
@@ -31,7 +31,7 @@ Esto va a lanzar el _Profile Manager_.
 
 Ahora vamos a renombrar el directorio del perfil para que quede fijo:
 ```
-cd ~/.var/app/org.mozilla.Thunderbird/.thunderbird
+cd ~/.var/app/org.mozilla.thunderbird_esr/.thunderbird
 NOMBREDIR=`echo *.baby`
 mv -v ${NOMBREDIR} baby.profile
 sed -i.BACKUP -e s/${NOMBREDIR}/baby.profile/g profiles.ini
@@ -44,7 +44,7 @@ en el `home`):
 DESTDIR=/d/baby/thunderbird-profiles
 
 
-cd ~/.var/app/org.mozilla.Thunderbird/
+cd ~/.var/app/org.mozilla.thunderbird_esr/
 mv -v .thunderbird ${DESTDIR}
 ln -sv ${DESTDIR} .thunderbird
 ```
@@ -52,7 +52,7 @@ ln -sv ${DESTDIR} .thunderbird
 ## Configuraciones previas a la creación de la cuenta
 Volvemos a arrancar el Thunderbird
 ```
-flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.Thunderbird -ProfileManager
+flatpak run --branch=stable --arch=x86_64 --env=LC_ALL=${LANG} --command=thunderbird --file-forwarding org.mozilla.thunderbird_esr -ProfileManager
 ```
 ![Create Profile Wizard](img/thunderbird-05-profile_restart.png)
 
