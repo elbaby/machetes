@@ -317,9 +317,9 @@ Estos paquetes sólo requieren de una terminal para funcionar:
 sudo apt install --assume-yes build-essential vim lastlog2 tofrodos plocate \
     gpart gdisk exfatprogs exfat-fuse mtools dosfstools fuse-posixovl fusefat \
     net-tools tcptraceroute openssh-server openssh-client openvpn nmap whois \
-    curl ucspi-tcp-ipv6 bind9-dnsutils ipcalc ipcalc-ng tidy libxml2-utils \
-    p7zip-full p7zip-rar git git-filter-repo git-svn gh grip subversion \
-    ansible keychain fastfetch direnv imagemagick
+    curl ucspi-tcp-ipv6 bind9-dnsutils systemd-resolved ipcalc ipcalc-ng tidy \
+    libxml2-utils p7zip-full p7zip-rar git git-filter-repo git-svn gh grip \
+    subversion ansible keychain fastfetch direnv imagemagick
 ```
 
 ### `snapd` y `flatpak`
