@@ -16,7 +16,7 @@ Debian como para Ubuntu y Raspbian:
 
 ```
 export NOMBRESO=debian
-export VERSIONSO=bullseye
+export VERSIONSO=trixie
 export VERSIONSERVER=stable
 # Obtener la clave pública con la que están firmados los paquetes y repositorios
 curl "https://dl.cloudsmith.io/public/caddy/${VERSIONSERVER}/gpg.key" | sudo gpg --dearmor -o /usr/share/keyrings/caddy-${VERSIONSERVER}-archive-keyring.gpg
