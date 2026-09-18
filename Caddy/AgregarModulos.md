@@ -1,5 +1,5 @@
-A partir de la versión 2.4.4, Caddy permite [agregar módulos al binario
-instalado](https://caddyserver.com/docs/command-line#caddy-add-package).
+A partir de la versión 2.4.4, Caddy permite [agregar paquetes con módulos al
+binario instalado](https://caddyserver.com/docs/command-line#caddy-add-package).
 
 Si el paquete está instalado con el paquete `caddy` de Debian o Cloudsmith, los
 cambios se perderían con un upgrade. Para evitarlo se puede utilizar
@@ -17,11 +17,15 @@ sudo dpkg-divert --divert /usr/bin/caddy.default --rename /usr/bin/caddy
 ## Hacer una copia del ejecutable de Caddy para agregarle los módulos
 
 ```
+# Listado de paquetes de módulos a instalar
+# directorio: https://caddyserver.com/download
+PACKAGES="github.com/caddyserver/transform-encoder github.com/mholt/caddy-ratelimit github.com/porech/caddy-maxmind-geolocation github.com/corazawaf/coraza-caddy/v2"
+
 # Hacer una copia en /usr/bin/caddy.custom.vXX.YY.Z
 sudo cp /usr/bin/caddy.default /usr/bin/caddy.custom.${CADDYVERSION}
 
 # Actualizar `caddy.custom.vX.YY.Z` con los módulos deseados:
-sudo /usr/bin/caddy.custom.${CADDYVERSION} add-package github.com/caddyserver/transform-encoder
+sudo /usr/bin/caddy.custom.${CADDYVERSION} add-package ${PACKAGES}
 ```
 
 ## Configurar _alternatives_ para que use uno u otro ejecutable de Caddy
@@ -47,17 +51,20 @@ Cuando se actualiza ahora el caddy usando APT, se actualizará el binario
 en `/usr/bin/caddy.default` y no el que se modificó en
 `/usr/bin/caddy.custom.vX.YY.Z`.
 
-Si se actualizó el Caddy y se desea agregar los módulos y utilzar la nueva
-versión hay que hacer lo siguiente:
+Si se actualizó el Caddy y se desea agregar los módulos y utilizar la nueva
+versión con módulos agregados, hay que hacer lo siguiente:
 ```
-# obtener el nuevo número de versión para ponerlo en un binario separado
-CADDYVERSION=`/usr/bin/caddy --version | cut -d ' ' -f 1`
+# Listado de paquetes de módulos a instalar
+PACKAGES="github.com/caddyserver/transform-encoder github.com/mholt/caddy-ratelimit github.com/porech/caddy-maxmind-geolocation github.com/corazawaf/coraza-caddy/v2"
 
-# Hacer la copia (del nuevo) binario en /usr/bin/caddy.custom.vX.YY.ZZ (con la nueva versión)
+# obtener el nuevo número de versión para ponerlo en un binario separado
+CADDYVERSION=`/usr/bin/caddy.default --version | cut -d ' ' -f 1`
+
+# Hacer la copia del (nuevo) binario en /usr/bin/caddy.custom.vX.YY.ZZ (con la nueva versión)
 sudo cp -v /usr/bin/caddy.default /usr/bin/caddy.custom.${CADDYVERSION}
 
 # Actualizar el nuevo `caddy.custom.vX.YY.ZZ` con los módulos deseados:
-sudo /usr/bin/caddy.custom.${CADDYVERSION} add-package github.com/caddyserver/transform-encoder
+sudo /usr/bin/caddy.custom.${CADDYVERSION} add-package ${PACKAGES}
 
 # Configurar el binario con los módulos agregados como alternativa con prioridad más alta que la versión anterior
 PRIORITY=$((`update-alternatives --query caddy | awk '/^Best:/{best=$2} /^Alternative:/{alt=$2} /^Priority:/{if(alt==best) print $2}'`+5))
